@@ -20,39 +20,69 @@
     <section class="page-intro"><h2>lugares pra conhecer</h2><p>cultura, natureza, comida, noite, cinema, teatro, feiras e experiências pelo df e entorno.</p></section>
 
     <section class="search-panel" aria-label="filtrar lugares">
-      <p class="search-title">escolha por onde ou por valor</p>
+      <p class="search-title">escolha onde e refine do seu jeito</p>
       <div class="search-row lugares-search simple-search">
         <div class="field local"><label for="onde">onde?</label><select id="onde"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field valor"><label for="preco">quanto?</label><select id="preco"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
       </div>
 
-      <select id="categoria" class="technical-filter" aria-hidden="true" tabindex="-1">
-        <option value="qualquer">qualquer</option>
-        <option value="arquitetura-turismo">arquitetura & pontos turísticos</option>
-        <option value="bares-noite">bares & noite</option>
-        <option value="cidades-destinos">cidades & destinos</option>
-        <option value="cinema-teatro">cinema & teatro</option>
-        <option value="comer">comer</option>
-        <option value="cultura-historia">cultura & história</option>
-        <option value="feiras-compras">feiras & compras</option>
-        <option value="lazer-experiencias">lazer & experiências</option>
-        <option value="natureza">natureza</option>
-      </select>
+      <select id="categoria" class="technical-filter" aria-hidden="true" tabindex="-1"><option value="qualquer">qualquer</option></select>
       <select id="vibe" class="technical-filter" aria-hidden="true" tabindex="-1"><option value="qualquer">qualquer</option></select>
       <button class="search-button technical-filter" type="button" aria-hidden="true" tabindex="-1">buscar</button>
     </section>
 
-    <nav class="category-strip" aria-label="tags de lugares">
-      <button class="category-chip" data-category="cultura-historia" title="cultura & história"><span class="emoji">🏛️</span><span class="category-name">cultura & história</span></button>
-      <button class="category-chip" data-category="natureza" title="natureza"><span class="emoji">🌳</span><span class="category-name">natureza</span></button>
-      <button class="category-chip" data-category="arquitetura-turismo" title="arquitetura & pontos turísticos"><span class="emoji">🏙️</span><span class="category-name">arquitetura & pontos turísticos</span></button>
-      <button class="category-chip" data-category="comer" title="comer"><span class="emoji">🍽️</span><span class="category-name">comer</span></button>
-      <button class="category-chip" data-category="bares-noite" title="bares & noite"><span class="emoji">🍸</span><span class="category-name">bares & noite</span></button>
-      <button class="category-chip" data-category="cinema-teatro" title="cinema & teatro"><span class="emoji">🎬</span><span class="category-name">cinema & teatro</span></button>
-      <button class="category-chip" data-category="feiras-compras" title="feiras & compras"><span class="emoji">🛍️</span><span class="category-name">feiras & compras</span></button>
-      <button class="category-chip" data-category="lazer-experiencias" title="lazer & experiências"><span class="emoji">🎟️</span><span class="category-name">lazer & experiências</span></button>
-      <button class="category-chip" data-category="cidades-destinos" title="cidades & destinos"><span class="emoji">🏘️</span><span class="category-name">cidades & destinos</span></button>
-    </nav>
+    <section class="browse-filter-groups" aria-label="mais filtros">
+      <div class="browse-filter-group">
+        <p class="browse-filter-title">o que fazer?</p>
+        <div class="browse-filter-chips">
+          <button class="browse-filter-chip" data-filter-kind="category" data-value="arquitetura-turismo">🏙️ arquitetura & pontos turísticos</button>
+          <button class="browse-filter-chip" data-filter-kind="category" data-value="bares-noite">🍸 bares & noite</button>
+          <button class="browse-filter-chip" data-filter-kind="category" data-value="cinema-teatro">🎬 cinema & teatro</button>
+          <button class="browse-filter-chip" data-filter-kind="category" data-value="comer">🍽️ comer</button>
+          <button class="browse-filter-chip" data-filter-kind="category" data-value="cultura-historia">🏛️ cultura & história</button>
+          <button class="browse-filter-chip" data-filter-kind="category" data-value="feiras-compras">🛍️ feiras & compras</button>
+          <button class="browse-filter-chip" data-filter-kind="category" data-value="lazer-experiencias">🎟️ lazer & experiências</button>
+          <button class="browse-filter-chip" data-filter-kind="category" data-value="natureza">🌳 natureza</button>
+        </div>
+      </div>
+
+      <div class="browse-filter-group">
+        <p class="browse-filter-title">pra quem?</p>
+        <div class="browse-filter-chips">
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="bom-criancas">🧸 bom para crianças</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="date">💞 bom para date</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="sozinho">👤 bom para ir sozinho</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="lgbtqia">🌈 lgbtqia+</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="familias">👨‍👩‍👧 para famílias</button>
+        </div>
+      </div>
+
+      <div class="browse-filter-group">
+        <p class="browse-filter-title">vibe?</p>
+        <div class="browse-filter-chips">
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="alternativo">✨ alternativo</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="ao-ar-livre">🌿 ao ar livre</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="aventura">🥾 aventura / trilha</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="agua">💦 água</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="musica-vivo">🎵 música ao vivo</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="por-do-sol">🌇 pôr do sol</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="tranquilo">😌 tranquilo</button>
+        </div>
+      </div>
+
+      <div class="browse-filter-group">
+        <p class="browse-filter-title">estrutura & segurança</p>
+        <div class="browse-filter-chips">
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="acessivel">♿ acessível</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="aceita-pets">🐾 aceita pets</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="estacionamento">🅿️ estacionamento</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="opcao-vegana">🌱 opção vegana</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="opcao-vegetariana">🥬 opção vegetariana</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="seguro-lgbt">🌈 seguro para lgbtqia+</button>
+          <button class="browse-filter-chip" data-filter-kind="feature" data-value="seguro-mulheres">🛡️ seguro para mulheres</button>
+        </div>
+      </div>
+    </section>
 
     <section class="search-results-section" hidden>
       <div class="results-head"><h2 class="section-title">pra conhecer</h2><span id="result-count" class="result-count">0 resultados</span></div>
