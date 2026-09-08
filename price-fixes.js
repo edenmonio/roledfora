@@ -49,6 +49,15 @@
     return null;
   }
 
+  function shorthandRange(text) {
+    const match = /r\$\s*(\d{1,5}(?:[.,]\d{1,2})?)\s*[–—-]\s*(?:r\$\s*)?(\d{1,5}(?:[.,]\d{1,2})?)/i.exec(text);
+    if (!match) return null;
+    const first = toNumber(match[1]), second = toNumber(match[2]);
+    if (first === null || second === null) return null;
+    const low = Math.min(first,second), high = Math.max(first,second);
+    return `${formatMoney(low)}–${formatMoney(high).replace(/^r\$\s*/,'')}`;
+  }
+
   function normalizedPrice(raw) {
     const text = (raw || '').replace(/^\s*💰\s*/, '').trim();
     const clean = norm(text);
@@ -58,6 +67,9 @@
 
     const labeled = preserveTicketLabels(text, clean);
     if (labeled) return labeled;
+
+    const shortRange = shorthandRange(text);
+    if (shortRange) return shortRange;
 
     const amounts = extractAmounts(text);
     if (!amounts.length) {
