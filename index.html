@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>roledfora — rolês</title>
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./browse.css" />
   <script src="./app.js" defer></script>
   <script src="./ui-fixes.js" defer></script>
   <script src="./site-polish.js" defer></script>
+  <script src="./browse.js" defer></script>
 </head>
 <body data-page="eventos">
   <main class="container">
@@ -25,54 +27,38 @@
       <a href="./novidades.html">✨ novidades</a><a href="./salvos.html">⭐ salvos</a><a href="./roteiros.html">↝ roteiros</a>
     </nav>
 
-    <section class="search-panel" aria-label="pesquisar eventos">
+    <section class="search-panel" aria-label="filtrar eventos">
       <p class="search-title">encontre seu próximo rolê no df e entorno</p>
-      <div class="search-query-row">
-        <div class="field busca"><label for="q">buscar</label><input id="q" type="search" placeholder="nome, lugar, tipo ou palavra-chave" autocomplete="off" /></div>
-      </div>
-      <div class="search-row event-search">
+      <div class="search-row event-search simple-search">
         <div class="field local"><label for="local">onde?</label><select id="local"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
         <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
-        <div class="field tipo"><label for="tipo">tipo de rolê?</label><select id="tipo">
-          <option value="qualquer">qualquer rolê</option>
-          <option value="ao-ar-livre">ao ar livre</option>
-          <option value="cultura-artes">cultura & artes</option>
-          <option value="cursos-atividades">cursos & atividades</option>
-          <option value="feiras-brechos">feiras & brechós</option>
-          <option value="festas-noite">festas & noite</option>
-          <option value="gastronomia">gastronomia</option>
-          <option value="geek">geek</option>
-          <option value="shows-musica">shows & música</option>
-        </select></div>
-        <div class="field vibe"><label for="caracteristica">característica?</label><select id="caracteristica">
-          <option value="qualquer">qualquer característica</option>
-          <option value="18mais">18+</option>
-          <option value="acessivel">acessível</option>
-          <option value="alternativo">alternativo</option>
-          <option value="ao-ar-livre">ao ar livre</option>
-          <option value="bom-criancas">bom para crianças</option>
-          <option value="dancante">dançante</option>
-          <option value="lgbtqia">lgbtqia+</option>
-          <option value="musica-vivo">música ao vivo</option>
-          <option value="familias">para famílias</option>
-          <option value="seguro-lgbt">seguro para lgbtqia+</option>
-          <option value="seguro-mulheres">seguro para mulheres</option>
-          <option value="universitario">universitário</option>
-        </select></div>
-        <button class="search-button">⌕ buscar</button>
       </div>
-      <button class="clear-filters" type="button">limpar filtros</button>
+
+      <select id="tipo" class="technical-filter" aria-hidden="true" tabindex="-1">
+        <option value="qualquer">qualquer</option>
+        <option value="ao-ar-livre">ao ar livre</option>
+        <option value="cultura-artes">cultura & artes</option>
+        <option value="cursos-atividades">cursos & atividades</option>
+        <option value="feiras-brechos">feiras & brechós</option>
+        <option value="festas-noite">festas & noite</option>
+        <option value="gastronomia">gastronomia</option>
+        <option value="shows-musica">shows & música</option>
+      </select>
+      <select id="caracteristica" class="technical-filter" aria-hidden="true" tabindex="-1">
+        <option value="qualquer">qualquer</option>
+        <option value="alternativo">alternativo</option>
+      </select>
     </section>
 
-    <nav class="category-strip" aria-label="categorias de rolês">
+    <nav class="category-strip" aria-label="tags de rolês">
       <button class="category-chip" data-category="festas-noite" title="festas & noite"><span class="emoji">🎉</span><span class="category-name">festas & noite</span></button>
       <button class="category-chip" data-category="shows-musica" title="shows & música"><span class="emoji">🎵</span><span class="category-name">shows & música</span></button>
       <button class="category-chip" data-category="cultura-artes" title="cultura & artes"><span class="emoji">🎭</span><span class="category-name">cultura & artes</span></button>
       <button class="category-chip" data-category="feiras-brechos" title="feiras & brechós"><span class="emoji">🛍️</span><span class="category-name">feiras & brechós</span></button>
       <button class="category-chip" data-category="gastronomia" title="gastronomia"><span class="emoji">🍴</span><span class="category-name">gastronomia</span></button>
-      <button class="category-chip" data-category="geek" title="geek"><span class="emoji">👾</span><span class="category-name">geek</span></button>
+      <button class="category-chip" data-category="qualquer" data-tag="alternativo" title="alternativo"><span class="emoji">✨</span><span class="category-name">alternativo</span></button>
       <button class="category-chip" data-category="cursos-atividades" title="cursos & atividades"><span class="emoji">🧠</span><span class="category-name">cursos & atividades</span></button>
       <button class="category-chip" data-category="ao-ar-livre" title="ao ar livre"><span class="emoji">🌿</span><span class="category-name">ao ar livre</span></button>
     </nav>
