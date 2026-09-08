@@ -40,6 +40,25 @@
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
         <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
+        <div class="field caracteristica">
+          <label for="caracteristica">característica?</label>
+          <select id="caracteristica">
+            <option value="qualquer">qualquer característica</option>
+            <option value="acessivel">acessível</option>
+            <option value="alternativo">alternativo</option>
+            <option value="ao-ar-livre">ao ar livre</option>
+            <option value="bom-criancas">bom para crianças</option>
+            <option value="dancante">dançante</option>
+            <option value="lgbtqia">lgbtqia+</option>
+            <option value="musica-vivo">música ao vivo</option>
+            <option value="familias">para famílias</option>
+            <option value="seguro-lgbt">seguro para lgbtqia+</option>
+            <option value="seguro-mulheres">seguro para mulheres</option>
+            <option value="tranquilo">tranquilo</option>
+            <option value="18mais">18+</option>
+            <option value="universitario">universitário</option>
+          </select>
+        </div>
       </div>
 
       <select id="tipo" class="technical-filter" aria-hidden="true" tabindex="-1">
@@ -52,20 +71,17 @@
         <option value="gastronomia">gastronomia</option>
         <option value="shows-musica">shows & música</option>
       </select>
-      <select id="caracteristica" class="technical-filter" aria-hidden="true" tabindex="-1">
-        <option value="qualquer">qualquer</option>
-        <option value="alternativo">alternativo</option>
-      </select>
       <button class="search-button technical-filter" type="button" aria-hidden="true" tabindex="-1">buscar</button>
     </section>
 
-    <nav class="category-strip" aria-label="tags de rolês">
+    <nav class="category-strip" aria-label="atalhos de rolês">
       <button class="category-chip" data-category="festas-noite" title="festas & noite"><span class="emoji">🎉</span><span class="category-name">festas & noite</span></button>
       <button class="category-chip" data-category="shows-musica" title="shows & música"><span class="emoji">🎵</span><span class="category-name">shows & música</span></button>
       <button class="category-chip" data-category="cultura-artes" title="cultura & artes"><span class="emoji">🎭</span><span class="category-name">cultura & artes</span></button>
       <button class="category-chip" data-category="feiras-brechos" title="feiras & brechós"><span class="emoji">🛍️</span><span class="category-name">feiras & brechós</span></button>
       <button class="category-chip" data-category="gastronomia" title="gastronomia"><span class="emoji">🍴</span><span class="category-name">gastronomia</span></button>
       <button class="category-chip" data-category="qualquer" data-tag="alternativo" title="alternativo"><span class="emoji">✨</span><span class="category-name">alternativo</span></button>
+      <button class="category-chip" data-category="qualquer" data-tag="lgbtqia" title="lgbtqia+"><span class="emoji">🌈</span><span class="category-name">lgbtqia+</span></button>
       <button class="category-chip" data-category="cursos-atividades" title="cursos & atividades"><span class="emoji">🧠</span><span class="category-name">cursos & atividades</span></button>
       <button class="category-chip" data-category="ao-ar-livre" title="ao ar livre"><span class="emoji">🌿</span><span class="category-name">ao ar livre</span></button>
     </nav>
