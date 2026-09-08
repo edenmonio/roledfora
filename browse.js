@@ -3,19 +3,20 @@
   if (!['eventos','lugares'].includes(page)) return;
 
   const resultsSection = () => document.querySelector('.search-results-section');
-  const renderCurrent = () => {
+  const technicalCategory = () => document.querySelector(page === 'eventos' ? '#tipo' : '#categoria');
+  const technicalFeature = () => document.querySelector(page === 'eventos' ? '#caracteristica' : '#vibe');
+  const technicalSearchButton = () => document.querySelector('.search-button.technical-filter');
+
+  function renderCurrent() {
     try {
       if (page === 'eventos' && typeof renderEventos === 'function') renderEventos();
       if (page === 'lugares' && typeof renderLugares === 'function') renderLugares();
     } catch (err) {
       console.warn('não foi possível atualizar os resultados', err);
     }
-  };
+  }
 
-  const technicalCategory = () => document.querySelector(page === 'eventos' ? '#tipo' : '#categoria');
-  const technicalFeature = () => document.querySelector(page === 'eventos' ? '#caracteristica' : '#vibe');
-
-  function hasVisibleFilter() {
+  function hasSelection() {
     const visible = [...document.querySelectorAll('.search-panel select:not(.technical-filter)')];
     const visibleSelected = visible.some(select => select.value && select.value !== 'qualquer');
     const categorySelected = technicalCategory()?.value && technicalCategory().value !== 'qualquer';
@@ -23,11 +24,33 @@
     return Boolean(visibleSelected || categorySelected || featureSelected);
   }
 
-  function syncSection() {
+  function hasUrlFilters() {
+    return new URLSearchParams(location.search).toString().length > 0;
+  }
+
+  function showResults() {
     const section = resultsSection();
-    if (!section) return;
-    const fromUrl = new URLSearchParams(location.search).toString().length > 0;
-    section.hidden = !(hasVisibleFilter() || fromUrl);
+    if (section) section.hidden = false;
+  }
+
+  function hideResults() {
+    const section = resultsSection();
+    if (section) section.hidden = true;
+  }
+
+  function unlockLegacyGate() {
+    const button = technicalSearchButton();
+    if (button) button.click();
+  }
+
+  function refreshVisibilityAndResults() {
+    if (hasSelection() || hasUrlFilters()) {
+      unlockLegacyGate();
+      showResults();
+      renderCurrent();
+    } else {
+      hideResults();
+    }
   }
 
   function clearChipState() {
@@ -45,24 +68,20 @@
     feature.value = 'qualquer';
 
     if (!wasActive) {
-      const tag = chip.dataset.tag;
-      const categoryValue = chip.dataset.category;
-      if (tag) feature.value = tag;
-      else if (categoryValue) category.value = categoryValue;
+      if (chip.dataset.tag) feature.value = chip.dataset.tag;
+      else if (chip.dataset.category) category.value = chip.dataset.category;
       chip.classList.add('active');
     }
 
-    state.visible = 18;
-    syncSection();
-    renderCurrent();
+    try { state.visible = 18; } catch {}
+    refreshVisibilityAndResults();
   }
 
   document.addEventListener('change', event => {
     const select = event.target.closest('.search-panel select:not(.technical-filter)');
     if (!select) return;
-    state.visible = 18;
-    syncSection();
-    renderCurrent();
+    try { state.visible = 18; } catch {}
+    refreshVisibilityAndResults();
   });
 
   document.addEventListener('click', event => {
@@ -74,7 +93,11 @@
   }, true);
 
   document.addEventListener('DOMContentLoaded', () => {
-    syncSection();
-    if (new URLSearchParams(location.search).toString().length > 0) renderCurrent();
+    if (hasUrlFilters()) {
+      showResults();
+      renderCurrent();
+    } else {
+      hideResults();
+    }
   });
 })();
