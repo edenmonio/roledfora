@@ -7,7 +7,7 @@
 }
 
 .search-row.lugares-search.simple-search {
-  grid-template-columns: 1.4fr 1.2fr;
+  grid-template-columns: 1.35fr 1.2fr 1fr;
 }
 
 .category-chip.active {
