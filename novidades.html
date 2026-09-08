@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>roledfora — novidades</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./app.js" defer></script>
+</head>
+<body data-page="novidades">
+  <main class="container">
+    <header class="site-header"><h1 class="site-title">roledfora</h1><p class="site-subtitle">o que tem pra fazer por aí?</p></header>
+    <nav class="main-nav" aria-label="páginas principais"><a href="./index.html">rolês</a><a href="./lugares.html">conhecer</a><a href="./indicacoes.html">indicações</a></nav>
+    <nav class="utility-nav" aria-label="ferramentas"><a class="active" href="./novidades.html">✨ novidades</a><a href="./salvos.html">⭐ salvos</a><a href="./mapa.html">⌖ mapa</a><a href="./roteiros.html">↝ roteiros</a></nav>
+
+    <section class="page-intro">
+      <h2>o que acabou de entrar</h2>
+      <p>essa é a aba pra abrir de vez em quando e descobrir o que apareceu de novo: eventos recentes, coisas da semana e lugares que acabaram de entrar na nossa lista.</p>
+    </section>
+
+    <section class="fresh-block">
+      <div class="results-head"><h2 class="section-title">🔥 últimos rolês</h2><span id="event-count" class="result-count">carregando…</span></div>
+      <div id="event-results" class="cards-grid"><div class="empty-state">carregando novidades…</div></div>
+    </section>
+
+    <section class="fresh-block">
+      <div class="results-head"><h2 class="section-title">✨ lugares recém-adicionados</h2><span id="place-count" class="result-count">carregando…</span></div>
+      <div id="place-results" class="cards-grid"><div class="empty-state">carregando lugares…</div></div>
+    </section>
+  </main>
+</body>
+</html>
