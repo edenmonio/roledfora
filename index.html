@@ -25,8 +25,11 @@
     </nav>
 
     <section class="search-panel" aria-label="pesquisar eventos">
-      <p class="search-title">encontre seu próximo rolê</p>
-      <div class="search-row">
+      <p class="search-title">encontre seu próximo rolê no df e entorno</p>
+      <div class="search-query-row">
+        <div class="field busca"><label for="q">buscar</label><input id="q" type="search" placeholder="nome, lugar, tipo ou palavra-chave" autocomplete="off" /></div>
+      </div>
+      <div class="search-row event-search">
         <div class="field local"><label for="local">onde?</label><select id="local"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
         <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
@@ -42,8 +45,24 @@
           <option value="geek">geek</option>
           <option value="shows-musica">shows & música</option>
         </select></div>
+        <div class="field vibe"><label for="caracteristica">característica?</label><select id="caracteristica">
+          <option value="qualquer">qualquer característica</option>
+          <option value="18mais">18+</option>
+          <option value="acessivel">acessível</option>
+          <option value="alternativo">alternativo</option>
+          <option value="ao-ar-livre">ao ar livre</option>
+          <option value="bom-criancas">bom para crianças</option>
+          <option value="dancante">dançante</option>
+          <option value="lgbtqia">lgbtqia+</option>
+          <option value="musica-vivo">música ao vivo</option>
+          <option value="familias">para famílias</option>
+          <option value="seguro-lgbt">seguro para lgbtqia+</option>
+          <option value="seguro-mulheres">seguro para mulheres</option>
+          <option value="universitario">universitário</option>
+        </select></div>
         <button class="search-button">⌕ buscar</button>
       </div>
+      <button class="clear-filters" type="button">limpar filtros</button>
     </section>
 
     <nav class="category-strip" aria-label="categorias de rolês">
@@ -57,9 +76,9 @@
       <button class="category-chip" data-category="ao-ar-livre" title="ao ar livre"><span class="emoji">🌿</span><span class="category-name">ao ar livre</span></button>
     </nav>
 
-    <section>
-      <div class="results-head"><h2 class="section-title">rolês encontrados</h2><span id="result-count" class="result-count">carregando…</span></div>
-      <div id="results" class="cards-grid"><div class="empty-state">carregando rolês…</div></div>
+    <section class="search-results-section" hidden>
+      <div class="results-head"><h2 class="section-title">rolês encontrados</h2><span id="result-count" class="result-count">0 resultados</span></div>
+      <div id="results" class="cards-grid"></div>
       <div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div>
     </section>
   </main>
