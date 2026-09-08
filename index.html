@@ -6,7 +6,6 @@
   <title>roledfora — rolês</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="./app.js" defer></script>
-  <script src="./ui-fixes.js" defer></script>
 </head>
 <body data-page="eventos">
   <main class="container">
@@ -21,7 +20,7 @@
       <a href="./indicacoes.html">indicações</a>
     </nav>
     <nav class="utility-nav" aria-label="ferramentas">
-      <a href="./salvos.html">♡ salvos</a><a href="./mapa.html">⌖ mapa</a><a href="./roteiros.html">↝ roteiros</a>
+      <a href="./salvos.html">⭐ salvos</a><a href="./mapa.html">⌖ mapa</a><a href="./roteiros.html">↝ roteiros</a>
     </nav>
 
     <section class="search-panel" aria-label="pesquisar eventos">
@@ -31,27 +30,30 @@
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
         <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
-        <div class="field tipo"><label for="tipo">tipo de rolê?</label><select id="tipo"><option value="qualquer">qualquer rolê</option><option value="ao ar livre">ao ar livre</option><option value="barzinho">barzinho</option><option value="brechó">brechó</option><option value="cinema">cinema</option><option value="exposição">exposição</option><option value="festa">festa</option><option value="feira">feira</option><option value="gastronomia">gastronomia</option><option value="karaokê">karaokê</option><option value="lgbtqia+">lgbtqia+</option><option value="nerd/geek">nerd/geek</option><option value="show">show</option><option value="teatro">teatro</option><option value="universitário">universitário</option><option value="workshop/curso">workshop/curso</option></select></div>
+        <div class="field tipo"><label for="tipo">tipo de rolê?</label><select id="tipo">
+          <option value="qualquer">qualquer rolê</option>
+          <option value="ao-ar-livre">ao ar livre</option>
+          <option value="cultura-artes">cultura & artes</option>
+          <option value="cursos-atividades">cursos & atividades</option>
+          <option value="feiras-brechos">feiras & brechós</option>
+          <option value="festas-noite">festas & noite</option>
+          <option value="gastronomia">gastronomia</option>
+          <option value="geek">geek</option>
+          <option value="shows-musica">shows & música</option>
+        </select></div>
         <button class="search-button">⌕ buscar</button>
       </div>
     </section>
 
     <nav class="category-strip" aria-label="categorias de rolês">
-      <button class="category-chip" data-category="festa" title="festas"><span class="emoji">🎉</span><span class="category-name">festas</span></button>
-      <button class="category-chip" data-category="show" title="shows"><span class="emoji">🎵</span><span class="category-name">shows</span></button>
-      <button class="category-chip" data-category="barzinho" title="barzinhos"><span class="emoji">🍻</span><span class="category-name">barzinhos</span></button>
-      <button class="category-chip" data-category="karaokê" title="karaokê"><span class="emoji">🎤</span><span class="category-name">karaokê</span></button>
-      <button class="category-chip" data-category="feira" title="feiras"><span class="emoji">🛍️</span><span class="category-name">feiras</span></button>
-      <button class="category-chip" data-category="brechó" title="brechós"><span class="emoji">👕</span><span class="category-name">brechós</span></button>
-      <button class="category-chip" data-category="exposição" title="exposições"><span class="emoji">🖼️</span><span class="category-name">exposições</span></button>
-      <button class="category-chip" data-category="cinema" title="cinema"><span class="emoji">🎬</span><span class="category-name">cinema</span></button>
-      <button class="category-chip" data-category="teatro" title="teatro"><span class="emoji">🎭</span><span class="category-name">teatro</span></button>
-      <button class="category-chip" data-category="lgbtqia+" title="lgbtqia+"><span class="emoji">🌈</span><span class="category-name">lgbtqia+</span></button>
+      <button class="category-chip" data-category="festas-noite" title="festas & noite"><span class="emoji">🎉</span><span class="category-name">festas & noite</span></button>
+      <button class="category-chip" data-category="shows-musica" title="shows & música"><span class="emoji">🎵</span><span class="category-name">shows & música</span></button>
+      <button class="category-chip" data-category="cultura-artes" title="cultura & artes"><span class="emoji">🎭</span><span class="category-name">cultura & artes</span></button>
+      <button class="category-chip" data-category="feiras-brechos" title="feiras & brechós"><span class="emoji">🛍️</span><span class="category-name">feiras & brechós</span></button>
       <button class="category-chip" data-category="gastronomia" title="gastronomia"><span class="emoji">🍴</span><span class="category-name">gastronomia</span></button>
-      <button class="category-chip" data-category="nerd/geek" title="nerd/geek"><span class="emoji">👾</span><span class="category-name">nerd/geek</span></button>
-      <button class="category-chip" data-category="ao ar livre" title="ao ar livre"><span class="emoji">🌿</span><span class="category-name">ao ar livre</span></button>
-      <button class="category-chip" data-category="workshop/curso" title="workshops e cursos"><span class="emoji">🧠</span><span class="category-name">workshops e cursos</span></button>
-      <button class="category-chip" data-category="universitário" title="universitários"><span class="emoji">🎓</span><span class="category-name">universitários</span></button>
+      <button class="category-chip" data-category="geek" title="geek"><span class="emoji">👾</span><span class="category-name">geek</span></button>
+      <button class="category-chip" data-category="cursos-atividades" title="cursos & atividades"><span class="emoji">🧠</span><span class="category-name">cursos & atividades</span></button>
+      <button class="category-chip" data-category="ao-ar-livre" title="ao ar livre"><span class="emoji">🌿</span><span class="category-name">ao ar livre</span></button>
     </nav>
 
     <section>
