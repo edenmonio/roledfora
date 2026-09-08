@@ -6,11 +6,12 @@ const DATA = {
 const TAG_EMOJI = {
   'arte':'🎨','exposição':'🖼️','música':'🎵','música ao vivo':'🎵','show':'🎵','festa':'🎉','balada':'💃','dançante':'💃','madrugada':'🌙',
   'gastronomia':'🍴','comer':'🍴','café':'☕','doce':'🍰','padaria':'🥐','pizza':'🍕','hambúrguer':'🍔','sushi':'🍣','japonês':'🍣','vinho':'🍷',
-  'lgbtqia+':'🌈','drag':'🌈','pet friendly':'🐾','ao ar livre':'🌿','natureza':'🌳','trilha':'🥾','trilhas':'🥾','cachoeira':'💦','cachoeiras':'💦',
-  'cinema':'🎬','quadrinhos':'💬','games':'👾','nerd/geek':'👾','mangá':'📚','ilustração':'✏️','teatro':'🎭','comédia':'😂','oficina':'🧠','oficinas':'🧠',
+  'lgbtqia+':'🌈','drag':'🌈','pet friendly':'🐾','ao ar livre':'🌿','natureza':'🌳','trilha':'🥾','trilhas':'🥾','cachoeira':'💦','cachoeiras':'💦','cerrado':'🌿',
+  'cinema':'🎬','quadrinhos':'💬','games':'👾','nerd/geek':'👾','mangá':'📚','ilustração':'✏️','teatro':'🎭','comédia':'😂','stand-up':'😂','hipnose':'🌀','oficina':'🧠','oficinas':'🧠',
   'curso':'🧠','gratuito':'🆓','família':'👨‍👩‍👧','infantil':'🧸','acessível':'♿','acesso pavimentado':'♿','date':'💞','date diferente':'💞','pôr do sol':'🌅',
   'passeio':'🚶','vista':'👀','mirante':'👀','arquitetura':'🏙️','história':'🏛️','museu':'🏛️','cultura':'🏛️','cultura popular':'🪗','compras':'🛍️','feira':'🛍️',
-  'alternativo':'✨','aventura':'🧗','arvorismo':'🧗','escalada':'🧗','tirolesa':'🧗','parque':'🌳','lago':'💧','caminhada':'🚶','cidade histórica':'🏘️','viagem':'🚗'
+  'alternativo':'✨','aventura':'🧗','arvorismo':'🧗','escalada':'🧗','tirolesa':'🧗','parque':'🌳','lago':'💧','caminhada':'🚶','cidade histórica':'🏘️','viagem':'🚗',
+  'piseiro':'💃','forró':'🪗','pop':'🎧','rock':'🎸','reggaeton':'💃','house':'🎧','eletrônica':'🎧','cultura japonesa':'🎐','economia criativa':'✨','design independente':'🧵'
 };
 
 const CATEGORY_EMOJI = {
@@ -19,9 +20,9 @@ const CATEGORY_EMOJI = {
   'arquitetura':'🏙️','cafés':'☕','restaurantes':'🍽️','feiras e garimpo':'🛍️','noite':'🌙','experiências':'🎟️','bate-volta':'🚗','passeios locais':'📍'
 };
 
-const DF_CITIES = new Set(['brasília','df','águas claras','brazlândia','ceilândia','gama','guará','lago oeste','planaltina-df','samambaia','santa maria','sobradinho','taguatinga','vicente pires']);
-const ENTORNO_SUL = new Set(['valparaíso de goiás','novo gama','cidade ocidental','luziânia']);
-const ENTORNO_NORTE = new Set(['planaltina de goiás','formosa','águas lindas de goiás','santo antônio do descoberto']);
+const DF_CITIES = new Set(['brasilia','df','aguas claras','brazlandia','ceilandia','gama','guara','lago oeste','planaltina-df','samambaia','santa maria','sobradinho','taguatinga','vicente pires']);
+const ENTORNO_SUL = new Set(['valparaiso de goias','novo gama','cidade ocidental','luziania']);
+const ENTORNO_NORTE = new Set(['planaltina de goias','formosa','aguas lindas de goias','santo antonio do descoberto']);
 
 let state = { lugares: [], eventos: [], visible: 18, filtered: [] };
 
@@ -63,7 +64,7 @@ function feedbackButtons(kind, item) {
 }
 
 function eventCard(item) {
-  const source = item.link ? `<a class="primary-link" href="${esc(item.link)}" target="_blank" rel="noopener">${norm(item.ingresso).includes('compra') || norm(item.ingresso).includes('inscrição') ? '🎟️ ingresso / inscrição' : '↗ fonte oficial'}</a>` : '';
+  const source = item.link ? `<a class="primary-link" href="${esc(item.link)}" target="_blank" rel="noopener">${norm(item.ingresso).includes('compra') || norm(item.ingresso).includes('inscrição') ? '🎟️ ingresso / inscrição' : '↗ fonte / detalhes'}</a>` : '';
   return `<article class="card event-card" data-id="${esc(item.id)}">
     <span class="card-kind">${item.emoji || CATEGORY_EMOJI[item.categoria] || '🎉'} ${esc(item.categoria)}</span>
     <h3>${esc(item.nome)}</h3>
@@ -136,16 +137,15 @@ function cityMatches(city, value) {
   return c===norm(value);
 }
 
-function parseHour(text) {
-  const m = (text||'').match(/\b(\d{1,2})h/); return m ? Number(m[1]) : null;
-}
 function timeMatches(item, value) {
   if (!value || value==='qualquer') return true;
-  const h = parseHour(item.horario); if (h===null) return false;
-  if (value==='manha') return h<12;
-  if (value==='tarde') return h>=12 && h<18;
-  if (value==='noite') return h>=18 && h<24;
-  if (value==='madrugada') return h<6 || norm(item.horario).includes('madrugada');
+  const hours = [...(item.horario || '').matchAll(/\b(\d{1,2})h/g)].map(m => Number(m[1]));
+  const start = hours[0];
+  if (value==='madrugada') return hours.some(h=>h<6) || (item.tags||[]).some(t=>norm(t)==='madrugada') || norm(item.horario).includes('madrugada');
+  if (start===undefined) return false;
+  if (value==='manha') return start<12;
+  if (value==='tarde') return start>=12 && start<18;
+  if (value==='noite') return start>=18 && start<24;
   return true;
 }
 function localMidnight(date=new Date()) { return new Date(date.getFullYear(),date.getMonth(),date.getDate()); }
