@@ -81,22 +81,22 @@
 
 .category-chip:hover,
 .category-chip:focus-visible {
-  width: 220px !important;
+  width: 290px !important;
 }
 
 .category-chip:hover .category-name,
 .category-chip:focus-visible .category-name {
-  max-width: 175px !important;
+  max-width: 244px !important;
 }
 
 .tag-chip:hover,
 .tag-chip:focus-visible {
-  width: 200px !important;
+  width: 270px !important;
 }
 
 .tag-chip:hover .tag-name,
 .tag-chip:focus-visible .tag-name {
-  max-width: 158px !important;
+  max-width: 224px !important;
 }
 
 .empty-state {
