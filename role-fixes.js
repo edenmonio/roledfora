@@ -8,6 +8,11 @@
 
   const hasExplicit = (tags,set) => [...tags].some(tag => set.has(tag));
 
+  function exactPriceMatch(item,value) {
+    if (!value || value === 'qualquer') return true;
+    return (item?.precoFaixa || 'nao-informado') === value;
+  }
+
   function characteristicMatch(item,value) {
     if (!value || value === 'qualquer') return true;
     const tags = tagsOf(item);
@@ -42,7 +47,7 @@
       const items = (state.eventos || []).filter(item =>
         (typeof cityMatches !== 'function' || cityMatches(item.cidade,local)) &&
         (typeof eventDateMatches !== 'function' || eventDateMatches(item,data)) &&
-        (typeof priceMatches !== 'function' || priceMatches(item,valor)) &&
+        exactPriceMatch(item,valor) &&
         (typeof timeMatches !== 'function' || timeMatches(item,horario)) &&
         (tipo === 'qualquer' || (typeof canonicalEventCategory === 'function' && canonicalEventCategory(item) === tipo)) &&
         characteristicMatch(item,vibe) &&
