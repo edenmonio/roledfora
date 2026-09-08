@@ -30,6 +30,11 @@
     return c === v;
   }
 
+  function exactPriceMatch(item,value) {
+    if (!value || value === 'qualquer') return true;
+    return (item?.precoFaixa || 'nao-informado') === value;
+  }
+
   function characteristicMatch(item,value) {
     if (!value || value === 'qualquer') return true;
     const tags = tagSet(item), access = norm(item.acesso);
@@ -81,7 +86,7 @@
         (cat === 'qualquer' || (typeof canonicalPlaceCategory === 'function' && canonicalPlaceCategory(item) === cat)) &&
         characteristicMatch(item,vibe) &&
         characteristicMatch(item,estrutura) &&
-        (typeof priceMatches !== 'function' || priceMatches(item,valor)) &&
+        exactPriceMatch(item,valor) &&
         detailMatch(item,detail)
       );
       if (typeof renderList === 'function') renderList(items,'place');
