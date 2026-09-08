@@ -13,12 +13,11 @@
     date:['bom para date','💞'], sozinho:['bom para ir sozinho','👤'], tranquilo:['tranquilo','😌'], dancante:['dançante','💃'], alternativo:['alternativo','✨'],
     arLivre:['ao ar livre','🌿'], musicaVivo:['música ao vivo','🎵'], agua:['água','💦'], porSol:['pôr do sol','🌇'],
     metro:['metrô próximo','🚇'], bicicleta:['acesso de bicicleta','🚲'], estacionamento:['estacionamento','🅿️'], carro:['carro recomendado','🚗'],
-
     cultura:['cultura','🏛️'], musica:['música','🎵'], arte:['arte','🎨'], humor:['humor','😂'], quadrinhos:['quadrinhos','💬'], tecnologia:['tecnologia','🤖'],
     pop:['pop','🎧'], rock:['rock','🎸'], mpb:['mpb','🎵'], forro:['forró','🪗'], piseiro:['piseiro','💃'], arquitetura:['arquitetura','🏙️'],
     historia:['história','🏛️'], museu:['museu','🏛️'], parque:['parque','🌳'], compras:['compras','🛍️'], viagem:['viagem','🚗'], cerrado:['cerrado','🌿'], chapada:['chapada','⛰️'],
     df:['df','📍'], goias:['goiás','🌾'], entorno:['entorno','📍'], evento:['evento','📅'], lugar:['lugar','📌'], programacao:['programação','🗓️'], conhecer:['para conhecer','🧭'],
-
+    roteiro:['roteiro','↝'], combinar:['combinar lugares','🧩'], dia:['planejar o dia','🗓️'],
     catFestas:['festas & noite','🎉'], catShows:['shows & música','🎵'], catCultura:['cultura & artes','🎭'], catFeiras:['feiras & brechós','🛍️'],
     catGastronomia:['gastronomia','🍴'], catGeek:['geek','👾'], catCursos:['cursos & atividades','🧠'], catArLivre:['ao ar livre','🌿'],
     catCulturaHistoria:['cultura & história','🏛️'], catNatureza:['natureza','🌳'], catArquitetura:['arquitetura & pontos turísticos','🏙️'], catComer:['comer','🍽️'],
@@ -29,10 +28,10 @@
   const ENTORNO_NORTE = new Set(['planaltina de goias','formosa','aguas lindas de goias','santo antonio do descoberto']);
 
   function add(out,id) {
-    if (TAGS[id] && !out.includes(id)) out.push(id);
+    if (id && TAGS[id] && !out.includes(id)) out.push(id);
   }
 
-  function subtypeTags(item, kind) {
+  function subtypeTags(item,kind) {
     const tags = rawTags(item);
     const cat = norm(item.categoria);
     const text = norm(`${item.nome || ''} ${item.descricao || ''}`);
@@ -43,24 +42,24 @@
     if (has('cinema') || text.includes('cinema')) add(out,'cinema');
     if (has('teatro') || text.includes('teatro')) add(out,'teatro');
     if (has('drag') || text.includes('drag')) add(out,'drag');
-    if (has('exposição') || text.includes('exposição')) add(out,'exposicao');
+    if (has('exposição') || text.includes('exposicao')) add(out,'exposicao');
     if (cat === 'show' || tags.has('show')) add(out,'show');
     if (cat === 'festa' || tags.has('festa') || tags.has('balada')) add(out,'festa');
-    if (cat === 'karaokê' || tags.has('karaokê')) add(out,'karaoke');
+    if (cat === 'karaoke' || tags.has('karaoke')) add(out,'karaoke');
     if (tags.has('palestra') || tags.has('palestras') || text.includes('palestra')) add(out,'palestra');
     if (tags.has('oficina') || tags.has('oficinas') || text.includes('oficina')) add(out,'oficina');
     if (cat === 'feira' || tags.has('feira')) add(out,'feira');
-    if (cat === 'brechó' || tags.has('brechó')) add(out,'brecho');
+    if (cat === 'brecho' || tags.has('brecho')) add(out,'brecho');
     if (tags.has('corrida') || text.includes('corrida')) add(out,'corrida');
     if (tags.has('games') || tags.has('nerd/geek')) add(out,'games');
     if (tags.has('rpg')) add(out,'rpg');
 
     if (kind === 'place') {
-      if (cat === 'cafés' || tags.has('café')) add(out,'cafe');
+      if (cat === 'cafes' || tags.has('cafe')) add(out,'cafe');
       if (cat === 'restaurantes' || tags.has('restaurante')) add(out,'restaurante');
       if (cat === 'cachoeiras' || tags.has('cachoeira') || tags.has('cachoeiras') || text.includes('cachoeira')) add(out,'cachoeira');
       if (tags.has('trilha') || tags.has('trilhas')) add(out,'trilha');
-      if (cat === 'parques aquáticos' || tags.has('parque aquático')) add(out,'parqueAquatico');
+      if (cat === 'parques aquaticos' || tags.has('parque aquatico')) add(out,'parqueAquatico');
     }
     return out;
   }
@@ -80,7 +79,7 @@
     return 'noite';
   }
 
-  function featureTags(item, kind) {
+  function featureTags(item,kind) {
     const tags = rawTags(item);
     const text = norm(`${item.acesso || ''} ${item.descricao || ''} ${(item.tags || []).join(' ')}`);
     const out = [];
@@ -104,7 +103,7 @@
     if (tags.has('alternativo')) add(out,'alternativo');
     if (tags.has('ao ar livre')) add(out,'arLivre');
     if (tags.has('musica ao vivo')) add(out,'musicaVivo');
-    if (['agua','cachoeira','cachoeiras','lago','pocos','aguas termais','parque aquatico'].some(t => tags.has(norm(t)))) add(out,'agua');
+    if (['agua','cachoeira','cachoeiras','lago','pocos','aguas termais','parque aquatico'].some(t => tags.has(t))) add(out,'agua');
     if (tags.has('por do sol')) add(out,'porSol');
 
     if (kind === 'place') {
@@ -125,9 +124,7 @@
       [['forro'],'forro'], [['piseiro'],'piseiro'], [['arquitetura'],'arquitetura'], [['historia','cidade historica'],'historia'],
       [['museu'],'museu'], [['parque'],'parque'], [['compras','shopping'],'compras'], [['viagem'],'viagem'], [['cerrado'],'cerrado'], [['chapada'],'chapada']
     ];
-    mapping.forEach(([values,id]) => {
-      if (values.some(v => tags.has(norm(v)))) add(out,id);
-    });
+    mapping.forEach(([values,id]) => { if (values.some(v => tags.has(v))) add(out,id); });
     return out;
   }
 
@@ -159,10 +156,6 @@
     return out;
   }
 
-  function genericFallback(kind) {
-    return kind === 'event' ? ['evento','programacao'] : ['lugar','conhecer'];
-  }
-
   function chip(id) {
     const [label,emoji] = TAGS[id];
     const span = document.createElement('span');
@@ -179,17 +172,37 @@
     if (!box) return;
     const ids = [];
     [
-      ...subtypeTags(item,kind),
-      ...featureTags(item,kind),
-      ...descriptorTags(item),
-      ...categoryFallback(item,kind),
-      ...regionTags(item),
-      ...genericFallback(kind)
+      ...subtypeTags(item,kind), ...featureTags(item,kind), ...descriptorTags(item),
+      ...categoryFallback(item,kind), ...regionTags(item),
+      ...(kind === 'event' ? ['evento','programacao'] : ['lugar','conhecer'])
     ].forEach(id => add(ids,id));
-
-    const selected = ids.slice(0,4);
-    box.replaceChildren(...selected.map(chip));
+    while (ids.length < 4) add(ids,kind === 'event' ? 'evento' : 'lugar');
+    box.replaceChildren(...ids.slice(0,4).map(chip));
     box.hidden = false;
+  }
+
+  function polishRouteCard(card) {
+    if (card.dataset.routePolished === '1') return;
+    let box = card.querySelector('.tags');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'tags';
+      const actions = card.querySelector('.actions');
+      if (actions) actions.insertAdjacentElement('beforebegin',box);
+      else card.append(box);
+    }
+    const text = norm(card.textContent);
+    const ids = [];
+    if (text.includes('cinema')) add(ids,'cinema');
+    if (text.includes('arquitetura')) add(ids,'arquitetura');
+    if (text.includes('cultura')) add(ids,'cultura');
+    if (text.includes('feira')) add(ids,'feira');
+    if (text.includes('cachoeira')) { add(ids,'cachoeira'); add(ids,'agua'); add(ids,'trilha'); }
+    if (text.includes('chapada')) { add(ids,'chapada'); add(ids,'viagem'); }
+    if (text.includes('entorno')) add(ids,'entorno');
+    add(ids,'roteiro'); add(ids,'combinar'); add(ids,'dia'); add(ids,'conhecer');
+    box.replaceChildren(...ids.slice(0,4).map(chip));
+    card.dataset.routePolished = '1';
   }
 
   function numericDate(iso) {
@@ -216,13 +229,12 @@
     const preco = norm(item.preco);
     const text = `${ingresso} ${preco}`;
     const free = item.precoFaixa === 'gratis' || /gratuit|gratis|entrada livre|entrada franca/.test(text);
-    const knownPaid = (item.precoFaixa && !['gratis','nao-informado'].includes(item.precoFaixa)) || /\bcompra\b|\bvenda\b|pago/.test(ingresso);
-
+    const paid = (item.precoFaixa && !['gratis','nao-informado'].includes(item.precoFaixa)) || /\bcompra\b|\bvenda\b|pago/.test(ingresso);
     if (/contribui/.test(text)) return 'contribuição voluntária';
     if (free && /retirada|retirar|reserva|reservar/.test(ingresso)) return 'grátis · retirada obrigatória';
     if (free && /inscri/.test(ingresso)) return 'grátis · inscrição obrigatória';
     if (free) return 'grátis';
-    if (knownPaid) return 'pago';
+    if (paid) return 'pago';
     return 'consultar condições';
   }
 
@@ -244,21 +256,10 @@
         lines[0].insertAdjacentElement('afterend',timeLine);
       }
       timeLine.textContent = `🕐 ${time}`;
-    } else if (timeLine) {
-      timeLine.remove();
-    }
+    } else if (timeLine) timeLine.remove();
 
     const entryLine = [...meta.querySelectorAll('p')].find(p => p.textContent.trim().startsWith('🎟️'));
     if (entryLine) entryLine.textContent = `🎟️ ${normalizedEntry(item)}`;
-  }
-
-  function compactEventAction(card,item) {
-    const link = card.querySelector('.actions .primary-link');
-    if (!link) return;
-    const ticket = norm(item.ingresso);
-    if (ticket.includes('inscri')) link.textContent = '📝 inscrição';
-    else if (ticket.includes('compra') || ticket.includes('ingresso') || ticket.includes('venda') || ticket.includes('retirada')) link.textContent = '🎟️ ingresso';
-    else link.textContent = '↗ detalhes';
   }
 
   function readSet(key) {
@@ -266,22 +267,20 @@
     catch { return new Set(); }
   }
 
-  function writeSet(key,set) {
-    localStorage.setItem(key,JSON.stringify([...set]));
-  }
+  function writeSet(key,set) { localStorage.setItem(key,JSON.stringify([...set])); }
 
-  function cleanupLegacyStatuses() {
+  function cleanupLegacyStorage() {
     const saved = readSet('roledfora.saved');
-    const want = readSet('roledfora.want');
-    const visited = readSet('roledfora.visited');
-    [...want,...visited].forEach(key => saved.add(key));
+    [...readSet('roledfora.want'),...readSet('roledfora.visited')].forEach(key => saved.add(key));
     writeSet('roledfora.saved',saved);
     localStorage.removeItem('roledfora.want');
     localStorage.removeItem('roledfora.visited');
+    localStorage.removeItem('roledfora.likes');
+    localStorage.removeItem('roledfora.dislikes');
   }
 
-  function removeStatusUi(card) {
-    card.querySelectorAll('.status-btn,.saved-status-row').forEach(el => el.remove());
+  function removeLegacyActions(card) {
+    card.querySelectorAll('.feedback,.status-btn,.saved-status-row').forEach(el => el.remove());
   }
 
   function findItem(card,kind) {
@@ -296,20 +295,21 @@
     if (!kind) return;
     const item = findItem(card,kind);
     if (!item) return;
-
     if (card.dataset.polished !== '1') {
       rebuildTags(card,item,kind);
-      if (kind === 'event') {
-        compactEventMeta(card,item);
-        compactEventAction(card,item);
-      }
+      if (kind === 'event') compactEventMeta(card,item);
       card.dataset.polished = '1';
     }
-    removeStatusUi(card);
+    removeLegacyActions(card);
   }
 
-  function cleanUtilityNav() {
+  function cleanNavigation() {
     document.querySelectorAll('.utility-nav a[href="./mapa.html"]').forEach(a => a.remove());
+    document.querySelectorAll('a[href="./indicacoes.html"]').forEach(a => {
+      a.href = './profissionais.html';
+      a.textContent = 'profissionais';
+      a.classList.remove('active');
+    });
   }
 
   function optionNode(value,label) {
@@ -332,11 +332,9 @@
     const options = [...select.options];
     if (options.length < 3) return;
 
-    const dfItems = options
-      .filter(o => o.parentElement?.tagName === 'OPTGROUP' && norm(o.parentElement.label).includes('regioes administrativas'))
+    const dfItems = options.filter(o => o.parentElement?.tagName === 'OPTGROUP' && norm(o.parentElement.label).includes('regioes administrativas'))
       .map(o => ({value:o.value,label:o.textContent}));
-    const goItems = options
-      .filter(o => o.parentElement?.tagName === 'OPTGROUP' && norm(o.parentElement.label).includes('municipios de goias'))
+    const goItems = options.filter(o => o.parentElement?.tagName === 'OPTGROUP' && norm(o.parentElement.label).includes('municipios de goias'))
       .map(o => ({value:o.value,label:o.textContent}));
     if (!dfItems.length && !goItems.length) return;
 
@@ -347,10 +345,10 @@
     const sort = list => list.sort((a,b) => a.label.localeCompare(b.label,'pt-BR'));
 
     select.replaceChildren(optionNode('qualquer','qualquer lugar'));
-    if (dfItems.length) select.append(groupNode('distrito federal','df','todo o distrito federal',sort(dfItems)));
-    if (entornoSul.length) select.append(groupNode('entorno sul','entorno-sul','todo o entorno sul',sort(entornoSul)));
-    if (entornoNorte.length) select.append(groupNode('entorno norte','entorno-norte','todo o entorno norte',sort(entornoNorte)));
-    if (goias.length) select.append(groupNode('goiás','goias','todo goiás',sort(goias)));
+    if (dfItems.length) select.append(groupNode('distrito federal — regiões administrativas','df','todo o distrito federal',sort(dfItems)));
+    if (entornoSul.length) select.append(groupNode('entorno sul — go','entorno-sul','todo o entorno sul',sort(entornoSul)));
+    if (entornoNorte.length) select.append(groupNode('entorno norte — go','entorno-norte','todo o entorno norte',sort(entornoNorte)));
+    if (goias.length) select.append(groupNode('goiás — outros municípios','goias','todo goiás',sort(goias)));
 
     if ([...select.options].some(o => o.value === current)) select.value = current;
     select.dataset.locationOrganized = '1';
@@ -384,23 +382,24 @@
   }
 
   function apply() {
-    cleanUtilityNav();
+    cleanNavigation();
     organizeLocationSelect(document.querySelector('#local'));
     organizeLocationSelect(document.querySelector('#onde'));
     document.querySelectorAll('.event-card,.place-card').forEach(polishCard);
+    document.querySelectorAll('.route-card').forEach(polishRouteCard);
     gateInitialResults();
   }
 
   let extraEventsStarted = false;
   async function loadExtraEvents() {
-    if (extraEventsStarted) return;
+    const page = document.body.dataset.page;
+    if (!['eventos','novidades','salvos'].includes(page) || extraEventsStarted) return;
     extraEventsStarted = true;
     try {
-      const response = await fetch('./data/eventos-4.json', { cache:'no-store' });
+      const response = await fetch('./data/eventos-4.json',{cache:'no-store'});
       if (!response.ok) throw new Error('eventos-4');
       const extra = await response.json();
       let tries = 0;
-
       const mergeWhenReady = () => {
         try {
           if (typeof state === 'undefined' || !Array.isArray(state.eventos)) {
@@ -416,10 +415,9 @@
           if (tries++ < 80) setTimeout(mergeWhenReady,100);
         }
       };
-
       mergeWhenReady();
     } catch (err) {
-      console.warn('não foi possível carregar os rolês extras', err);
+      console.warn('não foi possível carregar os rolês extras',err);
     }
   }
 
@@ -434,16 +432,13 @@
   });
 
   document.addEventListener('click',activateResultsFromInteraction,true);
-
   document.addEventListener('DOMContentLoaded',() => {
-    cleanupLegacyStatuses();
+    cleanupLegacyStorage();
     apply();
     loadExtraEvents();
     observer.observe(document.body,{childList:true,subtree:true});
     if (document.body.dataset.page === 'salvos') {
-      setTimeout(() => {
-        try { if (typeof refreshCurrent === 'function') refreshCurrent(); } catch {}
-      },0);
+      setTimeout(() => { try { if (typeof refreshCurrent === 'function') refreshCurrent(); } catch {} },0);
     }
   });
 })();
