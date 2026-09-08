@@ -12,6 +12,7 @@
   <script src="./site-polish.js" defer></script>
   <script src="./access-fixes.js" defer></script>
   <script src="./price-fixes.js" defer></script>
+  <script src="./conhecer-fixes.js" defer></script>
   <script src="./browse.js" defer></script>
 </head>
 <body data-page="lugares">
@@ -29,20 +30,6 @@
           <label for="onde">onde?</label>
           <select id="onde"><option value="qualquer">qualquer lugar</option></select>
         </div>
-        <div class="field tipo">
-          <label for="categoria">o que fazer?</label>
-          <select id="categoria">
-            <option value="qualquer">qualquer tipo</option>
-            <option value="arquitetura-turismo">arquitetura & pontos turísticos</option>
-            <option value="bares-noite">bares & noite</option>
-            <option value="cinema-teatro">cinema & teatro</option>
-            <option value="comer">comer</option>
-            <option value="cultura-historia">cultura & história</option>
-            <option value="feiras-compras">feiras & compras</option>
-            <option value="lazer-experiencias">lazer & experiências</option>
-            <option value="natureza">natureza</option>
-          </select>
-        </div>
         <div class="field valor">
           <label for="preco">quanto?</label>
           <select id="preco">
@@ -55,33 +42,53 @@
           </select>
         </div>
         <div class="field caracteristica">
-          <label for="vibe">característica?</label>
+          <label for="vibe">vibe & público?</label>
           <select id="vibe">
-            <option value="qualquer">qualquer característica</option>
-            <option value="acessivel">acessível</option>
-            <option value="aceita-pets">aceita pets</option>
+            <option value="qualquer">qualquer vibe ou público</option>
             <option value="alternativo">alternativo</option>
             <option value="ao-ar-livre">ao ar livre</option>
             <option value="aventura">aventura / trilha</option>
-            <option value="bicicleta">bicicletário / ciclovia</option>
             <option value="bom-criancas">bom para crianças</option>
             <option value="date">bom para date</option>
             <option value="sozinho">bom para ir sozinho</option>
-            <option value="estacionamento">estacionamento</option>
+            <option value="dancante">dançante</option>
             <option value="lgbtqia">lgbtqia+</option>
-            <option value="carro-recomendado">melhor ir de carro</option>
-            <option value="metro-perto">metrô perto</option>
             <option value="musica-vivo">música ao vivo</option>
-            <option value="onibus-perto">ônibus perto</option>
-            <option value="opcao-vegana">opção vegana</option>
-            <option value="opcao-vegetariana">opção vegetariana</option>
             <option value="familias">para famílias</option>
             <option value="seguro-lgbt">seguro para lgbtqia+</option>
             <option value="seguro-mulheres">seguro para mulheres</option>
             <option value="tranquilo">tranquilo</option>
+            <option value="18mais">18+</option>
+          </select>
+        </div>
+        <div class="field estrutura">
+          <label for="estrutura">estrutura & acesso?</label>
+          <select id="estrutura">
+            <option value="qualquer">qualquer estrutura ou acesso</option>
+            <option value="acessivel">acessível</option>
+            <option value="aceita-pets">aceita pets</option>
+            <option value="bicicleta">bicicletário / ciclovia</option>
+            <option value="estacionamento">estacionamento</option>
+            <option value="carro-recomendado">melhor ir de carro</option>
+            <option value="metro-perto">metrô perto</option>
+            <option value="onibus-perto">ônibus perto</option>
+            <option value="opcao-vegana">opção vegana</option>
+            <option value="opcao-vegetariana">opção vegetariana</option>
           </select>
         </div>
       </div>
+
+      <select id="categoria" class="technical-filter" aria-hidden="true" tabindex="-1">
+        <option value="qualquer">qualquer</option>
+        <option value="arquitetura-turismo">arquitetura & pontos turísticos</option>
+        <option value="bares-noite">bares & noite</option>
+        <option value="cinema-teatro">cinema & teatro</option>
+        <option value="comer">comer</option>
+        <option value="cultura-historia">cultura & história</option>
+        <option value="feiras-compras">feiras & compras</option>
+        <option value="lazer-experiencias">lazer & experiências</option>
+        <option value="natureza">natureza</option>
+      </select>
     </section>
 
     <nav class="category-strip" aria-label="categorias de lugares">
