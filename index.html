@@ -42,60 +42,23 @@
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
         <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">r$ 1–20</option><option value="ate-50">r$ 21–50</option><option value="ate-100">r$ 51–100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
-        <div class="field caracteristica">
-          <label for="caracteristica">vibe & público?</label>
-          <select id="caracteristica">
-            <option value="qualquer">qualquer vibe ou público</option>
+        <div class="field tipo">
+          <label for="tipo">tipo de rolê?</label>
+          <select id="tipo">
+            <option value="qualquer">qualquer tipo</option>
             <option value="alternativo">alternativo</option>
             <option value="ao-ar-livre">ao ar livre</option>
-            <option value="bom-criancas">bom para crianças</option>
-            <option value="date">bom para date</option>
-            <option value="sozinho">bom para ir sozinho</option>
+            <option value="cultura-artes">cultura & artes</option>
+            <option value="cursos-atividades">cursos & atividades</option>
+            <option value="feiras-brechos">feiras & brechós</option>
+            <option value="festas-noite">festas & noite</option>
+            <option value="gastronomia">gastronomia</option>
             <option value="lgbtqia">lgbtqia+</option>
-            <option value="familias">para famílias</option>
-            <option value="tranquilo">tranquilo</option>
-            <option value="18mais">18+</option>
-          </select>
-        </div>
-        <div class="field estrutura">
-          <label for="estrutura">acesso & facilidades?</label>
-          <select id="estrutura">
-            <option value="qualquer">qualquer acesso ou facilidade</option>
-            <option value="acessivel">acessível</option>
-            <option value="aceita-pets">aceita pets</option>
-            <option value="estacionamento">estacionamento</option>
-            <option value="metro-perto">metrô perto</option>
-            <option value="onibus-perto">ônibus perto</option>
-            <option value="seguro-lgbt">seguro para lgbtqia+</option>
-            <option value="seguro-mulheres">seguro para mulheres</option>
+            <option value="shows-musica">shows & música</option>
           </select>
         </div>
       </div>
-
-      <select id="tipo" class="technical-filter" aria-hidden="true" tabindex="-1">
-        <option value="qualquer">qualquer</option>
-        <option value="ao-ar-livre">ao ar livre</option>
-        <option value="cultura-artes">cultura & artes</option>
-        <option value="cursos-atividades">cursos & atividades</option>
-        <option value="feiras-brechos">feiras & brechós</option>
-        <option value="festas-noite">festas & noite</option>
-        <option value="gastronomia">gastronomia</option>
-        <option value="shows-musica">shows & música</option>
-      </select>
-      <button class="search-button technical-filter" type="button" aria-hidden="true" tabindex="-1">buscar</button>
     </section>
-
-    <nav class="category-strip" aria-label="atalhos de rolês">
-      <button class="category-chip" data-category="festas-noite" title="festas & noite"><span class="emoji">🎉</span><span class="category-name">festas & noite</span></button>
-      <button class="category-chip" data-category="shows-musica" title="shows & música"><span class="emoji">🎵</span><span class="category-name">shows & música</span></button>
-      <button class="category-chip" data-category="cultura-artes" title="cultura & artes"><span class="emoji">🎭</span><span class="category-name">cultura & artes</span></button>
-      <button class="category-chip" data-category="feiras-brechos" title="feiras & brechós"><span class="emoji">🛍️</span><span class="category-name">feiras & brechós</span></button>
-      <button class="category-chip" data-category="gastronomia" title="gastronomia"><span class="emoji">🍴</span><span class="category-name">gastronomia</span></button>
-      <button class="category-chip" data-category="qualquer" data-tag="alternativo" title="alternativo"><span class="emoji">✨</span><span class="category-name">alternativo</span></button>
-      <button class="category-chip" data-category="qualquer" data-tag="lgbtqia" title="lgbtqia+"><span class="emoji">🌈</span><span class="category-name">lgbtqia+</span></button>
-      <button class="category-chip" data-category="cursos-atividades" title="cursos & atividades"><span class="emoji">🧠</span><span class="category-name">cursos & atividades</span></button>
-      <button class="category-chip" data-category="ao-ar-livre" title="ao ar livre"><span class="emoji">🌿</span><span class="category-name">ao ar livre</span></button>
-    </nav>
 
     <section class="search-results-section" hidden>
       <div class="results-head"><h2 class="section-title">rolês encontrados</h2><span id="result-count" class="result-count">0 resultados</span></div>
