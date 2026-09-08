@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RoléDFora</title>
+  <title>rolédfora</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
+
+    @font-face {
+      font-family: 'Revista';
+      src: url('./REVISTA.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Manrope', Arial, sans-serif;
       background: #fffaf7;
       color: #222;
     }
@@ -26,7 +36,11 @@
     }
 
     h1 {
-      font-size: 3rem;
+      font-family: 'Revista', 'Manrope', Arial, sans-serif;
+      font-size: 3.2rem;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1;
       margin: 0;
     }
 
@@ -53,6 +67,7 @@
       border-radius: 999px;
       padding: 11px 16px;
       font-weight: 700;
+      font-family: 'Manrope', Arial, sans-serif;
       color: #222;
       cursor: pointer;
       min-width: 135px;
@@ -72,6 +87,7 @@
       padding: 13px 26px;
       font-size: 1rem;
       font-weight: 800;
+      font-family: 'Manrope', Arial, sans-serif;
       background: #222;
       color: white;
       cursor: pointer;
@@ -112,11 +128,12 @@
       border: 0;
       border-radius: 12px;
       padding: 10px 14px;
+      font-family: 'Manrope', Arial, sans-serif;
       cursor: pointer;
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.4rem; }
+      h1 { font-size: 2.6rem; }
 
       .filters {
         flex-direction: column;
@@ -132,7 +149,7 @@
 <body>
   <main class="container">
     <header>
-      <h1>RoléDFora ✨</h1>
+      <h1>rolédfora</h1>
       <p>o que tem pra fazer por aí?</p>
     </header>
 
