@@ -53,40 +53,41 @@
     }
 
     .search-panel {
-      background: #2f0a68;
+      background: #f2e9e4;
       border-radius: 28px;
       padding: 22px;
-      box-shadow: 0 12px 30px rgba(47,10,104,.16);
+      box-shadow: 0 12px 30px rgba(71,55,46,.10);
       margin-bottom: 46px;
     }
 
     .search-title {
-      color: white;
-      font-size: 1rem;
+      color: #3e3834;
+      font-size: .94rem;
       font-weight: 800;
       margin: 0 0 13px 4px;
     }
 
     .search-row {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr 1fr 1.2fr auto;
+      grid-template-columns: 1.35fr 1fr 1fr 1.15fr 1.25fr auto;
       gap: 8px;
       align-items: stretch;
     }
 
     .field {
       position: relative;
+      min-width: 0;
       background: white;
       border-radius: 14px;
       min-height: 72px;
-      padding: 10px 14px 9px;
+      padding: 10px 12px 9px;
       border-top: 5px solid var(--accent);
       text-align: left;
     }
 
     .field label {
       display: block;
-      font-size: .72rem;
+      font-size: .68rem;
       font-weight: 700;
       color: #777;
       margin-bottom: 3px;
@@ -94,12 +95,13 @@
 
     .field select {
       width: 100%;
+      min-width: 0;
       border: 0;
       outline: 0;
       background: transparent;
-      font: 700 .94rem 'Manrope', Arial, sans-serif;
+      font: 600 .82rem 'Manrope', Arial, sans-serif;
       color: #222;
-      padding: 0 22px 0 0;
+      padding: 0 16px 0 0;
       cursor: pointer;
     }
 
@@ -112,9 +114,9 @@
     .search-button {
       border: 0;
       border-radius: 999px;
-      padding: 0 24px;
+      padding: 0 22px;
       min-height: 72px;
-      font: 800 .96rem 'Manrope', Arial, sans-serif;
+      font: 800 .92rem 'Manrope', Arial, sans-serif;
       background: #ff5d4a;
       color: white;
       cursor: pointer;
@@ -128,8 +130,8 @@
       margin-top: 14px;
       border: 0;
       background: transparent;
-      color: white;
-      font: 700 .84rem 'Manrope', Arial, sans-serif;
+      color: #4f4742;
+      font: 700 .82rem 'Manrope', Arial, sans-serif;
       cursor: pointer;
       opacity: .9;
     }
@@ -185,8 +187,9 @@
 
     @media (max-width: 1050px) {
       h1 { font-size: 96pt; }
-      .search-row { grid-template-columns: repeat(2, 1fr); }
+      .search-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .search-button { grid-column: 1 / -1; min-height: 54px; }
+      .field select { font-size: .84rem; }
     }
 
     @media (max-width: 620px) {
@@ -196,6 +199,7 @@
       .search-panel { padding: 16px; border-radius: 22px; }
       .search-row { grid-template-columns: 1fr; }
       .field { min-height: 66px; }
+      .field select { font-size: .86rem; }
       .search-button { grid-column: auto; }
     }
   </style>
