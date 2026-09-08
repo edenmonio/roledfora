@@ -14,10 +14,13 @@
     <nav class="main-nav" aria-label="páginas principais"><a href="./index.html">rolês</a><a class="active" href="./lugares.html">conhecer</a><a href="./profissionais.html">profissionais</a></nav>
     <nav class="utility-nav" aria-label="ferramentas"><a href="./novidades.html">✨ novidades</a><a href="./salvos.html">⭐ salvos</a><a href="./roteiros.html">↝ roteiros</a></nav>
 
-    <section class="page-intro"><h2>lugares pra conhecer</h2><p>cultura, natureza, comida, noite, cinema, teatro, feiras, experiências e destinos pelo df e goiás.</p></section>
+    <section class="page-intro"><h2>lugares pra conhecer</h2><p>cultura, natureza, comida, noite, cinema, teatro, feiras e experiências pelo df e entorno.</p></section>
 
     <section class="search-panel" aria-label="pesquisar lugares">
       <p class="search-title">o que você quer conhecer?</p>
+      <div class="search-query-row">
+        <div class="field busca"><label for="q">buscar</label><input id="q" type="search" placeholder="nome, tipo, bairro ou palavra-chave" autocomplete="off" /></div>
+      </div>
       <div class="search-row lugares-search">
         <div class="field local"><label for="onde">onde?</label><select id="onde"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field tipo"><label for="categoria">o que fazer?</label><select id="categoria">
@@ -34,25 +37,31 @@
         </select></div>
         <div class="field vibe"><label for="vibe">característica?</label><select id="vibe">
           <option value="qualquer">qualquer característica</option>
-          <option value="acessivel">acessível</option>
           <option value="aceita-pets">aceita pets</option>
+          <option value="acessivel">acessível</option>
+          <option value="agua">água</option>
           <option value="alternativo">alternativo</option>
           <option value="ao-ar-livre">ao ar livre</option>
           <option value="aventura">aventura / trilha</option>
           <option value="bom-criancas">bom para crianças</option>
           <option value="date">bom para date</option>
+          <option value="sozinho">bom para ir sozinho</option>
+          <option value="estacionamento">estacionamento</option>
           <option value="lgbtqia">lgbtqia+</option>
+          <option value="metro-proximo">metrô próximo</option>
           <option value="musica-vivo">música ao vivo</option>
           <option value="opcao-vegana">opção vegana</option>
           <option value="opcao-vegetariana">opção vegetariana</option>
           <option value="familias">para famílias</option>
           <option value="por-do-sol">pôr do sol</option>
+          <option value="seguro-lgbt">seguro para lgbtqia+</option>
+          <option value="seguro-mulheres">seguro para mulheres</option>
           <option value="tranquilo">tranquilo</option>
-          <option value="agua">água</option>
         </select></div>
         <div class="field valor"><label for="preco">quanto?</label><select id="preco"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <button class="search-button">⌕ buscar</button>
       </div>
+      <button class="clear-filters" type="button">limpar filtros</button>
     </section>
 
     <nav class="category-strip" aria-label="categorias de lugares">
@@ -67,7 +76,7 @@
       <button class="category-chip" data-category="cidades-destinos" title="cidades & destinos"><span class="emoji">🏘️</span><span class="category-name">cidades & destinos</span></button>
     </nav>
 
-    <section><div class="results-head"><h2 class="section-title">pra conhecer</h2><span id="result-count" class="result-count">carregando…</span></div><div id="results" class="cards-grid"><div class="empty-state">carregando lugares…</div></div><div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div></section>
+    <section class="search-results-section" hidden><div class="results-head"><h2 class="section-title">pra conhecer</h2><span id="result-count" class="result-count">0 resultados</span></div><div id="results" class="cards-grid"></div><div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div></section>
   </main>
 </body>
 </html>
