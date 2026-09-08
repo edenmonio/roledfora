@@ -17,20 +17,29 @@
     if (!text) return '';
 
     text = text
-      .replace(/\b(?:alguns?\s+)?carro facilita\b/gi,'mais fácil de carro')
-      .replace(/\bcarro recomendado\b/gi,'melhor ir de carro')
-      .replace(/\bacesso de carro\b/gi,'acesso por carro')
-      .replace(/\bpesquisar ônibus\b/gi,'')
-      .replace(/\bônibus\/app(?: local| conforme o local)?\b/gi,'ônibus ou app')
+      .replace(/\bônibus\/metrô\s*\+\s*volta de app\b/gi,'dá para ir de ônibus ou metrô; para voltar tarde, app pode ser mais prático')
+      .replace(/\bônibus\/metro\s*\+\s*volta de app\b/gi,'dá para ir de ônibus ou metrô; para voltar tarde, app pode ser mais prático')
+      .replace(/\bônibus\/metrô\s*\+\s*caminhada\b/gi,'dá para chegar de ônibus ou metrô; o trecho final pode ser a pé')
+      .replace(/\bônibus\/metro\s*\+\s*caminhada\b/gi,'dá para chegar de ônibus ou metrô; o trecho final pode ser a pé')
+      .replace(/\bônibus\s*\+\s*volta de app\b/gi,'dá para ir de ônibus; para voltar tarde, app pode ser mais prático')
+      .replace(/\bônibus\s*\+\s*caminhada\b/gi,'dá para chegar de ônibus; o trecho final pode ser a pé')
+      .replace(/\bônibus\s*\+\s*app\b/gi,'dá para chegar de ônibus; app pode facilitar o trecho final')
+      .replace(/\bônibus\/app(?: local)?\b/gi,'ônibus ou app')
+      .replace(/\bônibus\/app conforme o local\b/gi,'o acesso varia conforme a unidade; confira o transporte antes de sair')
       .replace(/\bmetrô\/ônibus\b/gi,'metrô ou ônibus')
+      .replace(/\bmetro\/ônibus\b/gi,'metrô ou ônibus')
+      .replace(/\b(?:alguns?\s+)?carro facilita\b/gi,'')
+      .replace(/\bcarro recomendado\b/gi,'')
+      .replace(/\bacesso de carro\b/gi,'')
+      .replace(/\bpesquisar ônibus\b/gi,'')
       .replace(/\s*;\s*/g,' · ')
       .replace(/(?:\s*·\s*){2,}/g,' · ')
       .replace(/^\s*·\s*|\s*·\s*$/g,'')
       .replace(/\s{2,}/g,' ')
       .trim();
 
-    const parts = text.split(/\s*·\s*/).filter(Boolean);
-    return [...new Set(parts.map(part => part.trim()))].join(' · ');
+    const parts = text.split(/\s*·\s*/).map(part => part.trim()).filter(Boolean);
+    return [...new Set(parts)].join(' · ');
   }
 
   function polishCards() {
