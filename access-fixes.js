@@ -28,44 +28,21 @@
   function addressLabel(item) {
     if (item?.endereco) return item.endereco;
     if (item?.bairro && item?.cidade) return `${item.bairro}, ${item.cidade}`;
+    if (item?.cidade) return `endereço a confirmar · ${item.cidade}`;
     return 'endereço a confirmar';
   }
 
-  function friendlyAccess(raw,item) {
-    let text = (raw || '').toString().trim();
-    if (!text) return '';
+  function transportLabels(raw) {
+    const text = norm(raw);
+    if (!text) return [];
 
-    text = text
-      .replace(/\b[oô]nibus\/(?:metr[oô])\s*\+\s*volta de app\b/gi,'ônibus ou metrô · volta de app se sair tarde')
-      .replace(/\b[oô]nibus\s*\+\s*volta de app\b/gi,'ônibus · volta de app se sair tarde')
-      .replace(/\b[oô]nibus\/(?:metr[oô])\s*\+\s*caminhada\b/gi,'ônibus ou metrô + trecho a pé')
-      .replace(/\b[oô]nibus\s*\+\s*caminhada\b/gi,'ônibus + trecho a pé')
-      .replace(/\b[oô]nibus\s*\+\s*app\b/gi,'ônibus + app no trecho final')
-      .replace(/\b[oô]nibus\/app conforme o local\b/gi,'ônibus ou app, depende da unidade')
-      .replace(/\b[oô]nibus\/app(?: local)?\b/gi,'ônibus ou app')
-      .replace(/\bmetr[oô]\/[oô]nibus\b|\b[oô]nibus\/metr[oô]\b/gi,'metrô ou ônibus')
-      .replace(/\b(?:alguns?\s+)?carro facilita\b/gi,'')
-      .replace(/\bcarro recomendado\b/gi,'')
-      .replace(/\bacesso de carro\b/gi,'')
-      .replace(/\bmais f[aá]cil de carro\b/gi,'')
-      .replace(/\bpesquisar [oô]nibus\b/gi,'')
-      .replace(/\bconsultar acesso antes de sair\b/gi,'')
-      .replace(/\bconfirmar acesso antes de sair\b/gi,'')
-      .replace(/\bplanejar deslocamento\b/gi,'')
-      .replace(/\s*;\s*/g,' · ')
-      .replace(/(?:\s*·\s*){2,}/g,' · ')
-      .replace(/^\s*·\s*|\s*·\s*$/g,'')
-      .replace(/\s{2,}/g,' ')
-      .trim();
+    const labels = [];
+    const bus = /onibus perto|ponto de onibus|parada de onibus|onibus\s*\+|onibus\s*\/|\/\s*onibus/.test(text);
+    const metro = /metro perto|metro proximo|perto do metro|estacao de metro|metro\s*\+|metro\s*\/|\/\s*metro/.test(text);
 
-    if (!text) return '';
-    if (item?.endereco && norm(text) === norm(item.endereco)) return '';
-    if (item?.cidade && norm(text) === norm(item.cidade)) return '';
-    if (ADDRESS_HINT.test(text) && !TRANSPORT_HINT.test(norm(text))) return '';
-
-    const parts = [...new Set(text.split(/\s*·\s*/).map(part => part.trim()).filter(Boolean))].slice(0,2);
-    const compact = parts.join(' · ');
-    return compact.length > 90 ? `${compact.slice(0,87).trim()}…` : compact;
+    if (bus) labels.push('🚌 ônibus perto');
+    if (metro) labels.push('🚇 metrô perto');
+    return labels;
   }
 
   function polishCards() {
@@ -87,13 +64,23 @@
           locationLine ? locationLine.insertAdjacentElement('afterend',addressLine) : meta.prepend(addressLine);
         }
         addressLine.textContent = `🧭 ${addressLabel(item)}`;
+
+        let accessLine = [...meta.querySelectorAll('p')].find(p => p.textContent.trim().startsWith('🚏') || p.textContent.trim().startsWith('🚌') || p.textContent.trim().startsWith('🚇'));
+        const labels = transportLabels(item.acesso);
+        if (labels.length) {
+          if (!accessLine) {
+            accessLine = document.createElement('p');
+            addressLine.insertAdjacentElement('afterend',accessLine);
+          }
+          accessLine.textContent = labels.join(' · ');
+        } else if (accessLine) {
+          accessLine.remove();
+        }
       }
 
-      const accessLine = [...card.querySelectorAll('.card-meta p')].find(p => p.textContent.trim().startsWith('🚏'));
-      if (!accessLine) return;
-      const label = friendlyAccess(item.acesso,item);
-      if (!label) accessLine.remove();
-      else accessLine.textContent = `🚏 ${label}`;
+      card.querySelectorAll('.tag-chip').forEach(chip => {
+        if (norm(chip.title) === 'melhor ir de carro') chip.remove();
+      });
     });
   }
 
