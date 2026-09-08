@@ -6,7 +6,6 @@
   <title>roledfora — conhecer</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="./app.js" defer></script>
-  <script src="./ui-fixes.js" defer></script>
 </head>
 <body data-page="lugares">
   <main class="container">
@@ -14,7 +13,7 @@
     <nav class="main-nav" aria-label="páginas principais"><a href="./index.html">rolês</a><a class="active" href="./lugares.html">conhecer</a><a href="./indicacoes.html">indicações</a></nav>
     <nav class="utility-nav" aria-label="ferramentas"><a href="./salvos.html">⭐ salvos</a><a href="./mapa.html">⌖ mapa</a><a href="./roteiros.html">↝ roteiros</a></nav>
 
-    <section class="page-intro"><h2>lugares pra conhecer</h2><p>cinemas, teatros, bares, museus, parques, cachoeiras, cafés, restaurantes, arquitetura, parques aquáticos e cidades pelo df, entorno e goiás.</p></section>
+    <section class="page-intro"><h2>lugares pra conhecer</h2><p>cultura, natureza, comida, noite, cinema, teatro, feiras, experiências e destinos pelo df e goiás.</p></section>
 
     <section class="search-panel" aria-label="pesquisar lugares">
       <p class="search-title">o que você quer conhecer?</p>
@@ -22,45 +21,49 @@
         <div class="field local"><label for="onde">onde?</label><select id="onde"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field tipo"><label for="categoria">o que fazer?</label><select id="categoria">
           <option value="qualquer">qualquer coisa</option>
-          <option value="arquitetura">arquitetura</option>
-          <option value="bares-e-noite">bares e noite</option>
-          <option value="bate-volta">bate-volta</option>
-          <option value="cafés">cafés</option>
-          <option value="cachoeiras">cachoeiras</option>
-          <option value="cidades-chapada">cidades & chapada</option>
-          <option value="cinemas">cinemas</option>
-          <option value="cultura e museus">cultura e museus</option>
-          <option value="experiências">experiências</option>
-          <option value="feiras e garimpo">feiras e garimpo</option>
-          <option value="noite">noite</option>
-          <option value="parques-aquaticos">parques aquáticos</option>
-          <option value="parques e natureza">parques e natureza</option>
-          <option value="passeios locais">passeios locais</option>
-          <option value="restaurantes">restaurantes</option>
-          <option value="teatros">teatros</option>
+          <option value="arquitetura-turismo">arquitetura & pontos turísticos</option>
+          <option value="bares-noite">bares & noite</option>
+          <option value="cidades-destinos">cidades & destinos</option>
+          <option value="cinema-teatro">cinema & teatro</option>
+          <option value="comer">comer</option>
+          <option value="cultura-historia">cultura & história</option>
+          <option value="feiras-compras">feiras & compras</option>
+          <option value="lazer-experiencias">lazer & experiências</option>
+          <option value="natureza">natureza</option>
         </select></div>
-        <div class="field vibe"><label for="vibe">vibe?</label><select id="vibe"><option value="qualquer">qualquer vibe</option><option value="date">date</option><option value="natureza">natureza</option><option value="passeio">passeio</option><option value="cultura">cultura</option><option value="alternativo">alternativo</option><option value="ao ar livre">ao ar livre</option><option value="pet friendly">pet friendly</option><option value="acessível">acessível</option></select></div>
+        <div class="field vibe"><label for="vibe">característica?</label><select id="vibe">
+          <option value="qualquer">qualquer característica</option>
+          <option value="acessivel">acessível</option>
+          <option value="aceita-pets">aceita pets</option>
+          <option value="alternativo">alternativo</option>
+          <option value="ao-ar-livre">ao ar livre</option>
+          <option value="aventura">aventura / trilha</option>
+          <option value="bom-criancas">bom para crianças</option>
+          <option value="date">bom para date</option>
+          <option value="lgbtqia">lgbtqia+</option>
+          <option value="musica-vivo">música ao vivo</option>
+          <option value="opcao-vegana">opção vegana</option>
+          <option value="opcao-vegetariana">opção vegetariana</option>
+          <option value="familias">para famílias</option>
+          <option value="por-do-sol">pôr do sol</option>
+          <option value="tranquilo">tranquilo</option>
+          <option value="agua">água</option>
+        </select></div>
         <div class="field valor"><label for="preco">quanto?</label><select id="preco"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <button class="search-button">⌕ buscar</button>
       </div>
     </section>
 
     <nav class="category-strip" aria-label="categorias de lugares">
-      <button class="category-chip" data-category="cinemas" title="cinemas"><span class="emoji">🎬</span><span class="category-name">cinemas</span></button>
-      <button class="category-chip" data-category="teatros" title="teatros"><span class="emoji">🎭</span><span class="category-name">teatros</span></button>
-      <button class="category-chip" data-category="bares-e-noite" title="bares e noite"><span class="emoji">🍻</span><span class="category-name">bares e noite</span></button>
-      <button class="category-chip" data-category="cachoeiras" title="cachoeiras"><span class="emoji">💦</span><span class="category-name">cachoeiras</span></button>
-      <button class="category-chip" data-category="parques-aquaticos" title="parques aquáticos"><span class="emoji">🏊</span><span class="category-name">parques aquáticos</span></button>
-      <button class="category-chip" data-category="cidades-chapada" title="cidades & chapada"><span class="emoji">⛰️</span><span class="category-name">cidades & chapada</span></button>
-      <button class="category-chip" data-category="cultura e museus" title="cultura e museus"><span class="emoji">🏛️</span><span class="category-name">cultura e museus</span></button>
-      <button class="category-chip" data-category="parques e natureza" title="parques e natureza"><span class="emoji">🌳</span><span class="category-name">parques e natureza</span></button>
-      <button class="category-chip" data-category="arquitetura" title="arquitetura"><span class="emoji">🏙️</span><span class="category-name">arquitetura</span></button>
-      <button class="category-chip" data-category="cafés" title="cafés"><span class="emoji">☕</span><span class="category-name">cafés</span></button>
-      <button class="category-chip" data-category="restaurantes" title="restaurantes"><span class="emoji">🍽️</span><span class="category-name">restaurantes</span></button>
-      <button class="category-chip" data-category="feiras e garimpo" title="feiras e garimpo"><span class="emoji">🛍️</span><span class="category-name">feiras e garimpo</span></button>
-      <button class="category-chip" data-category="experiências" title="experiências"><span class="emoji">🎟️</span><span class="category-name">experiências</span></button>
-      <button class="category-chip" data-category="passeios locais" title="passeios locais"><span class="emoji">📍</span><span class="category-name">passeios locais</span></button>
-      <button class="category-chip" data-category="bate-volta" title="bate-volta"><span class="emoji">🚗</span><span class="category-name">bate-volta</span></button>
+      <button class="category-chip" data-category="cultura-historia" title="cultura & história"><span class="emoji">🏛️</span><span class="category-name">cultura & história</span></button>
+      <button class="category-chip" data-category="natureza" title="natureza"><span class="emoji">🌳</span><span class="category-name">natureza</span></button>
+      <button class="category-chip" data-category="arquitetura-turismo" title="arquitetura & pontos turísticos"><span class="emoji">🏙️</span><span class="category-name">arquitetura & pontos turísticos</span></button>
+      <button class="category-chip" data-category="comer" title="comer"><span class="emoji">🍽️</span><span class="category-name">comer</span></button>
+      <button class="category-chip" data-category="bares-noite" title="bares & noite"><span class="emoji">🍸</span><span class="category-name">bares & noite</span></button>
+      <button class="category-chip" data-category="cinema-teatro" title="cinema & teatro"><span class="emoji">🎬</span><span class="category-name">cinema & teatro</span></button>
+      <button class="category-chip" data-category="feiras-compras" title="feiras & compras"><span class="emoji">🛍️</span><span class="category-name">feiras & compras</span></button>
+      <button class="category-chip" data-category="lazer-experiencias" title="lazer & experiências"><span class="emoji">🎟️</span><span class="category-name">lazer & experiências</span></button>
+      <button class="category-chip" data-category="cidades-destinos" title="cidades & destinos"><span class="emoji">🏘️</span><span class="category-name">cidades & destinos</span></button>
     </nav>
 
     <section><div class="results-head"><h2 class="section-title">pra conhecer</h2><span id="result-count" class="result-count">carregando…</span></div><div id="results" class="cards-grid"><div class="empty-state">carregando lugares…</div></div><div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div></section>
