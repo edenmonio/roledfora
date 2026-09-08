@@ -24,9 +24,7 @@
   min-width: 0;
 }
 
-.card h3 {
-  overflow-wrap: anywhere;
-}
+.card h3 { overflow-wrap: anywhere; }
 
 .card-meta {
   display: grid;
@@ -47,9 +45,7 @@
   line-height: 1.45;
 }
 
-.actions {
-  align-items: center;
-}
+.actions { align-items: center; }
 
 .actions a.primary-link,
 .actions .primary-link {
@@ -62,12 +58,45 @@
   box-shadow: inset 0 0 0 1px rgba(71,55,46,.08);
 }
 
-.actions .feedback.active:first-of-type {
-  background: #ffe0e7;
+.actions .feedback.active { background: #ffe0e7; }
+
+.save-btn {
+  width: 40px;
+  min-width: 40px;
+  padding: 9px !important;
+  font-size: 1.05rem !important;
+  opacity: .58;
 }
 
+.save-btn:hover { opacity: 1; }
+
 .save-btn.active {
+  opacity: 1;
   background: #fff0bd !important;
+}
+
+.status-btn.active {
+  background: #dff2e0 !important;
+}
+
+.category-chip:hover,
+.category-chip:focus-visible {
+  width: 220px !important;
+}
+
+.category-chip:hover .category-name,
+.category-chip:focus-visible .category-name {
+  max-width: 175px !important;
+}
+
+.tag-chip:hover,
+.tag-chip:focus-visible {
+  width: 200px !important;
+}
+
+.tag-chip:hover .tag-name,
+.tag-chip:focus-visible .tag-name {
+  max-width: 158px !important;
 }
 
 .empty-state {
@@ -100,31 +129,26 @@
 .show-more:hover { transform: translateY(-1px); }
 
 .compact-card p { color: #625a55; }
-
-.route-card .desc {
-  min-height: 68px;
-}
+.route-card .desc { min-height: 68px; }
+.saved-section + .saved-section,
+.fresh-block + .fresh-block { margin-top: 46px; }
 
 @media (max-width: 620px) {
-  .results-head {
-    align-items: flex-start;
-  }
-
-  .result-count {
-    font-size: .68rem;
-  }
-
-  .card-meta p {
-    font-size: .82rem;
-  }
-
-  .actions {
-    gap: 7px;
-  }
-
+  .results-head { align-items: flex-start; }
+  .result-count { font-size: .68rem; }
+  .card-meta p { font-size: .82rem; }
+  .actions { gap: 7px; }
   .actions button,
   .actions a {
     padding: 9px 11px;
     font-size: .8rem;
   }
+  .save-btn {
+    width: 38px;
+    min-width: 38px;
+  }
+  .category-chip:hover,
+  .category-chip:focus-visible { width: 46px !important; }
+  .tag-chip:hover,
+  .tag-chip:focus-visible { width: 36px !important; }
 }
