@@ -45,7 +45,7 @@
     const cat = categorySelect()?.value || 'qualquer';
     const feature = featureSelect()?.value || 'qualquer';
     document.querySelectorAll('.category-chip').forEach(chip => {
-      const matchesFeature = chip.dataset.tag && chip.dataset.tag === feature;
+      const matchesFeature = page === 'eventos' && chip.dataset.tag && chip.dataset.tag === feature;
       const matchesCategory = !chip.dataset.tag && chip.dataset.category === cat;
       if (matchesFeature || matchesCategory) chip.classList.add('active');
     });
@@ -54,11 +54,19 @@
   function selectChip(chip) {
     const category = categorySelect();
     const feature = featureSelect();
-    if (!category || !feature) return;
+    if (!category) return;
 
     const wasActive = chip.classList.contains('active');
     clearActiveChips();
 
+    if (page === 'lugares') {
+      category.value = wasActive ? 'qualquer' : (chip.dataset.category || 'qualquer');
+      if (!wasActive) chip.classList.add('active');
+      syncResults();
+      return;
+    }
+
+    if (!feature) return;
     if (wasActive) {
       category.value = 'qualquer';
       feature.value = 'qualquer';
