@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>roledfora — contato</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./site-polish.js" defer></script>
+</head>
+<body data-page="contato">
+  <main class="container">
+    <header class="site-header">
+      <h1 class="site-title">roledfora</h1>
+      <p class="site-subtitle">o que tem pra fazer por aí?</p>
+    </header>
+
+    <nav class="main-nav" aria-label="páginas principais">
+      <a href="./index.html">rolês</a>
+      <a href="./lugares.html">conhecer</a>
+      <a href="./profissionais.html">profissionais</a>
+    </nav>
+    <nav class="utility-nav" aria-label="ferramentas">
+      <a href="./novidades.html">✨ novidades</a>
+      <a href="./salvos.html">⭐ salvos</a>
+      <a href="./roteiros.html">↝ roteiros</a>
+      <a class="active" href="./contato.html">✉ contato</a>
+    </nav>
+
+    <section class="page-intro">
+      <h2>manda uma indicação</h2>
+      <p>conhece um rolê, lugar ou profissional do df e entorno que devia estar aqui? também dá pra mandar correções de informações que já aparecem no site.</p>
+    </section>
+
+    <form class="contact-form" action="https://formsubmit.co/roledfora@gmail.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="nova indicação — roledfora" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_next" value="https://edenmonio.github.io/roledfora/obrigado.html" />
+      <input class="contact-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+
+      <div class="contact-grid">
+        <div class="contact-field">
+          <label for="tipo-indicacao">o que você quer mandar?</label>
+          <select id="tipo-indicacao" name="tipo_da_indicacao" required>
+            <option value="">escolha uma opção</option>
+            <option value="rolê / evento">rolê / evento</option>
+            <option value="lugar">lugar</option>
+            <option value="profissional">profissional</option>
+            <option value="correção / atualização">correção / atualização</option>
+            <option value="outro">outro</option>
+          </select>
+        </div>
+
+        <div class="contact-field">
+          <label for="nome-indicacao">nome</label>
+          <input id="nome-indicacao" name="nome_da_indicacao" type="text" placeholder="nome do rolê, lugar ou profissional" required />
+        </div>
+
+        <div class="contact-field">
+          <label for="onde-indicacao">onde?</label>
+          <input id="onde-indicacao" name="onde" type="text" placeholder="ra no df ou cidade do entorno" required />
+        </div>
+
+        <div class="contact-field">
+          <label for="fonte-indicacao">link / @ / fonte</label>
+          <input id="fonte-indicacao" name="link_ou_fonte" type="text" placeholder="instagram, site, sympla, post, perfil..." required />
+        </div>
+
+        <div class="contact-field contact-wide">
+          <label for="data-indicacao">data e horário <span>opcional</span></label>
+          <input id="data-indicacao" name="data_e_horario" type="text" placeholder="se for evento, pode colocar aqui" />
+        </div>
+
+        <div class="contact-field contact-wide">
+          <label for="detalhes-indicacao">me conta mais</label>
+          <textarea id="detalhes-indicacao" name="detalhes" rows="6" placeholder="o que é, por que vale entrar, preço se souber, informações importantes..." required></textarea>
+        </div>
+
+        <div class="contact-field">
+          <label for="nome-pessoa">seu nome <span>opcional</span></label>
+          <input id="nome-pessoa" name="nome_de_quem_enviou" type="text" placeholder="como quer ser chamado?" />
+        </div>
+
+        <div class="contact-field">
+          <label for="email-pessoa">seu e-mail <span>opcional</span></label>
+          <input id="email-pessoa" name="email" type="email" placeholder="se eu precisar perguntar alguma coisa" />
+        </div>
+
+        <div class="contact-field contact-wide">
+          <label for="anexo-indicacao">imagem ou cartaz <span>opcional</span></label>
+          <input id="anexo-indicacao" name="anexo" type="file" accept="image/png,image/jpeg,image/webp,application/pdf" />
+        </div>
+      </div>
+
+      <p class="contact-note">só entram indicações do df e entorno. antes de publicar, as informações são conferidas. não envie dados pessoais ou sensíveis de outras pessoas.</p>
+      <button class="contact-submit" type="submit">enviar indicação</button>
+    </form>
+  </main>
+</body>
+</html>
