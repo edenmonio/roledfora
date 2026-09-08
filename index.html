@@ -57,7 +57,7 @@
       border-radius: 28px;
       padding: 22px;
       box-shadow: 0 12px 30px rgba(71,55,46,.10);
-      margin-bottom: 46px;
+      margin-bottom: 26px;
     }
 
     .search-title {
@@ -136,6 +136,63 @@
       opacity: .9;
     }
 
+    .category-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+      margin: 0 0 42px;
+    }
+
+    .category-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0;
+      width: 46px;
+      height: 46px;
+      padding: 0 13px;
+      overflow: hidden;
+      border: 0;
+      border-radius: 999px;
+      background: white;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07);
+      font: 700 .78rem 'Manrope', Arial, sans-serif;
+      color: #302d2b;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: width .22s ease, gap .22s ease, transform .16s ease;
+    }
+
+    .category-chip .emoji {
+      width: 20px;
+      min-width: 20px;
+      text-align: center;
+      font-size: 1.18rem;
+      line-height: 1;
+    }
+
+    .category-chip .category-name {
+      opacity: 0;
+      max-width: 0;
+      overflow: hidden;
+      transition: opacity .16s ease, max-width .22s ease;
+    }
+
+    .category-chip:hover,
+    .category-chip:focus-visible {
+      width: 178px;
+      gap: 8px;
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .category-chip:hover .category-name,
+    .category-chip:focus-visible .category-name {
+      opacity: 1;
+      max-width: 140px;
+    }
+
     .section-title {
       font-size: 1.35rem;
       margin: 0 0 16px;
@@ -201,6 +258,20 @@
       .field { min-height: 66px; }
       .field select { font-size: .86rem; }
       .search-button { grid-column: auto; }
+      .category-strip { justify-content: flex-start; }
+      .category-chip,
+      .category-chip:hover,
+      .category-chip:focus-visible {
+        width: 46px;
+        gap: 0;
+        transform: none;
+      }
+      .category-chip .category-name,
+      .category-chip:hover .category-name,
+      .category-chip:focus-visible .category-name {
+        opacity: 0;
+        max-width: 0;
+      }
     }
   </style>
 </head>
@@ -291,13 +362,25 @@
       <button class="more-filters">+ mais filtros</button>
     </section>
 
+    <nav class="category-strip" aria-label="categorias de lugares">
+      <button class="category-chip" title="cultura e museus"><span class="emoji">🏛️</span><span class="category-name">cultura e museus</span></button>
+      <button class="category-chip" title="parques e natureza"><span class="emoji">🌳</span><span class="category-name">parques e natureza</span></button>
+      <button class="category-chip" title="arquitetura"><span class="emoji">🏙️</span><span class="category-name">arquitetura</span></button>
+      <button class="category-chip" title="cafés"><span class="emoji">☕</span><span class="category-name">cafés</span></button>
+      <button class="category-chip" title="restaurantes"><span class="emoji">🍽️</span><span class="category-name">restaurantes</span></button>
+      <button class="category-chip" title="feiras e garimpo"><span class="emoji">🛍️</span><span class="category-name">feiras e garimpo</span></button>
+      <button class="category-chip" title="noite"><span class="emoji">🌙</span><span class="category-name">noite</span></button>
+      <button class="category-chip" title="experiências"><span class="emoji">🎟️</span><span class="category-name">experiências</span></button>
+      <button class="category-chip" title="bate-volta"><span class="emoji">🚗</span><span class="category-name">bate-volta</span></button>
+    </nav>
+
     <section>
       <h2 class="section-title">pra mim</h2>
       <article class="card">
         <h2>feira independente x</h2>
         <p>sábado, 12 de setembro • 15h</p>
-        <p>valparaíso de goiás</p>
-        <p>grátis</p>
+        <p>📍 valparaíso de goiás</p>
+        <p>💰 grátis</p>
 
         <div class="tags">
           <span class="tag">feira</span>
@@ -310,8 +393,8 @@
 
         <div class="actions">
           <button>ver detalhes</button>
-          <button>gostei</button>
-          <button>não gostei</button>
+          <button>❤️ gostei</button>
+          <button>👎 não gostei</button>
         </div>
       </article>
     </section>
