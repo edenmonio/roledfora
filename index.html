@@ -3,366 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>roledfora</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
-
-    @font-face {
-      font-family: 'Revista';
-      src: url('./REVISTA.ttf') format('truetype');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: 'Manrope', Arial, sans-serif;
-      background: #fffaf7;
-      color: #222;
-    }
-
-    .container {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 36px 0 64px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 34px;
-      overflow: hidden;
-    }
-
-    h1 {
-      font-family: 'Revista', 'Manrope', Arial, sans-serif;
-      font-size: 120pt;
-      font-weight: 400;
-      line-height: .78;
-      letter-spacing: -0.045em;
-      margin: 0;
-      white-space: nowrap;
-    }
-
-    header p {
-      margin: 24px 0 0;
-      font-size: 1.08rem;
-      font-weight: 600;
-    }
-
-    .search-panel {
-      background: #f2e9e4;
-      border-radius: 28px;
-      padding: 22px;
-      box-shadow: 0 12px 30px rgba(71,55,46,.10);
-      margin-bottom: 26px;
-    }
-
-    .search-title {
-      color: #3e3834;
-      font-size: .94rem;
-      font-weight: 800;
-      margin: 0 0 13px 4px;
-    }
-
-    .search-row {
-      display: grid;
-      grid-template-columns: 1.35fr 1fr 1fr 1.15fr 1.25fr auto;
-      gap: 8px;
-      align-items: stretch;
-    }
-
-    .field {
-      position: relative;
-      min-width: 0;
-      background: white;
-      border-radius: 14px;
-      min-height: 72px;
-      padding: 10px 12px 9px;
-      border-top: 5px solid var(--accent);
-      text-align: left;
-    }
-
-    .field label {
-      display: block;
-      font-size: .68rem;
-      font-weight: 700;
-      color: #777;
-      margin-bottom: 3px;
-    }
-
-    .field select {
-      width: 100%;
-      min-width: 0;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      font: 600 .82rem 'Manrope', Arial, sans-serif;
-      color: #222;
-      padding: 0 16px 0 0;
-      cursor: pointer;
-    }
-
-    .local { --accent: #75bfff; }
-    .data { --accent: #ff91b9; }
-    .valor { --accent: #85d978; }
-    .horario { --accent: #ffb65f; }
-    .tipo { --accent: #b69aff; }
-
-    .search-button {
-      border: 0;
-      border-radius: 999px;
-      padding: 0 22px;
-      min-height: 72px;
-      font: 800 .92rem 'Manrope', Arial, sans-serif;
-      background: #ff5d4a;
-      color: white;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .search-button:hover { transform: translateY(-1px); }
-
-    .more-filters {
-      display: inline-block;
-      margin-top: 14px;
-      border: 0;
-      background: transparent;
-      color: #4f4742;
-      font: 700 .82rem 'Manrope', Arial, sans-serif;
-      cursor: pointer;
-      opacity: .9;
-    }
-
-    .category-strip {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 9px;
-      margin: 0 0 42px;
-    }
-
-    .category-chip {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 0;
-      width: 46px;
-      height: 46px;
-      padding: 0 13px;
-      overflow: hidden;
-      border: 0;
-      border-radius: 999px;
-      background: white;
-      box-shadow: 0 4px 14px rgba(0,0,0,.07);
-      font: 700 .78rem 'Manrope', Arial, sans-serif;
-      color: #302d2b;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: width .22s ease, gap .22s ease, transform .16s ease;
-    }
-
-    .category-chip .emoji {
-      width: 20px;
-      min-width: 20px;
-      text-align: center;
-      font-size: 1.18rem;
-      line-height: 1;
-    }
-
-    .category-chip .category-name {
-      opacity: 0;
-      max-width: 0;
-      overflow: hidden;
-      transition: opacity .16s ease, max-width .22s ease;
-    }
-
-    .category-chip:hover,
-    .category-chip:focus-visible {
-      width: 178px;
-      gap: 8px;
-      transform: translateY(-1px);
-      outline: none;
-    }
-
-    .category-chip:hover .category-name,
-    .category-chip:focus-visible .category-name {
-      opacity: 1;
-      max-width: 140px;
-    }
-
-    .section-title {
-      font-size: 1.35rem;
-      margin: 0 0 16px;
-      font-weight: 800;
-    }
-
-    .card {
-      background: white;
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 6px 24px rgba(0,0,0,.08);
-    }
-
-    .card h2 {
-      margin: 0 0 12px;
-      font-size: 1.55rem;
-    }
-
-    .card p { margin: 7px 0; }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 16px 0;
-    }
-
-    .tag {
-      background: #f1f1f1;
-      border-radius: 999px;
-      padding: 7px 11px;
-      font-size: .88rem;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .actions button {
-      border: 0;
-      border-radius: 12px;
-      padding: 10px 14px;
-      font: 700 .9rem 'Manrope', Arial, sans-serif;
-      cursor: pointer;
-    }
-
-    @media (max-width: 1050px) {
-      h1 { font-size: 96pt; }
-      .search-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .search-button { grid-column: 1 / -1; min-height: 54px; }
-      .field select { font-size: .84rem; }
-    }
-
-    @media (max-width: 620px) {
-      .container { width: min(100% - 22px, 1180px); padding-top: 26px; }
-      h1 { font-size: 56pt; }
-      header p { margin-top: 16px; font-size: .98rem; }
-      .search-panel { padding: 16px; border-radius: 22px; }
-      .search-row { grid-template-columns: 1fr; }
-      .field { min-height: 66px; }
-      .field select { font-size: .86rem; }
-      .search-button { grid-column: auto; }
-      .category-strip { justify-content: flex-start; }
-      .category-chip,
-      .category-chip:hover,
-      .category-chip:focus-visible {
-        width: 46px;
-        gap: 0;
-        transform: none;
-      }
-      .category-chip .category-name,
-      .category-chip:hover .category-name,
-      .category-chip:focus-visible .category-name {
-        opacity: 0;
-        max-width: 0;
-      }
-    }
-  </style>
+  <title>roledfora — eventos</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <main class="container">
-    <header>
-      <h1>roledfora</h1>
-      <p>o que tem pra fazer por aí?</p>
+    <header class="site-header">
+      <h1 class="site-title">roledfora</h1>
+      <p class="site-subtitle">o que tem pra fazer por aí?</p>
     </header>
 
-    <section class="search-panel" aria-label="pesquisar rolês">
+    <nav class="main-nav" aria-label="páginas principais">
+      <a class="active" href="./index.html">eventos</a>
+      <a href="./lugares.html">lugares</a>
+      <a href="./indicacoes.html">indicações</a>
+    </nav>
+
+    <section class="search-panel" aria-label="pesquisar eventos">
       <p class="search-title">encontre seu próximo rolê</p>
-
       <div class="search-row">
-        <div class="field local">
-          <label for="local">onde?</label>
-          <select id="local">
-            <option>qualquer lugar</option>
-            <option>brasília</option>
-            <option>entorno sul</option>
-            <option>entorno norte</option>
-            <option>valparaíso de goiás</option>
-            <option>luziânia</option>
-            <option>planaltina de goiás</option>
-            <option>águas lindas de goiás</option>
-          </select>
-        </div>
-
-        <div class="field data">
-          <label for="data">quando?</label>
-          <select id="data">
-            <option>qualquer dia</option>
-            <option>hoje</option>
-            <option>amanhã</option>
-            <option>fim de semana</option>
-            <option>próximos 7 dias</option>
-            <option>este mês</option>
-          </select>
-        </div>
-
-        <div class="field valor">
-          <label for="valor">quanto?</label>
-          <select id="valor">
-            <option>qualquer valor</option>
-            <option>grátis</option>
-            <option>até r$ 20</option>
-            <option>até r$ 50</option>
-            <option>até r$ 100</option>
-          </select>
-        </div>
-
-        <div class="field horario">
-          <label for="horario">horário?</label>
-          <select id="horario">
-            <option>qualquer horário</option>
-            <option>manhã</option>
-            <option>tarde</option>
-            <option>noite</option>
-            <option>madrugada</option>
-          </select>
-        </div>
-
-        <div class="field tipo">
-          <label for="tipo">tipo de rolê?</label>
-          <select id="tipo">
-            <option>qualquer rolê</option>
-            <option>festa</option>
-            <option>show</option>
-            <option>barzinho</option>
-            <option>karaokê</option>
-            <option>feira</option>
-            <option>brechó</option>
-            <option>exposição</option>
-            <option>cinema</option>
-            <option>teatro</option>
-            <option>lgbtqia+</option>
-            <option>gastronomia</option>
-            <option>nerd/geek</option>
-            <option>ao ar livre</option>
-            <option>workshop/curso</option>
-            <option>universitário</option>
-          </select>
-        </div>
-
+        <div class="field local"><label for="local">onde?</label><select id="local"><option>qualquer lugar</option><option>brasília</option><option>entorno sul</option><option>entorno norte</option><option>valparaíso de goiás</option><option>luziânia</option><option>planaltina de goiás</option><option>águas lindas de goiás</option></select></div>
+        <div class="field data"><label for="data">quando?</label><select id="data"><option>qualquer dia</option><option>hoje</option><option>amanhã</option><option>fim de semana</option><option>próximos 7 dias</option><option>este mês</option></select></div>
+        <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option>qualquer valor</option><option>grátis</option><option>até r$ 20</option><option>até r$ 50</option><option>até r$ 100</option></select></div>
+        <div class="field horario"><label for="horario">horário?</label><select id="horario"><option>qualquer horário</option><option>manhã</option><option>tarde</option><option>noite</option><option>madrugada</option></select></div>
+        <div class="field tipo"><label for="tipo">tipo de rolê?</label><select id="tipo"><option>qualquer rolê</option><option>festa</option><option>show</option><option>barzinho</option><option>karaokê</option><option>feira</option><option>brechó</option><option>exposição</option><option>cinema</option><option>teatro</option><option>lgbtqia+</option><option>gastronomia</option><option>nerd/geek</option><option>ao ar livre</option><option>workshop/curso</option><option>universitário</option></select></div>
         <button class="search-button">⌕ buscar</button>
       </div>
-
       <button class="more-filters">+ mais filtros</button>
     </section>
 
-    <nav class="category-strip" aria-label="categorias de lugares">
+    <nav class="category-strip" aria-label="categorias">
       <button class="category-chip" title="cultura e museus"><span class="emoji">🏛️</span><span class="category-name">cultura e museus</span></button>
       <button class="category-chip" title="parques e natureza"><span class="emoji">🌳</span><span class="category-name">parques e natureza</span></button>
       <button class="category-chip" title="arquitetura"><span class="emoji">🏙️</span><span class="category-name">arquitetura</span></button>
@@ -377,25 +47,13 @@
     <section>
       <h2 class="section-title">pra mim</h2>
       <article class="card">
+        <span class="card-kind">evento</span>
         <h2>feira independente x</h2>
         <p>sábado, 12 de setembro • 15h</p>
         <p>📍 valparaíso de goiás</p>
         <p>💰 grátis</p>
-
-        <div class="tags">
-          <span class="tag">feira</span>
-          <span class="tag">arte</span>
-          <span class="tag">gastronomia</span>
-          <span class="tag">lgbtqia+</span>
-          <span class="tag">pet friendly</span>
-          <span class="tag">ao ar livre</span>
-        </div>
-
-        <div class="actions">
-          <button>ver detalhes</button>
-          <button>❤️ gostei</button>
-          <button>👎 não gostei</button>
-        </div>
+        <div class="tags"><span class="tag">feira</span><span class="tag">arte</span><span class="tag">gastronomia</span><span class="tag">lgbtqia+</span><span class="tag">pet friendly</span><span class="tag">ao ar livre</span></div>
+        <div class="actions"><button>ver detalhes</button><button>❤️ gostei</button><button>👎 não gostei</button></div>
       </article>
     </section>
   </main>
