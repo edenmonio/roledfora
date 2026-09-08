@@ -115,7 +115,6 @@
 
     const entornoGroup = document.createElement('optgroup');
     entornoGroup.label = 'entorno';
-    entornoGroup.append(option('entorno','todo o entorno'));
     [...ENTORNO.entries()].sort((a,b) => a[1].localeCompare(b[1],'pt-BR')).forEach(([value,label]) => entornoGroup.append(option(value,label)));
     select.append(entornoGroup);
 
@@ -147,7 +146,7 @@
     let tries = 0;
     const mergeWhenReady = () => {
       try {
-        if (typeof state === 'undefined' || !Array.isArray(state.lugares) || !Array.isArray(state.eventos) || (!state.lugares.length && !state.eventos.length)) {
+        if (typeof state === 'undefined' || !Array.isArray(state.lugares) || !Array.isArray(state.eventos) || !state.lugares.length || !state.eventos.length) {
           if (tries++ < 100) setTimeout(mergeWhenReady,80);
           return;
         }
