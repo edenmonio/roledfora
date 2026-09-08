@@ -30,16 +30,40 @@
     catch { return true; }
   }
 
+  function priceBucket(item) {
+    const raw = `${item?.preco || ''}`;
+    const text = norm(raw);
+    if (item?.precoFaixa === 'gratis' || /gratis|gratuit|entrada livre|entrada franca/.test(text)) return 'gratis';
+
+    const values = [...raw.matchAll(/r\$\s*(\d{1,5}(?:[.,]\d{1,2})?)/gi)]
+      .map(match => Number(match[1].replace('.','').replace(',','.')))
+      .filter(Number.isFinite);
+    if (!values.length) return 'nao-informado';
+
+    const value = Math.min(...values);
+    if (value <= 20) return 'ate-20';
+    if (value <= 50) return 'ate-50';
+    if (value <= 100) return 'ate-100';
+    return 'acima-100';
+  }
+
+  function exactPriceMatch(item,value) {
+    if (!value || value === 'qualquer') return true;
+    return priceBucket(item) === value;
+  }
+
   function renderConhecer() {
     try {
       const local = document.querySelector('#onde')?.value || 'qualquer';
       const cat = document.querySelector('#categoria')?.value || 'qualquer';
+      const preco = document.querySelector('#preco')?.value || 'qualquer';
       const detail = new URLSearchParams(location.search).get('detalhe');
 
       const items = (state.lugares || []).filter(item =>
         inScope(item) &&
         cityMatch(item.cidade,local) &&
         (cat === 'qualquer' || (typeof canonicalPlaceCategory === 'function' && canonicalPlaceCategory(item) === cat)) &&
+        exactPriceMatch(item,preco) &&
         detailMatch(item,detail)
       );
       if (typeof renderList === 'function') renderList(items,'place');
