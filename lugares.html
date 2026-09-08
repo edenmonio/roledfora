@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>roledfora — conhecer</title>
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./browse.css" />
   <script src="./app.js" defer></script>
   <script src="./ui-fixes.js" defer></script>
   <script src="./site-polish.js" defer></script>
+  <script src="./browse.js" defer></script>
 </head>
 <body data-page="lugares">
   <main class="container">
@@ -17,55 +19,29 @@
 
     <section class="page-intro"><h2>lugares pra conhecer</h2><p>cultura, natureza, comida, noite, cinema, teatro, feiras e experiências pelo df e entorno.</p></section>
 
-    <section class="search-panel" aria-label="pesquisar lugares">
-      <p class="search-title">o que você quer conhecer?</p>
-      <div class="search-query-row">
-        <div class="field busca"><label for="q">buscar</label><input id="q" type="search" placeholder="nome, tipo, bairro ou palavra-chave" autocomplete="off" /></div>
-      </div>
-      <div class="search-row lugares-search">
+    <section class="search-panel" aria-label="filtrar lugares">
+      <p class="search-title">escolha por onde ou por valor</p>
+      <div class="search-row lugares-search simple-search">
         <div class="field local"><label for="onde">onde?</label><select id="onde"><option value="qualquer">qualquer lugar</option></select></div>
-        <div class="field tipo"><label for="categoria">o que fazer?</label><select id="categoria">
-          <option value="qualquer">qualquer coisa</option>
-          <option value="arquitetura-turismo">arquitetura & pontos turísticos</option>
-          <option value="bares-noite">bares & noite</option>
-          <option value="cidades-destinos">cidades & destinos</option>
-          <option value="cinema-teatro">cinema & teatro</option>
-          <option value="comer">comer</option>
-          <option value="cultura-historia">cultura & história</option>
-          <option value="feiras-compras">feiras & compras</option>
-          <option value="lazer-experiencias">lazer & experiências</option>
-          <option value="natureza">natureza</option>
-        </select></div>
-        <div class="field vibe"><label for="vibe">característica?</label><select id="vibe">
-          <option value="qualquer">qualquer característica</option>
-          <option value="aceita-pets">aceita pets</option>
-          <option value="acessivel">acessível</option>
-          <option value="agua">água</option>
-          <option value="alternativo">alternativo</option>
-          <option value="ao-ar-livre">ao ar livre</option>
-          <option value="aventura">aventura / trilha</option>
-          <option value="bom-criancas">bom para crianças</option>
-          <option value="date">bom para date</option>
-          <option value="sozinho">bom para ir sozinho</option>
-          <option value="estacionamento">estacionamento</option>
-          <option value="lgbtqia">lgbtqia+</option>
-          <option value="metro-proximo">metrô próximo</option>
-          <option value="musica-vivo">música ao vivo</option>
-          <option value="opcao-vegana">opção vegana</option>
-          <option value="opcao-vegetariana">opção vegetariana</option>
-          <option value="familias">para famílias</option>
-          <option value="por-do-sol">pôr do sol</option>
-          <option value="seguro-lgbt">seguro para lgbtqia+</option>
-          <option value="seguro-mulheres">seguro para mulheres</option>
-          <option value="tranquilo">tranquilo</option>
-        </select></div>
         <div class="field valor"><label for="preco">quanto?</label><select id="preco"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
-        <button class="search-button">⌕ buscar</button>
       </div>
-      <button class="clear-filters" type="button">limpar filtros</button>
+
+      <select id="categoria" class="technical-filter" aria-hidden="true" tabindex="-1">
+        <option value="qualquer">qualquer</option>
+        <option value="arquitetura-turismo">arquitetura & pontos turísticos</option>
+        <option value="bares-noite">bares & noite</option>
+        <option value="cidades-destinos">cidades & destinos</option>
+        <option value="cinema-teatro">cinema & teatro</option>
+        <option value="comer">comer</option>
+        <option value="cultura-historia">cultura & história</option>
+        <option value="feiras-compras">feiras & compras</option>
+        <option value="lazer-experiencias">lazer & experiências</option>
+        <option value="natureza">natureza</option>
+      </select>
+      <select id="vibe" class="technical-filter" aria-hidden="true" tabindex="-1"><option value="qualquer">qualquer</option></select>
     </section>
 
-    <nav class="category-strip" aria-label="categorias de lugares">
+    <nav class="category-strip" aria-label="tags de lugares">
       <button class="category-chip" data-category="cultura-historia" title="cultura & história"><span class="emoji">🏛️</span><span class="category-name">cultura & história</span></button>
       <button class="category-chip" data-category="natureza" title="natureza"><span class="emoji">🌳</span><span class="category-name">natureza</span></button>
       <button class="category-chip" data-category="arquitetura-turismo" title="arquitetura & pontos turísticos"><span class="emoji">🏙️</span><span class="category-name">arquitetura & pontos turísticos</span></button>
@@ -77,7 +53,11 @@
       <button class="category-chip" data-category="cidades-destinos" title="cidades & destinos"><span class="emoji">🏘️</span><span class="category-name">cidades & destinos</span></button>
     </nav>
 
-    <section class="search-results-section" hidden><div class="results-head"><h2 class="section-title">pra conhecer</h2><span id="result-count" class="result-count">0 resultados</span></div><div id="results" class="cards-grid"></div><div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div></section>
+    <section class="search-results-section" hidden>
+      <div class="results-head"><h2 class="section-title">pra conhecer</h2><span id="result-count" class="result-count">0 resultados</span></div>
+      <div id="results" class="cards-grid"></div>
+      <div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div>
+    </section>
   </main>
 </body>
 </html>
