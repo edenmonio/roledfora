@@ -7,7 +7,7 @@
 }
 
 .search-row.lugares-search.simple-search {
-  grid-template-columns: 1.35fr 1fr 1fr 1fr;
+  grid-template-columns: 1.35fr 1fr 1.15fr 1.15fr;
 }
 
 .event-search .caracteristica {
@@ -16,6 +16,10 @@
 
 .lugares-search .caracteristica {
   --accent: #ffb65f;
+}
+
+.lugares-search .estrutura {
+  --accent: #b69aff;
 }
 
 .category-chip.active {
