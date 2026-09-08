@@ -137,10 +137,13 @@
     if (!['eventos','lugares','novidades','salvos'].includes(page)) return;
     let extraPlaces = [], extraEvents = [];
     try {
-      [extraPlaces,extraEvents] = await Promise.all([
+      const [places7,places8,events5] = await Promise.all([
         fetchJson('./data/lugares-7.json').catch(() => []),
+        fetchJson('./data/lugares-8.json').catch(() => []),
         fetchJson('./data/eventos-5.json').catch(() => [])
       ]);
+      extraPlaces = [...places7,...places8];
+      extraEvents = events5;
     } catch {}
 
     let tries = 0;
