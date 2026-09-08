@@ -10,8 +10,12 @@
   grid-template-columns: 1.35fr 1fr 1fr 1fr;
 }
 
-.caracteristica {
+.event-search .caracteristica {
   --accent: #58c7b5;
+}
+
+.lugares-search .caracteristica {
+  --accent: #ffb65f;
 }
 
 .category-chip.active {
