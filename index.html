@@ -40,31 +40,39 @@
       <div class="search-row event-search simple-search">
         <div class="field local"><label for="local">onde?</label><select id="local"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
-        <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
+        <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">r$ 1–20</option><option value="ate-50">r$ 21–50</option><option value="ate-100">r$ 51–100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
         <div class="field caracteristica">
           <label for="caracteristica">vibe & público?</label>
           <select id="caracteristica">
             <option value="qualquer">qualquer vibe ou público</option>
-            <option value="alternativo">alternativo</option>
-            <option value="ao-ar-livre">ao ar livre</option>
-            <option value="bom-criancas">bom para crianças</option>
-            <option value="dancante">dançante</option>
-            <option value="lgbtqia">lgbtqia+</option>
-            <option value="musica-vivo">música ao vivo</option>
-            <option value="familias">para famílias</option>
-            <option value="tranquilo">tranquilo</option>
-            <option value="18mais">18+</option>
-            <option value="universitario">universitário</option>
+            <optgroup label="vibe">
+              <option value="alternativo">alternativo</option>
+              <option value="ao-ar-livre">ao ar livre</option>
+              <option value="dancante">dançante</option>
+              <option value="musica-vivo">música ao vivo</option>
+              <option value="tranquilo">tranquilo</option>
+            </optgroup>
+            <optgroup label="público">
+              <option value="bom-criancas">bom para crianças</option>
+              <option value="lgbtqia">lgbtqia+</option>
+              <option value="familias">para famílias</option>
+              <option value="18mais">18+</option>
+              <option value="universitario">universitário</option>
+            </optgroup>
           </select>
         </div>
         <div class="field acolhimento">
           <label for="acolhimento">acessibilidade & segurança?</label>
           <select id="acolhimento">
             <option value="qualquer">qualquer acessibilidade ou segurança</option>
-            <option value="acessivel">acessível</option>
-            <option value="seguro-lgbt">seguro para lgbtqia+</option>
-            <option value="seguro-mulheres">seguro para mulheres</option>
+            <optgroup label="acessibilidade">
+              <option value="acessivel">acessível</option>
+            </optgroup>
+            <optgroup label="segurança">
+              <option value="seguro-lgbt">seguro para lgbtqia+</option>
+              <option value="seguro-mulheres">seguro para mulheres</option>
+            </optgroup>
           </select>
         </div>
       </div>
