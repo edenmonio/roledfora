@@ -8,7 +8,6 @@
   ]);
   const SAFE_WOMEN = new Set(['seguro para mulheres','ambiente seguro para mulheres','espaco seguro para mulheres','safe space mulheres','safe space para mulheres']);
   const SAFE_LGBT = new Set(['seguro para lgbt','seguro para lgbtqia+','ambiente seguro lgbt','ambiente seguro para lgbtqia+','espaco seguro lgbt','espaco seguro para lgbtqia+','safe space lgbt','safe space lgbtqia+']);
-  const STRONG_CAR_ACCESS = /carro facilita|carro recomendado|acesso de carro|acesso somente (?:por|de) carro|somente de carro|dificil acesso (?:por|de) transporte publico|sem transporte publico|nao ha transporte publico|transporte publico limitado|ultimo trecho sem onibus|trecho final sem transporte publico|acesso somente por estrada/;
 
   const tagSet = item => new Set((item?.tags || []).map(norm));
   const hasExplicit = (tags,set) => [...tags].some(tag => set.has(tag));
@@ -30,9 +29,26 @@
     return c === v;
   }
 
+  function priceBucket(item) {
+    const raw = `${item?.preco || ''}`;
+    const text = norm(raw);
+    if (item?.precoFaixa === 'gratis' || /gratis|gratuit|entrada livre|entrada franca/.test(text)) return 'gratis';
+
+    const values = [...raw.matchAll(/r\$\s*(\d{1,5}(?:[.,]\d{1,2})?)/gi)]
+      .map(match => Number(match[1].replace('.','').replace(',','.')))
+      .filter(Number.isFinite);
+    if (!values.length) return 'nao-informado';
+
+    const value = Math.min(...values);
+    if (value <= 20) return 'ate-20';
+    if (value <= 50) return 'ate-50';
+    if (value <= 100) return 'ate-100';
+    return 'acima-100';
+  }
+
   function exactPriceMatch(item,value) {
     if (!value || value === 'qualquer') return true;
-    return (item?.precoFaixa || 'nao-informado') === value;
+    return priceBucket(item) === value;
   }
 
   function characteristicMatch(item,value) {
@@ -43,25 +59,18 @@
     if (value === 'aceita-pets') return tags.has('pet friendly') || tags.has('aceita pets');
     if (value === 'alternativo') return tags.has('alternativo');
     if (value === 'ao-ar-livre') return tags.has('ao ar livre');
-    if (value === 'aventura') return ['aventura','trilha','trilhas','arvorismo','escalada','tirolesa'].some(tag => tags.has(tag));
-    if (value === 'bicicleta') return /bicicletario|ciclovia/.test(access);
     if (value === 'bom-criancas') return tags.has('bom para criancas') || tags.has('kid friendly') || tags.has('infantil');
     if (value === 'date') return tags.has('date') || tags.has('date diferente');
     if (value === 'sozinho') return tags.has('sozinho') || tags.has('solo') || tags.has('bom pra ir sozinho');
-    if (value === 'dancante') return tags.has('dancante') || tags.has('balada');
-    if (value === 'estacionamento') return tags.has('estacionamento') || access.includes('estacionamento');
     if (value === 'lgbtqia') return tags.has('lgbtqia+') || tags.has('lgbtqiapn+') || tags.has('lgbt');
-    if (value === 'carro-recomendado') return STRONG_CAR_ACCESS.test(access);
-    if (value === 'metro-perto') return /metro proximo|perto do metro|proximo a(?:o)? metro/.test(access);
-    if (value === 'musica-vivo') return tags.has('musica ao vivo');
-    if (value === 'onibus-perto') return /onibus perto|ponto de onibus|parada de onibus|proximo a(?:o)? ponto de onibus/.test(access);
-    if (value === 'opcao-vegana') return tags.has('opcao vegana') || tags.has('vegano') || tags.has('vegana');
-    if (value === 'opcao-vegetariana') return tags.has('opcao vegetariana') || tags.has('vegetariano') || tags.has('vegetariana');
     if (value === 'familias') return tags.has('familia') || tags.has('familiar') || tags.has('para familias');
-    if (value === 'seguro-lgbt') return hasExplicit(tags,SAFE_LGBT);
-    if (value === 'seguro-mulheres') return hasExplicit(tags,SAFE_WOMEN);
     if (value === 'tranquilo') return tags.has('tranquilo') || tags.has('calmo') || tags.has('relax');
     if (value === '18mais') return tags.has('18+') || tags.has('maiores de 18') || tags.has('adulto');
+    if (value === 'estacionamento') return tags.has('estacionamento') || access.includes('estacionamento');
+    if (value === 'metro-perto') return tags.has('metro perto') || tags.has('metro proximo') || /metro perto|metro proximo|perto do metro|estacao de metro/.test(access);
+    if (value === 'onibus-perto') return tags.has('onibus perto') || /onibus perto|ponto de onibus|parada de onibus|\bonibus\b/.test(access);
+    if (value === 'seguro-lgbt') return hasExplicit(tags,SAFE_LGBT);
+    if (value === 'seguro-mulheres') return hasExplicit(tags,SAFE_WOMEN);
     return true;
   }
 
@@ -103,9 +112,7 @@
     if (!places.length) return false;
 
     const zoom = places.find(item => item.id === 'web-36-zoom-gay-bar' || norm(item.nome) === 'zoom gay bar brasilia');
-    if (zoom) {
-      zoom.tags = [...new Set([...(zoom.tags || []),'18+'])];
-    }
+    if (zoom) zoom.tags = [...new Set([...(zoom.tags || []),'18+'])];
     return true;
   }
 
@@ -132,6 +139,10 @@
         if (item && isFree(item)) priceLine.textContent = '💰 grátis';
         else priceLine.remove();
       }
+
+      card.querySelectorAll('.tag-chip').forEach(chip => {
+        if (norm(chip.title) === 'melhor ir de carro') chip.remove();
+      });
     });
   }
 
