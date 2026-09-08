@@ -241,6 +241,38 @@
     document.querySelectorAll('.event-card,.place-card').forEach(polishCard);
   }
 
+  let extraEventsStarted = false;
+  async function loadExtraEvents() {
+    if (extraEventsStarted) return;
+    extraEventsStarted = true;
+    try {
+      const response = await fetch('./data/eventos-4.json', { cache:'no-store' });
+      if (!response.ok) throw new Error('eventos-4');
+      const extra = await response.json();
+      let tries = 0;
+
+      const mergeWhenReady = () => {
+        try {
+          if (typeof state === 'undefined' || !Array.isArray(state.eventos)) {
+            if (tries++ < 80) setTimeout(mergeWhenReady,100);
+            return;
+          }
+          const ids = new Set(state.eventos.map(item => item.id));
+          const fresh = extra.filter(item => item && item.id && !ids.has(item.id));
+          if (fresh.length) state.eventos.push(...fresh);
+          if (typeof refreshCurrent === 'function') refreshCurrent();
+          apply();
+        } catch {
+          if (tries++ < 80) setTimeout(mergeWhenReady,100);
+        }
+      };
+
+      mergeWhenReady();
+    } catch (err) {
+      console.warn('não foi possível carregar os rolês extras', err);
+    }
+  }
+
   let queued = false;
   const observer = new MutationObserver(() => {
     if (queued) return;
@@ -253,6 +285,7 @@
 
   document.addEventListener('DOMContentLoaded',() => {
     apply();
+    loadExtraEvents();
     observer.observe(document.body,{childList:true,subtree:true});
   });
 })();
