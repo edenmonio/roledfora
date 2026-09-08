@@ -7,6 +7,10 @@
   grid-template-columns: 1.35fr 1fr 1fr 1fr;
 }
 
+.caracteristica {
+  --accent: #ffc87a;
+}
+
 .category-chip.active {
   background: #eadfd8;
   box-shadow: 0 4px 14px rgba(0,0,0,.09), inset 0 0 0 1px rgba(71,55,46,.08);
