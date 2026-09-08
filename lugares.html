@@ -30,70 +30,22 @@
           <label for="onde">onde?</label>
           <select id="onde"><option value="qualquer">qualquer lugar</option></select>
         </div>
-        <div class="field valor">
-          <label for="preco">quanto?</label>
-          <select id="preco">
-            <option value="qualquer">qualquer valor</option>
-            <option value="gratis">grátis</option>
-            <option value="ate-20">r$ 1–20</option>
-            <option value="ate-50">r$ 21–50</option>
-            <option value="ate-100">r$ 51–100</option>
-            <option value="acima-100">acima de r$ 100</option>
-          </select>
-        </div>
-        <div class="field caracteristica">
-          <label for="vibe">vibe & público?</label>
-          <select id="vibe">
-            <option value="qualquer">qualquer vibe ou público</option>
-            <option value="alternativo">alternativo</option>
-            <option value="ao-ar-livre">ao ar livre</option>
-            <option value="bom-criancas">bom para crianças</option>
-            <option value="date">bom para date</option>
-            <option value="sozinho">bom para ir sozinho</option>
-            <option value="lgbtqia">lgbtqia+</option>
-            <option value="familias">para famílias</option>
-            <option value="tranquilo">tranquilo</option>
-            <option value="18mais">18+</option>
-          </select>
-        </div>
-        <div class="field estrutura">
-          <label for="estrutura">acesso & facilidades?</label>
-          <select id="estrutura">
-            <option value="qualquer">qualquer acesso ou facilidade</option>
-            <option value="acessivel">acessível</option>
-            <option value="aceita-pets">aceita pets</option>
-            <option value="estacionamento">estacionamento</option>
-            <option value="metro-perto">metrô perto</option>
-            <option value="onibus-perto">ônibus perto</option>
-            <option value="seguro-lgbt">seguro para lgbtqia+</option>
-            <option value="seguro-mulheres">seguro para mulheres</option>
+        <div class="field tipo">
+          <label for="categoria">o que fazer?</label>
+          <select id="categoria">
+            <option value="qualquer">qualquer tipo</option>
+            <option value="arquitetura-turismo">arquitetura & pontos turísticos</option>
+            <option value="bares-noite">bares & noite</option>
+            <option value="cinema-teatro">cinema & teatro</option>
+            <option value="comer">comer</option>
+            <option value="cultura-historia">cultura & história</option>
+            <option value="feiras-compras">feiras & compras</option>
+            <option value="lazer-experiencias">lazer & experiências</option>
+            <option value="natureza">natureza</option>
           </select>
         </div>
       </div>
-
-      <select id="categoria" class="technical-filter" aria-hidden="true" tabindex="-1">
-        <option value="qualquer">qualquer</option>
-        <option value="arquitetura-turismo">arquitetura & pontos turísticos</option>
-        <option value="bares-noite">bares & noite</option>
-        <option value="cinema-teatro">cinema & teatro</option>
-        <option value="comer">comer</option>
-        <option value="cultura-historia">cultura & história</option>
-        <option value="feiras-compras">feiras & compras</option>
-        <option value="lazer-experiencias">lazer & experiências</option>
-        <option value="natureza">natureza</option>
-      </select>
     </section>
-
-    <nav class="category-strip" aria-label="categorias de lugares">
-      <button class="category-chip" data-category="arquitetura-turismo" title="arquitetura & pontos turísticos"><span class="emoji">🏙️</span><span class="category-name">arquitetura & pontos turísticos</span></button>
-      <button class="category-chip" data-category="bares-noite" title="bares & noite"><span class="emoji">🍸</span><span class="category-name">bares & noite</span></button>
-      <button class="category-chip" data-category="cinema-teatro" title="cinema & teatro"><span class="emoji">🎬</span><span class="category-name">cinema & teatro</span></button>
-      <button class="category-chip" data-category="comer" title="comer"><span class="emoji">🍽️</span><span class="category-name">comer</span></button>
-      <button class="category-chip" data-category="cultura-historia" title="cultura & história"><span class="emoji">🏛️</span><span class="category-name">cultura & história</span></button>
-      <button class="category-chip" data-category="feiras-compras" title="feiras & compras"><span class="emoji">🛍️</span><span class="category-name">feiras & compras</span></button>
-      <button class="category-chip" data-category="lazer-experiencias" title="lazer & experiências"><span class="emoji">🎟️</span><span class="category-name">lazer & experiências</span></button>
-      <button class="category-chip" data-category="natureza" title="natureza"><span class="emoji">🌳</span><span class="category-name">natureza</span></button>
-    </nav>
 
     <section class="search-results-section" hidden>
       <div class="results-head"><h2 class="section-title">pra conhecer</h2><span id="result-count" class="result-count">0 resultados</span></div>
