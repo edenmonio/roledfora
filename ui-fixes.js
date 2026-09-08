@@ -1,49 +1,68 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  const rawTags = item => new Set((item.tags || []).map(norm));
+  const rawTags = item => new Set((item?.tags || []).map(norm));
 
-  const TAGS = {
-    festival:['festival','🎪'], cinema:['cinema','🎬'], teatro:['teatro','🎭'], exposicao:['exposição','🖼️'], drag:['drag','👑'],
-    show:['show','🎤'], festa:['festa','🎉'], karaoke:['karaokê','🎤'], palestra:['palestra','🗣️'], oficina:['oficina','🛠️'],
-    feira:['feira','🧺'], brecho:['brechó','👕'], corrida:['corrida','🏃'], games:['games','🎮'], rpg:['rpg','🎲'],
-    cafe:['café','☕'], restaurante:['restaurante','🍽️'], cachoeira:['cachoeira','💦'], trilha:['trilha','🥾'], parqueAquatico:['parque aquático','🏊'],
-    manha:['manhã','🌅'], tarde:['tarde','☀️'], noite:['noite','🌆'], madrugada:['madrugada','🌙'],
-    acessivel:['acessível','♿'], pets:['aceita pets','🐾'], criancas:['bom para crianças','🧸'], vegana:['opção vegana','🌱'], vegetariana:['opção vegetariana','🥬'],
-    familias:['para famílias','👨‍👩‍👧'], jovens:['jovens','🧑‍🎓'], maior18:['18+','🔞'], universitario:['universitário','🎓'], lgbt:['lgbtqia+','🌈'], maior60:['60+','👵'],
-    seguroMulheres:['seguro para mulheres','🛡️'], seguroLgbt:['seguro para lgbtqia+','🌈'],
-    date:['bom para date','💞'], sozinho:['bom para ir sozinho','👤'], tranquilo:['tranquilo','😌'], dancante:['dançante','💃'], alternativo:['alternativo','✨'],
-    arLivre:['ao ar livre','🌿'], musicaVivo:['música ao vivo','🎵'], agua:['água','💦'], porSol:['pôr do sol','🌇'],
-    metro:['metrô próximo','🚇'], bicicleta:['acesso de bicicleta','🚲'], estacionamento:['estacionamento','🅿️'], carro:['carro recomendado','🚗'],
-    cultura:['cultura','🏛️'], musica:['música','🎵'], arte:['arte','🎨'], humor:['humor','😂'], quadrinhos:['quadrinhos','💬'], tecnologia:['tecnologia','🤖'],
-    pop:['pop','🎧'], rock:['rock','🎸'], mpb:['mpb','🎵'], forro:['forró','🪗'], piseiro:['piseiro','💃'], arquitetura:['arquitetura','🏙️'],
-    historia:['história','🏛️'], museu:['museu','🏛️'], parque:['parque','🌳'], compras:['compras','🛍️'], cerrado:['cerrado','🌿'],
-    df:['df','📍'], entorno:['entorno','📍'], evento:['evento','📅'], lugar:['lugar','📌'], programacao:['programação','🗓️'], conhecer:['para conhecer','🧭'],
-    agenda:['agenda','🗓️'], descobrir:['descobrir','✨'], passeio:['passeio','🚶'], roteiro:['roteiro','↝'], combinar:['combinar lugares','🧩'], dia:['planejar o dia','🗓️'],
-    catFestas:['festas & noite','🎉'], catShows:['shows & música','🎵'], catCultura:['cultura & artes','🎭'], catFeiras:['feiras & brechós','🛍️'],
-    catGastronomia:['gastronomia','🍴'], catGeek:['geek','👾'], catCursos:['cursos & atividades','🧠'], catArLivre:['ao ar livre','🌿'],
-    catCulturaHistoria:['cultura & história','🏛️'], catNatureza:['natureza','🌳'], catArquitetura:['arquitetura & pontos turísticos','🏙️'], catComer:['comer','🍽️'],
-    catBares:['bares & noite','🍸'], catCinemaTeatro:['cinema & teatro','🎬'], catFeirasCompras:['feiras & compras','🛍️'], catLazer:['lazer & experiências','🎟️'], catDestinos:['cidades & destinos','🏘️']
-  };
-
-  const ENTORNO_SUL = new Set(['valparaiso de goias','novo gama','cidade ocidental','luziania']);
-  const ENTORNO_NORTE = new Set(['planaltina de goias','formosa','aguas lindas de goias','santo antonio do descoberto']);
+  const ENTORNO = new Map([
+    ['aguas lindas de goias','águas lindas de goiás'],
+    ['cidade ocidental','cidade ocidental'],
+    ['cocalzinho de goias','cocalzinho de goiás'],
+    ['cristalina','cristalina'],
+    ['formosa','formosa'],
+    ['luziania','luziânia'],
+    ['novo gama','novo gama'],
+    ['padre bernardo','padre bernardo'],
+    ['planaltina de goias','planaltina de goiás'],
+    ['santo antonio do descoberto','santo antônio do descoberto'],
+    ['valparaiso de goias','valparaíso de goiás']
+  ]);
+  const ENTORNO_SUL = new Set(['valparaiso de goias','novo gama','cidade ocidental','luziania','cristalina']);
+  const ENTORNO_NORTE = new Set(['planaltina de goias','formosa','aguas lindas de goias','santo antonio do descoberto','cocalzinho de goias','padre bernardo']);
 
   const SAFE_WOMEN = new Set(['seguro para mulheres','ambiente seguro para mulheres','espaco seguro para mulheres','safe space mulheres','safe space para mulheres']);
   const SAFE_LGBT = new Set(['seguro para lgbt','seguro para lgbtqia+','ambiente seguro lgbt','ambiente seguro para lgbtqia+','espaco seguro lgbt','espaco seguro para lgbtqia+','safe space lgbt','safe space lgbtqia+']);
 
-  function add(out,id) { if (id && TAGS[id] && !out.includes(id)) out.push(id); }
-  function hasExplicitSafety(item,set) { return [...rawTags(item)].some(tag => set.has(tag)); }
+  const TAGS = {
+    festival:['festival','🎪'], cinema:['cinema','🎬'], teatro:['teatro','🎭'], exposicao:['exposição','🖼️'], drag:['drag','👑'],
+    show:['show','🎤'], festa:['festa','🎉'], karaoke:['karaokê','🎙️'], palestra:['palestra','🗣️'], oficina:['oficina','🛠️'],
+    feira:['feira','🧺'], brecho:['brechó','👕'], corrida:['corrida','🏃'], games:['games','🎮'], rpg:['rpg','🎲'],
+    cafe:['café','☕'], restaurante:['restaurante','🍽️'], museu:['museu','🏺'], parque:['parque','🌳'], bar:['bar','🍸'],
+    cachoeira:['cachoeira','💦'], trilha:['trilha','🥾'], parqueAquatico:['parque aquático','🏊'],
+
+    alternativo:['alternativo','✨'], lgbt:['lgbtqia+','🌈'], date:['bom para date','💞'], sozinho:['bom para ir sozinho','👤'],
+    tranquilo:['tranquilo','😌'], dancante:['dançante','💃'], criancas:['bom para crianças','🧸'], familias:['para famílias','👨‍👩‍👧'],
+    maior18:['18+','🔞'], universitario:['universitário','🎓'], maior60:['60+','👵'],
+
+    arLivre:['ao ar livre','🌿'], musicaVivo:['música ao vivo','🎶'],
+
+    acessivel:['acessível','♿'], pets:['aceita pets','🐾'], onibus:['ônibus perto','🚌'], metro:['metrô perto','🚇'],
+    bicicleta:['bicicletário / ciclovia','🚲'], estacionamento:['estacionamento','🅿️'], carro:['melhor ir de carro','🚗'],
+    vegana:['opção vegana','🌱'], vegetariana:['opção vegetariana','🥬'],
+
+    seguroMulheres:['seguro para mulheres','🛡️'], seguroLgbt:['seguro para lgbtqia+','🏳️‍🌈'],
+
+    cultura:['cultura','🏛️'], musica:['música','🎵'], arte:['arte','🎨'], humor:['humor','😂'], quadrinhos:['quadrinhos','💬'],
+    tecnologia:['tecnologia','🤖'], pop:['pop','🎧'], rock:['rock','🎸'], mpb:['mpb','🎼'], forro:['forró','🪗'],
+    piseiro:['piseiro','👢'], arquitetura:['arquitetura','🏙️'], historia:['história','📜'], compras:['compras','🛍️'], cerrado:['cerrado','🌾']
+  };
+
+  const add = (out,id) => { if (id && TAGS[id] && !out.includes(id)) out.push(id); };
+  const hasExplicit = (item,set) => [...rawTags(item)].some(tag => set.has(tag));
+
+  function isDf(itemOrCity) {
+    const city = typeof itemOrCity === 'object' ? itemOrCity?.cidade : itemOrCity;
+    try { return typeof isDfCity === 'function' && isDfCity(city); }
+    catch { return false; }
+  }
+
   function isInScope(item) {
     const city = norm(item?.cidade);
-    if (!city) return false;
-    if (ENTORNO_SUL.has(city) || ENTORNO_NORTE.has(city)) return true;
-    try { return typeof isDfCity === 'function' && isDfCity(item.cidade); }
-    catch { return false; }
+    return isDf(item) || ENTORNO.has(city);
   }
 
   function subtypeTags(item,kind) {
     const tags = rawTags(item), cat = norm(item.categoria), text = norm(`${item.nome || ''} ${item.descricao || ''}`), out = [];
     const has = (...values) => values.some(v => tags.has(norm(v)) || cat === norm(v));
+
     if (has('festival') || text.includes('festival')) add(out,'festival');
     if (has('cinema') || text.includes('cinema')) add(out,'cinema');
     if (has('teatro') || text.includes('teatro')) add(out,'teatro');
@@ -59,9 +78,13 @@
     if (tags.has('corrida') || text.includes('corrida')) add(out,'corrida');
     if (tags.has('games') || tags.has('nerd/geek')) add(out,'games');
     if (tags.has('rpg')) add(out,'rpg');
+
     if (kind === 'place') {
       if (cat === 'cafes' || tags.has('cafe')) add(out,'cafe');
       if (cat === 'restaurantes' || tags.has('restaurante')) add(out,'restaurante');
+      if (tags.has('museu') || text.includes('museu')) add(out,'museu');
+      if (tags.has('parque') || text.includes('parque')) add(out,'parque');
+      if (tags.has('bar') || /\bbar\b/.test(text)) add(out,'bar');
       if (cat === 'cachoeiras' || tags.has('cachoeira') || tags.has('cachoeiras') || text.includes('cachoeira')) add(out,'cachoeira');
       if (tags.has('trilha') || tags.has('trilhas')) add(out,'trilha');
       if (cat === 'parques aquaticos' || tags.has('parque aquatico')) add(out,'parqueAquatico');
@@ -69,135 +92,89 @@
     return out;
   }
 
-  function timeTag(item) {
-    const text = norm(`${item.horario || ''} ${(item.tags || []).join(' ')}`);
-    if (/varios horarios|ao longo do dia|programacao diaria|atividades em varios horarios/.test(text)) return null;
-    if (text.includes('madrugada')) return 'madrugada';
-    const matches = [...(item.horario || '').matchAll(/\b(\d{1,2})(?::(\d{2}))?h/g)];
-    if (!matches.length) return null;
-    const hours = matches.map(m => Number(m[1]));
-    if (hours.some(h => h < 6) && hours.some(h => h >= 18)) return 'madrugada';
-    const h = hours[0];
-    if (h < 6) return 'madrugada';
-    if (h < 12) return 'manha';
-    if (h < 18) return 'tarde';
-    return 'noite';
-  }
+  function featureTags(item) {
+    const tags = rawTags(item), access = norm(item.acesso), out = [];
 
-  function featureTags(item,kind) {
-    const tags = rawTags(item), text = norm(`${item.acesso || ''} ${item.descricao || ''} ${(item.tags || []).join(' ')}`), out = [];
-    if (kind === 'event') add(out,timeTag(item));
     if (tags.has('acessivel')) add(out,'acessivel');
     if (tags.has('pet friendly') || tags.has('aceita pets')) add(out,'pets');
-    if (tags.has('bom para criancas') || tags.has('kid friendly')) add(out,'criancas');
+    if (tags.has('bom para criancas') || tags.has('kid friendly') || tags.has('infantil')) add(out,'criancas');
     if (tags.has('opcao vegana') || tags.has('vegano') || tags.has('vegana')) add(out,'vegana');
     if (tags.has('opcao vegetariana') || tags.has('vegetariano') || tags.has('vegetariana')) add(out,'vegetariana');
     if (tags.has('familia') || tags.has('familiar')) add(out,'familias');
-    if (tags.has('jovens') || tags.has('juventude')) add(out,'jovens');
-    if (tags.has('18+') || text.includes('maiores de 18')) add(out,'maior18');
+    if (tags.has('18+') || tags.has('maiores de 18')) add(out,'maior18');
     if (tags.has('universitario') || tags.has('universitaria')) add(out,'universitario');
-    if (tags.has('lgbtqia+') || tags.has('lgbtqiapn+') || tags.has('lgbt')) add(out,'lgbt');
     if (tags.has('60+') || tags.has('idosos')) add(out,'maior60');
-    if (hasExplicitSafety(item,SAFE_WOMEN)) add(out,'seguroMulheres');
-    if (hasExplicitSafety(item,SAFE_LGBT)) add(out,'seguroLgbt');
+    if (tags.has('lgbtqia+') || tags.has('lgbtqiapn+') || tags.has('lgbt')) add(out,'lgbt');
+    if (hasExplicit(item,SAFE_WOMEN)) add(out,'seguroMulheres');
+    if (hasExplicit(item,SAFE_LGBT)) add(out,'seguroLgbt');
     if (tags.has('date') || tags.has('date diferente')) add(out,'date');
-    if (tags.has('sozinho') || tags.has('solo')) add(out,'sozinho');
-    if (tags.has('tranquilo') || tags.has('calmo')) add(out,'tranquilo');
+    if (tags.has('sozinho') || tags.has('solo') || tags.has('bom pra ir sozinho')) add(out,'sozinho');
+    if (tags.has('tranquilo') || tags.has('calmo') || tags.has('relax')) add(out,'tranquilo');
     if (tags.has('dancante') || tags.has('balada')) add(out,'dancante');
     if (tags.has('alternativo')) add(out,'alternativo');
     if (tags.has('ao ar livre')) add(out,'arLivre');
     if (tags.has('musica ao vivo')) add(out,'musicaVivo');
-    if (['agua','cachoeira','cachoeiras','lago','pocos','aguas termais','parque aquatico'].some(t => tags.has(t))) add(out,'agua');
-    if (tags.has('por do sol')) add(out,'porSol');
-    if (kind === 'place') {
-      if (/metro proximo|perto do metro/.test(text)) add(out,'metro');
-      if (/bicicletario|ciclovia/.test(text)) add(out,'bicicleta');
-      if (text.includes('estacionamento')) add(out,'estacionamento');
-      if (/carro facilita|carro recomendado|acesso de carro/.test(text)) add(out,'carro');
-    }
+
+    if (/onibus perto|ponto de onibus|parada de onibus|proximo a(?:o)? ponto de onibus/.test(access)) add(out,'onibus');
+    if (/metro proximo|perto do metro|proximo a(?:o)? metro/.test(access)) add(out,'metro');
+    if (/bicicletario|ciclovia/.test(access)) add(out,'bicicleta');
+    if (access.includes('estacionamento')) add(out,'estacionamento');
+    if (/carro facilita|carro recomendado|acesso de carro/.test(access)) add(out,'carro');
+
     return out;
   }
 
-  function descriptorTags(item) {
+  function themeTags(item) {
     const tags = rawTags(item), out = [];
     const mapping = [
       [['cultura'],'cultura'], [['musica'],'musica'], [['arte','ilustracao'],'arte'], [['humor','comedia','stand-up'],'humor'],
       [['quadrinhos','manga'],'quadrinhos'], [['tecnologia'],'tecnologia'], [['pop'],'pop'], [['rock'],'rock'], [['mpb'],'mpb'],
       [['forro'],'forro'], [['piseiro'],'piseiro'], [['arquitetura'],'arquitetura'], [['historia','cidade historica'],'historia'],
-      [['museu'],'museu'], [['parque'],'parque'], [['compras','shopping'],'compras'], [['cerrado'],'cerrado']
+      [['compras','shopping'],'compras'], [['cerrado'],'cerrado']
     ];
     mapping.forEach(([values,id]) => { if (values.some(v => tags.has(v))) add(out,id); });
     return out;
   }
 
-  function categoryFallback(item,kind) {
+  function visibleTagIds(item,kind) {
     const out = [];
-    try {
-      const id = categoryInfo(kind,item).id;
-      const mapping = {
-        'festas-noite':'catFestas','shows-musica':'catShows','cultura-artes':'catCultura','feiras-brechos':'catFeiras',
-        'gastronomia':'catGastronomia','geek':'catGeek','cursos-atividades':'catCursos','ao-ar-livre':'catArLivre',
-        'cultura-historia':'catCulturaHistoria','natureza':'catNatureza','arquitetura-turismo':'catArquitetura','comer':'catComer',
-        'bares-noite':'catBares','cinema-teatro':'catCinemaTeatro','feiras-compras':'catFeirasCompras','lazer-experiencias':'catLazer','cidades-destinos':'catDestinos'
-      };
-      add(out,mapping[id]);
-    } catch {}
-    return out;
-  }
-
-  function regionTags(item) {
-    const out = [], city = norm(item.cidade);
-    if (ENTORNO_SUL.has(city) || ENTORNO_NORTE.has(city)) add(out,'entorno');
-    else {
-      try { if (typeof isDfCity === 'function' && isDfCity(item.cidade)) add(out,'df'); } catch {}
-    }
-    return out;
+    [...subtypeTags(item,kind),...featureTags(item),...themeTags(item)].forEach(id => add(out,id));
+    return out.slice(0,4);
   }
 
   function chip(id) {
-    const [label,emoji] = TAGS[id], span = document.createElement('span');
-    span.className = 'tag-chip'; span.tabIndex = 0; span.title = label; span.setAttribute('aria-label',label);
+    const [label,emoji] = TAGS[id];
+    const span = document.createElement('span');
+    span.className = 'tag-chip';
+    span.tabIndex = 0;
+    span.title = label;
+    span.setAttribute('aria-label',label);
     span.innerHTML = `<span class="emoji">${emoji}</span><span class="tag-name">${label}</span>`;
     return span;
   }
 
-  function rebuildTags(card,item,kind) {
-    const box = card.querySelector('.tags');
-    if (!box) return;
-    const ids = [];
-    [...subtypeTags(item,kind), ...featureTags(item,kind), ...descriptorTags(item), ...categoryFallback(item,kind), ...regionTags(item)].forEach(id => add(ids,id));
-    const fillers = kind === 'event' ? ['evento','programacao','agenda','descobrir'] : ['lugar','conhecer','passeio','descobrir'];
-    fillers.forEach(id => add(ids,id));
-    box.replaceChildren(...ids.slice(0,4).map(chip));
-    box.hidden = false;
+  function findItem(card,kind) {
+    try {
+      const source = kind === 'event' ? state.eventos : state.lugares;
+      return source.find(item => item.id === card.dataset.id) || null;
+    } catch { return null; }
   }
 
-  function polishRouteCard(card) {
-    if (card.dataset.routePolished === '1') return;
-    let box = card.querySelector('.tags');
-    if (!box) { box = document.createElement('div'); box.className = 'tags'; const actions = card.querySelector('.actions'); actions ? actions.insertAdjacentElement('beforebegin',box) : card.append(box); }
-    const text = norm(card.textContent), ids = [];
-    if (text.includes('cinema')) add(ids,'cinema');
-    if (text.includes('arquitetura')) add(ids,'arquitetura');
-    if (text.includes('cultura')) add(ids,'cultura');
-    if (text.includes('feira')) add(ids,'feira');
-    if (text.includes('cachoeira')) { add(ids,'cachoeira'); add(ids,'agua'); add(ids,'trilha'); }
-    if (text.includes('entorno')) add(ids,'entorno');
-    ['roteiro','combinar','dia','conhecer'].forEach(id => add(ids,id));
-    box.replaceChildren(...ids.slice(0,4).map(chip));
-    card.dataset.routePolished = '1';
+  function numericDate(iso) {
+    if (!iso) return '';
+    const [,m,d] = iso.split('-');
+    return `${d}/${m}`;
   }
 
-  function numericDate(iso) { if (!iso) return ''; const [,m,d] = iso.split('-'); return `${d}/${m}`; }
   function summarizeTime(value) {
     const raw = (value || '').trim(), text = norm(raw);
     if (!raw) return '';
     if (/varios horarios|ao longo do dia|programacao diaria|atividades em varios horarios/.test(text)) return 'vários horários';
-    if (/consultar horario/.test(text)) return 'horário a confirmar';
-    const found = [...raw.matchAll(/\b(\d{1,2}(?::\d{2})?h)\b/g)].map(m => m[1]);
-    if (!found.length) return raw.length <= 28 ? raw : 'horário a confirmar';
+    if (/consultar horario|horarios a divulgar/.test(text)) return 'horário a confirmar';
+    const found = [...raw.matchAll(/\b(\d{1,2}h(?:\d{2})?|\d{1,2}:\d{2}h)\b/g)].map(m => m[1].replace(/(\d{1,2}):(\d{2})h/,'$1h$2'));
+    if (!found.length) return raw.length <= 30 ? raw : 'horário a confirmar';
     if (/a partir/.test(text)) return `a partir de ${found[0]}`;
-    if (found.length >= 2 && /(as|ate|-)/.test(text)) return `${found[0]}–${found[1]}`;
+    if (found.length >= 2 && /(as|ate|às|até|-|–)/.test(text)) return `${found[0]}–${found[1]}`;
     return found[0];
   }
 
@@ -224,19 +201,23 @@
     if (!lines.length) return;
     const start = numericDate(item.dataInicio), end = numericDate(item.dataFim || item.dataInicio);
     lines[0].textContent = `📅 ${start}${end && end !== start ? `–${end}` : ''}`;
-    let timeLine = meta.querySelector('.time-detail');
+
     const time = summarizeTime(item.horario);
+    let timeLine = meta.querySelector('.time-detail');
     if (time) {
-      if (!timeLine) { timeLine = document.createElement('p'); timeLine.className = 'time-detail'; lines[0].insertAdjacentElement('afterend',timeLine); }
+      if (!timeLine) {
+        timeLine = document.createElement('p');
+        timeLine.className = 'time-detail';
+        lines[0].insertAdjacentElement('afterend',timeLine);
+      }
       timeLine.textContent = `🕐 ${time}`;
     } else if (timeLine) timeLine.remove();
 
-    let moneyLine = [...meta.querySelectorAll('p')].find(p => p.textContent.trim().startsWith('💰'));
+    const moneyLine = [...meta.querySelectorAll('p')].find(p => p.textContent.trim().startsWith('💰'));
     let entryLine = [...meta.querySelectorAll('p')].find(p => p.textContent.trim().startsWith('🎟️'));
     if (!entryLine) {
       entryLine = document.createElement('p');
-      if (moneyLine) moneyLine.insertAdjacentElement('afterend',entryLine);
-      else meta.append(entryLine);
+      moneyLine ? moneyLine.insertAdjacentElement('afterend',entryLine) : meta.append(entryLine);
     }
     entryLine.textContent = `🎟️ ${normalizedEntry(item)}`;
     if (isFree(item) && moneyLine) moneyLine.remove();
@@ -244,14 +225,57 @@
 
   function compactPlaceLocation(card,item) {
     const city = norm(item.cidade);
-    if (!ENTORNO_SUL.has(city) && !ENTORNO_NORTE.has(city)) return;
+    if (!ENTORNO.has(city)) return;
     const line = [...card.querySelectorAll('.card-meta p')].find(p => p.textContent.trim().startsWith('📍'));
     if (!line) return;
     const bairro = item.bairro ? `${item.bairro} · ` : '';
-    line.textContent = `📍 ${bairro}${item.cidade} · entorno`;
+    line.textContent = `📍 ${bairro}${ENTORNO.get(city)} · entorno`;
   }
 
-  function readSet(key) { try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); } catch { return new Set(); } }
+  function removeLegacyActions(card) {
+    card.querySelectorAll('.feedback,.status-btn,.saved-status-row').forEach(el => el.remove());
+  }
+
+  function polishCard(card) {
+    const kind = card.classList.contains('event-card') ? 'event' : card.classList.contains('place-card') ? 'place' : null;
+    if (!kind) return;
+    const item = findItem(card,kind);
+    if (!item) return;
+    const box = card.querySelector('.tags');
+    if (box) {
+      const ids = visibleTagIds(item,kind), signature = ids.join('|');
+      if (card.dataset.officialTags !== signature) {
+        box.replaceChildren(...ids.map(chip));
+        box.hidden = ids.length === 0;
+        card.dataset.officialTags = signature;
+      }
+    }
+    if (kind === 'event') compactEventMeta(card,item);
+    if (kind === 'place') compactPlaceLocation(card,item);
+    removeLegacyActions(card);
+  }
+
+  function polishRouteCard(card) {
+    const text = norm(card.textContent), ids = [];
+    if (text.includes('cinema')) add(ids,'cinema');
+    if (text.includes('arquitetura')) add(ids,'arquitetura');
+    if (text.includes('cultura')) add(ids,'cultura');
+    if (text.includes('feira')) add(ids,'feira');
+    if (text.includes('cachoeira')) add(ids,'cachoeira');
+    if (text.includes('trilha')) add(ids,'trilha');
+    if (text.includes('parque')) add(ids,'parque');
+    const box = card.querySelector('.tags') || (() => {
+      const el = document.createElement('div'); el.className = 'tags';
+      const actions = card.querySelector('.actions'); actions ? actions.insertAdjacentElement('beforebegin',el) : card.append(el); return el;
+    })();
+    box.replaceChildren(...ids.slice(0,4).map(chip));
+    box.hidden = ids.length === 0;
+  }
+
+  function readSet(key) {
+    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }
+    catch { return new Set(); }
+  }
   function writeSet(key,set) { localStorage.setItem(key,JSON.stringify([...set])); }
   function cleanupLegacyStorage() {
     const saved = readSet('roledfora.saved');
@@ -259,143 +283,144 @@
     writeSet('roledfora.saved',saved);
     ['roledfora.want','roledfora.visited','roledfora.likes','roledfora.dislikes'].forEach(key => localStorage.removeItem(key));
   }
-  function removeLegacyActions(card) { card.querySelectorAll('.feedback,.status-btn,.saved-status-row').forEach(el => el.remove()); }
-  function findItem(card,kind) {
-    try { const source = kind === 'event' ? state.eventos : state.lugares; return source.find(item => item.id === card.dataset.id) || null; }
-    catch { return null; }
-  }
-  function polishCard(card) {
-    const kind = card.classList.contains('event-card') ? 'event' : card.classList.contains('place-card') ? 'place' : null;
-    if (!kind) return;
-    const item = findItem(card,kind); if (!item) return;
-    if (card.dataset.polished !== '1') {
-      rebuildTags(card,item,kind);
-      if (kind === 'event') compactEventMeta(card,item);
-      if (kind === 'place') compactPlaceLocation(card,item);
-      card.dataset.polished = '1';
-    }
-    removeLegacyActions(card);
-  }
 
   function cleanNavigation() {
     document.querySelectorAll('.utility-nav a[href="./mapa.html"]').forEach(a => a.remove());
-    document.querySelectorAll('a[href="./indicacoes.html"]').forEach(a => { a.href = './profissionais.html'; a.textContent = 'profissionais'; a.classList.remove('active'); });
+    document.querySelectorAll('a[href="./indicacoes.html"]').forEach(a => { a.href='./profissionais.html'; a.textContent='profissionais'; });
+    document.querySelectorAll('.utility-nav a[href="./roteiros.html"]').forEach(a => a.textContent='🧭 roteiros');
+    document.querySelectorAll('.utility-nav a[href="./contato.html"]').forEach(a => a.textContent='💌 contato');
   }
 
-  function optionNode(value,label) { const o = document.createElement('option'); o.value = value; o.textContent = label; return o; }
-  function groupNode(label,broadValue,broadLabel,items) {
-    const group = document.createElement('optgroup'); group.label = label; group.append(optionNode(broadValue,broadLabel)); items.forEach(item => group.append(optionNode(item.value,item.label))); return group;
+  function optionNode(value,label) {
+    const o = document.createElement('option'); o.value = value; o.textContent = label; return o;
   }
-  function organizeLocationSelect(select) {
-    if (!select || select.dataset.locationOrganized === '1') return;
-    const options = [...select.options]; if (options.length < 3) return;
-    const dfItems = options.filter(o => o.parentElement?.tagName === 'OPTGROUP' && norm(o.parentElement.label).includes('regioes administrativas')).map(o => ({value:o.value,label:o.textContent}));
-    const goItems = options.filter(o => o.parentElement?.tagName === 'OPTGROUP' && norm(o.parentElement.label).includes('municipios de goias')).map(o => ({value:o.value,label:o.textContent}));
-    if (!dfItems.length && !goItems.length) return;
-    const current = select.value, entornoSul = goItems.filter(o => ENTORNO_SUL.has(norm(o.value))), entornoNorte = goItems.filter(o => ENTORNO_NORTE.has(norm(o.value)));
-    const sort = list => list.sort((a,b) => a.label.localeCompare(b.label,'pt-BR'));
+
+  function populateLocationSelect(select,items) {
+    if (!select) return;
+    const current = select.value;
+    const cities = [...new Set((items || []).map(item => item.cidade).filter(Boolean))];
+    const df = cities.filter(city => isDf(city)).map(city => {
+      let label = city;
+      try { label = typeof dfRaName === 'function' ? dfRaName(city) : city; } catch {}
+      return {value:city,label};
+    }).sort((a,b) => a.label.localeCompare(b.label,'pt-BR'));
+
     select.replaceChildren(optionNode('qualquer','qualquer lugar'));
-    if (dfItems.length) select.append(groupNode('distrito federal','df','todo o distrito federal',sort(dfItems)));
-    if (entornoSul.length) select.append(groupNode('entorno sul','entorno-sul','todo o entorno sul',sort(entornoSul)));
-    if (entornoNorte.length) select.append(groupNode('entorno norte','entorno-norte','todo o entorno norte',sort(entornoNorte)));
-    if ([...select.options].some(o => o.value === current)) select.value = current;
-    select.dataset.locationOrganized = '1';
-  }
 
-  function searchMatches(item,query) {
-    const terms = norm(query).split(/\s+/).filter(Boolean);
-    if (!terms.length) return true;
-    const haystack = norm([item.nome,item.descricao,item.local,item.cidade,item.ra,item.bairro,item.endereco,item.categoria,item.acesso,...(item.tags || [])].filter(Boolean).join(' '));
-    return terms.every(term => haystack.includes(term));
-  }
+    const dfGroup = document.createElement('optgroup');
+    dfGroup.label = 'distrito federal';
+    dfGroup.append(optionNode('df','todo o distrito federal'));
+    df.forEach(item => dfGroup.append(optionNode(item.value,item.label)));
+    select.append(dfGroup);
 
-  function characteristicMatches(item,value,kind) {
-    if (!value || value === 'qualquer') return true;
-    if (value === 'seguro-mulheres') return hasExplicitSafety(item,SAFE_WOMEN);
-    if (value === 'seguro-lgbt') return hasExplicitSafety(item,SAFE_LGBT);
-    const ids = new Set([...subtypeTags(item,kind),...featureTags(item,kind)]);
-    const map = {
-      'aceita-pets':'pets','acessivel':'acessivel','agua':'agua','alternativo':'alternativo','ao-ar-livre':'arLivre','bom-criancas':'criancas','date':'date',
-      'dancante':'dancante','estacionamento':'estacionamento','lgbtqia':'lgbt','metro-proximo':'metro','musica-vivo':'musicaVivo','opcao-vegana':'vegana',
-      'opcao-vegetariana':'vegetariana','familias':'familias','por-do-sol':'porSol','sozinho':'sozinho','tranquilo':'tranquilo','universitario':'universitario','18mais':'maior18'
-    };
-    if (value === 'aventura') {
-      const tags = rawTags(item);
-      return ids.has('trilha') || ['aventura','trilha','trilhas','arvorismo','escalada','tirolesa'].some(t => tags.has(t));
+    const entornoGroup = document.createElement('optgroup');
+    entornoGroup.label = 'entorno';
+    entornoGroup.append(optionNode('entorno','todo o entorno'));
+    [...ENTORNO.entries()].sort((a,b) => a[1].localeCompare(b[1],'pt-BR')).forEach(([value,label]) => entornoGroup.append(optionNode(value,label)));
+    select.append(entornoGroup);
+
+    if ([...select.options].some(o => norm(o.value) === norm(current))) {
+      const match = [...select.options].find(o => norm(o.value) === norm(current));
+      if (match) select.value = match.value;
     }
-    return ids.has(map[value]);
   }
 
-  function installRenderOverrides() {
-    try {
-      if (typeof renderEventos === 'function') {
-        renderEventos = function() {
-          const local=document.querySelector('#local')?.value||'qualquer', data=document.querySelector('#data')?.value||'qualquer', valor=document.querySelector('#valor')?.value||'qualquer', horario=document.querySelector('#horario')?.value||'qualquer', tipo=document.querySelector('#tipo')?.value||'qualquer', feature=document.querySelector('#caracteristica')?.value||'qualquer', query=document.querySelector('#q')?.value||'', detail=new URLSearchParams(location.search).get('detalhe');
-          const items=sortEvents(state.eventos.filter(e=>isInScope(e)&&searchMatches(e,query)&&cityMatches(e.cidade,local)&&eventDateMatches(e,data)&&priceMatches(e,valor)&&timeMatches(e,horario)&&(tipo==='qualquer'||canonicalEventCategory(e)===tipo)&&characteristicMatches(e,feature,'event')&&detailMatches(e,detail)));
-          renderList(items,'event');
-        };
-      }
-      if (typeof renderLugares === 'function') {
-        renderLugares = function() {
-          const local=document.querySelector('#onde')?.value||'qualquer', cat=document.querySelector('#categoria')?.value||'qualquer', feature=document.querySelector('#vibe')?.value||'qualquer', valor=document.querySelector('#preco')?.value||'qualquer', query=document.querySelector('#q')?.value||'', detail=new URLSearchParams(location.search).get('detalhe');
-          const items=state.lugares.filter(p=>isInScope(p)&&searchMatches(p,query)&&cityMatches(p.cidade,local)&&(cat==='qualquer'||canonicalPlaceCategory(p)===cat)&&characteristicMatches(p,feature,'place')&&priceMatches(p,valor)&&detailMatches(p,detail));
-          renderList(items,'place');
-        };
-      }
-      if (typeof renderSalvos === 'function') {
-        renderSalvos = function() { renderSavedGrid(readSet('roledfora.saved'),'saved-results','saved-count'); };
-      }
-    } catch (err) { console.warn('não foi possível instalar os filtros extras',err); }
+  function cityMatchesOfficial(city,value) {
+    if (!value || value === 'qualquer') return true;
+    const c = norm(city), v = norm(value);
+    if (v === 'df') return isDf(city);
+    if (v === 'entorno') return ENTORNO.has(c);
+    if (v === 'entorno-sul') return ENTORNO_SUL.has(c);
+    if (v === 'entorno-norte') return ENTORNO_NORTE.has(c);
+    return c === v;
   }
 
-  let resultsActivated = new URLSearchParams(location.search).toString().length > 0;
-  function resultsSection() { return document.querySelector('#results')?.closest('.search-results-section, section'); }
-  function gateInitialResults() {
-    const page = document.body.dataset.page;
-    if (!['eventos','lugares'].includes(page)) return;
-    const section = resultsSection(); if (!section) return;
-    if (resultsActivated) section.hidden = false;
-    else section.hidden = true;
+  function characteristicMatches(item,value) {
+    if (!value || value === 'qualquer') return true;
+    const tags = rawTags(item), access = norm(item.acesso);
+    if (value === 'acessivel') return tags.has('acessivel');
+    if (value === 'aceita-pets') return tags.has('pet friendly') || tags.has('aceita pets');
+    if (value === 'alternativo') return tags.has('alternativo');
+    if (value === 'ao-ar-livre') return tags.has('ao ar livre');
+    if (value === 'aventura') return ['aventura','trilha','trilhas','arvorismo','escalada','tirolesa'].some(tag => tags.has(tag));
+    if (value === 'bicicleta') return /bicicletario|ciclovia/.test(access);
+    if (value === 'bom-criancas') return tags.has('bom para criancas') || tags.has('kid friendly') || tags.has('infantil');
+    if (value === 'date') return tags.has('date') || tags.has('date diferente');
+    if (value === 'sozinho') return tags.has('sozinho') || tags.has('solo') || tags.has('bom pra ir sozinho');
+    if (value === 'estacionamento') return tags.has('estacionamento') || access.includes('estacionamento');
+    if (value === 'lgbtqia') return tags.has('lgbtqia+') || tags.has('lgbtqiapn+') || tags.has('lgbt');
+    if (value === 'carro-recomendado') return /carro facilita|carro recomendado|acesso de carro/.test(access);
+    if (value === 'metro-perto') return /metro proximo|perto do metro|proximo a(?:o)? metro/.test(access);
+    if (value === 'musica-vivo') return tags.has('musica ao vivo');
+    if (value === 'onibus-perto') return /onibus perto|ponto de onibus|parada de onibus|proximo a(?:o)? ponto de onibus/.test(access);
+    if (value === 'opcao-vegana') return tags.has('opcao vegana') || tags.has('vegano') || tags.has('vegana');
+    if (value === 'opcao-vegetariana') return tags.has('opcao vegetariana') || tags.has('vegetariano') || tags.has('vegetariana');
+    if (value === 'familias') return tags.has('familia') || tags.has('familiar');
+    if (value === 'seguro-lgbt') return hasExplicit(item,SAFE_LGBT);
+    if (value === 'seguro-mulheres') return hasExplicit(item,SAFE_WOMEN);
+    if (value === 'tranquilo') return tags.has('tranquilo') || tags.has('calmo') || tags.has('relax');
+    if (value === 'universitario') return tags.has('universitario') || tags.has('universitaria');
+    if (value === '18mais') return tags.has('18+') || tags.has('maiores de 18');
+    if (value === 'dancante') return tags.has('dancante') || tags.has('balada');
+    return true;
   }
-  function revealResults() { resultsActivated = true; const section = resultsSection(); if (section) section.hidden = false; }
-  function activateResultsFromInteraction(event) { if (event.target.closest('.search-button,.category-chip')) revealResults(); }
-  function clearFilters(event) {
-    const button = event.target.closest('.clear-filters'); if (!button) return;
-    const panel = button.closest('.search-panel'); if (!panel) return;
-    panel.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-    panel.querySelectorAll('input[type="search"],input[type="text"]').forEach(input => input.value = '');
-    resultsActivated = false; gateInitialResults();
+
+  function canonicalName(item) {
+    return norm(item?.nome).replace(/\b2026\b/g,'').replace(/[:—–-]+/g,' ').replace(/\s+/g,' ').trim();
   }
-  function bindSearchEnter() {
-    document.querySelectorAll('#q').forEach(input => {
-      if (input.dataset.enterBound === '1') return;
-      input.dataset.enterBound = '1';
-      input.addEventListener('keydown',event => { if (event.key === 'Enter') { event.preventDefault(); input.closest('.search-panel')?.querySelector('.search-button')?.click(); } });
+  function cleanLink(link) {
+    return norm((link || '').split('?')[0].replace(/\/$/,''));
+  }
+  function dedupeEvents(items) {
+    const seenLinks = new Set(), seenSignatures = new Set();
+    return (items || []).filter(item => {
+      const link = cleanLink(item.link);
+      const signature = `${canonicalName(item)}|${item.dataInicio || ''}|${norm(item.cidade)}`;
+      if ((link && seenLinks.has(link)) || seenSignatures.has(signature)) return false;
+      if (link) seenLinks.add(link);
+      seenSignatures.add(signature);
+      return true;
     });
   }
 
-  let scopeApplied = false;
+  function installOverrides() {
+    try { cityMatches = cityMatchesOfficial; } catch {}
+    try {
+      renderEventos = function() {
+        const local=document.querySelector('#local')?.value||'qualquer', data=document.querySelector('#data')?.value||'qualquer', valor=document.querySelector('#valor')?.value||'qualquer', horario=document.querySelector('#horario')?.value||'qualquer', tipo=document.querySelector('#tipo')?.value||'qualquer', feature=document.querySelector('#caracteristica')?.value||'qualquer', detail=new URLSearchParams(location.search).get('detalhe');
+        const items=sortEvents(state.eventos.filter(e=>isInScope(e)&&cityMatchesOfficial(e.cidade,local)&&eventDateMatches(e,data)&&priceMatches(e,valor)&&timeMatches(e,horario)&&(tipo==='qualquer'||canonicalEventCategory(e)===tipo)&&characteristicMatches(e,feature)&&detailMatches(e,detail)));
+        renderList(items,'event');
+      };
+    } catch {}
+    try {
+      renderLugares = function() {
+        const local=document.querySelector('#onde')?.value||'qualquer', cat=document.querySelector('#categoria')?.value||'qualquer', feature=document.querySelector('#vibe')?.value||'qualquer', valor=document.querySelector('#preco')?.value||'qualquer', detail=new URLSearchParams(location.search).get('detalhe');
+        const items=state.lugares.filter(p=>isInScope(p)&&cityMatchesOfficial(p.cidade,local)&&(cat==='qualquer'||canonicalPlaceCategory(p)===cat)&&characteristicMatches(p,feature)&&priceMatches(p,valor)&&detailMatches(p,detail));
+        renderList(items,'place');
+      };
+    } catch {}
+    try { renderSalvos = function() { renderSavedGrid(readSet('roledfora.saved'),'saved-results','saved-count'); }; } catch {}
+  }
+
   function syncLocationSelects() {
     try {
       const page = document.body.dataset.page;
-      if (page === 'eventos' && document.querySelector('#local') && typeof populateCitySelect === 'function') {
-        const select = document.querySelector('#local'); delete select.dataset.locationOrganized; populateCitySelect(select,state.eventos,true); organizeLocationSelect(select);
-      }
-      if (page === 'lugares' && document.querySelector('#onde') && typeof populateCitySelect === 'function') {
-        const select = document.querySelector('#onde'); delete select.dataset.locationOrganized; populateCitySelect(select,state.lugares,true); organizeLocationSelect(select);
-      }
+      if (page === 'eventos') populateLocationSelect(document.querySelector('#local'),state.eventos);
+      if (page === 'lugares') populateLocationSelect(document.querySelector('#onde'),state.lugares);
     } catch {}
   }
+
+  let scoped = false;
   function scopeStateWhenReady(tries=0) {
     try {
       if (typeof state === 'undefined' || (!state.lugares?.length && !state.eventos?.length)) {
         if (tries < 100) setTimeout(() => scopeStateWhenReady(tries+1),80);
         return;
       }
-      if (!scopeApplied) {
+      if (!scoped) {
         state.lugares = state.lugares.filter(isInScope);
-        state.eventos = state.eventos.filter(isInScope);
-        scopeApplied = true;
+        state.eventos = dedupeEvents(state.eventos.filter(isInScope));
+        scoped = true;
         syncLocationSelects();
         if (typeof refreshCurrent === 'function') refreshCurrent();
       }
@@ -403,30 +428,23 @@
     } catch { if (tries < 100) setTimeout(() => scopeStateWhenReady(tries+1),80); }
   }
 
-  function apply() {
-    cleanNavigation();
-    organizeLocationSelect(document.querySelector('#local'));
-    organizeLocationSelect(document.querySelector('#onde'));
-    bindSearchEnter();
-    document.querySelectorAll('.event-card,.place-card').forEach(polishCard);
-    document.querySelectorAll('.route-card').forEach(polishRouteCard);
-    gateInitialResults();
-  }
-
-  let extraEventsStarted = false;
+  let extraStarted = false;
   async function loadExtraEvents() {
     const page = document.body.dataset.page;
-    if (!['eventos','novidades','salvos'].includes(page) || extraEventsStarted) return;
-    extraEventsStarted = true;
+    if (!['eventos','novidades','salvos'].includes(page) || extraStarted) return;
+    extraStarted = true;
     try {
-      const response = await fetch('./data/eventos-4.json',{cache:'no-store'}); if (!response.ok) throw new Error('eventos-4');
-      const extra = await response.json(); let tries = 0;
+      const response = await fetch('./data/eventos-4.json',{cache:'no-store'});
+      if (!response.ok) throw new Error('eventos-4');
+      const extra = await response.json();
+      let tries = 0;
       const mergeWhenReady = () => {
         try {
-          if (typeof state === 'undefined' || !Array.isArray(state.eventos)) { if (tries++ < 80) setTimeout(mergeWhenReady,100); return; }
-          const ids = new Set(state.eventos.map(item => item.id));
-          const fresh = extra.filter(item => item && item.id && isInScope(item) && !ids.has(item.id));
-          if (fresh.length) state.eventos.push(...fresh);
+          if (typeof state === 'undefined' || !Array.isArray(state.eventos)) {
+            if (tries++ < 80) setTimeout(mergeWhenReady,100);
+            return;
+          }
+          state.eventos = dedupeEvents([...state.eventos,...extra.filter(isInScope)]);
           syncLocationSelects();
           if (typeof refreshCurrent === 'function') refreshCurrent();
           apply();
@@ -436,17 +454,35 @@
     } catch (err) { console.warn('não foi possível carregar os rolês extras',err); }
   }
 
+  function gateInitialResults() {
+    const page = document.body.dataset.page;
+    if (!['eventos','lugares'].includes(page)) return;
+    if (new URLSearchParams(location.search).toString()) return;
+    const section = document.querySelector('.search-results-section');
+    if (section && ![...document.querySelectorAll('.search-panel select')].some(s => s.value && s.value !== 'qualquer')) section.hidden = true;
+  }
+
+  function apply() {
+    cleanNavigation();
+    document.querySelectorAll('.event-card,.place-card').forEach(polishCard);
+    document.querySelectorAll('.route-card').forEach(polishRouteCard);
+    gateInitialResults();
+  }
+
   let queued = false;
   const observer = new MutationObserver(() => {
-    if (queued) return; queued = true;
+    if (queued) return;
+    queued = true;
     requestAnimationFrame(() => { queued = false; apply(); });
   });
 
-  installRenderOverrides();
-  document.addEventListener('click',activateResultsFromInteraction,true);
-  document.addEventListener('click',clearFilters,true);
+  installOverrides();
   document.addEventListener('DOMContentLoaded',() => {
-    cleanupLegacyStorage(); apply(); scopeStateWhenReady(); loadExtraEvents(); observer.observe(document.body,{childList:true,subtree:true});
+    cleanupLegacyStorage();
+    apply();
+    scopeStateWhenReady();
+    loadExtraEvents();
+    observer.observe(document.body,{childList:true,subtree:true});
     if (document.body.dataset.page === 'salvos') setTimeout(() => { try { if (typeof refreshCurrent === 'function') refreshCurrent(); } catch {} },0);
   });
 })();
