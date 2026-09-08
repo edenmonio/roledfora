@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>rolédfora</title>
+  <title>roledfora</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
     @font-face {
       font-family: 'Revista';
@@ -25,73 +25,119 @@
     }
 
     .container {
-      max-width: 900px;
+      width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 36px 0 64px;
     }
 
     header {
-      margin-bottom: 32px;
       text-align: center;
+      margin-bottom: 34px;
+      overflow: hidden;
     }
 
     h1 {
       font-family: 'Revista', 'Manrope', Arial, sans-serif;
-      font-size: 3.2rem;
+      font-size: 198pt;
       font-weight: 400;
-      letter-spacing: -0.03em;
-      line-height: 1;
+      line-height: .78;
+      letter-spacing: -0.045em;
       margin: 0;
+      white-space: nowrap;
     }
 
     header p {
-      margin-top: 8px;
-      font-size: 1.1rem;
+      margin: 24px 0 0;
+      font-size: 1.08rem;
+      font-weight: 600;
     }
 
-    .search-area {
-      margin: 24px auto 42px;
-      text-align: center;
+    .search-panel {
+      background: #2f0a68;
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(47,10,104,.16);
+      margin-bottom: 46px;
     }
 
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 18px;
+    .search-title {
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      margin: 0 0 13px 4px;
     }
 
-    .filter {
-      border: 0;
-      border-radius: 999px;
-      padding: 11px 16px;
+    .search-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr 1.2fr auto;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .field {
+      position: relative;
+      background: white;
+      border-radius: 14px;
+      min-height: 72px;
+      padding: 10px 14px 9px;
+      border-top: 5px solid var(--accent);
+      text-align: left;
+    }
+
+    .field label {
+      display: block;
+      font-size: .72rem;
       font-weight: 700;
-      font-family: 'Manrope', Arial, sans-serif;
-      color: #222;
-      cursor: pointer;
-      min-width: 135px;
-      text-align: center;
-      appearance: none;
+      color: #777;
+      margin-bottom: 3px;
     }
 
-    .local { background: #cfe8ff; }
-    .valor { background: #d8f5d0; }
-    .horario { background: #ffe0b8; }
-    .data { background: #ffd4e5; }
-    .tipo { background: #e3d5ff; }
+    .field select {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font: 700 .94rem 'Manrope', Arial, sans-serif;
+      color: #222;
+      padding: 0 22px 0 0;
+      cursor: pointer;
+    }
+
+    .local { --accent: #75bfff; }
+    .data { --accent: #ff91b9; }
+    .valor { --accent: #85d978; }
+    .horario { --accent: #ffb65f; }
+    .tipo { --accent: #b69aff; }
 
     .search-button {
       border: 0;
       border-radius: 999px;
-      padding: 13px 26px;
-      font-size: 1rem;
-      font-weight: 800;
-      font-family: 'Manrope', Arial, sans-serif;
-      background: #222;
+      padding: 0 24px;
+      min-height: 72px;
+      font: 800 .96rem 'Manrope', Arial, sans-serif;
+      background: #ff5d4a;
       color: white;
       cursor: pointer;
-      box-shadow: 0 5px 14px rgba(0,0,0,.12);
+      white-space: nowrap;
+    }
+
+    .search-button:hover { transform: translateY(-1px); }
+
+    .more-filters {
+      display: inline-block;
+      margin-top: 14px;
+      border: 0;
+      background: transparent;
+      color: white;
+      font: 700 .84rem 'Manrope', Arial, sans-serif;
+      cursor: pointer;
+      opacity: .9;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      margin: 0 0 16px;
+      font-weight: 800;
     }
 
     .card {
@@ -101,7 +147,12 @@
       box-shadow: 0 6px 24px rgba(0,0,0,.08);
     }
 
-    .card h2 { margin-top: 0; }
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1.55rem;
+    }
+
+    .card p { margin: 7px 0; }
 
     .tags {
       display: flex;
@@ -114,7 +165,7 @@
       background: #f1f1f1;
       border-radius: 999px;
       padding: 7px 11px;
-      font-size: .9rem;
+      font-size: .88rem;
     }
 
     .actions {
@@ -128,110 +179,135 @@
       border: 0;
       border-radius: 12px;
       padding: 10px 14px;
-      font-family: 'Manrope', Arial, sans-serif;
+      font: 700 .9rem 'Manrope', Arial, sans-serif;
       cursor: pointer;
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2.6rem; }
+    @media (max-width: 1050px) {
+      h1 { font-size: 132pt; }
+      .search-row { grid-template-columns: repeat(2, 1fr); }
+      .search-button { grid-column: 1 / -1; min-height: 54px; }
+    }
 
-      .filters {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .filter {
-        width: min(100%, 320px);
-      }
+    @media (max-width: 620px) {
+      .container { width: min(100% - 22px, 1180px); padding-top: 26px; }
+      h1 { font-size: 72pt; }
+      header p { margin-top: 16px; font-size: .98rem; }
+      .search-panel { padding: 16px; border-radius: 22px; }
+      .search-row { grid-template-columns: 1fr; }
+      .field { min-height: 66px; }
+      .search-button { grid-column: auto; }
     }
   </style>
 </head>
 <body>
   <main class="container">
     <header>
-      <h1>rolédfora</h1>
+      <h1>roledfora</h1>
       <p>o que tem pra fazer por aí?</p>
     </header>
 
-    <section class="search-area" aria-label="Pesquisar rolês">
-      <div class="filters">
-        <select class="filter local" aria-label="Local">
-          <option>📍 local</option>
-          <option>DF</option>
-          <option>Entorno Sul</option>
-          <option>Entorno Norte</option>
-        </select>
+    <section class="search-panel" aria-label="pesquisar rolês">
+      <p class="search-title">encontre seu próximo rolê</p>
 
-        <select class="filter valor" aria-label="Valor">
-          <option>💰 valor</option>
-          <option>grátis</option>
-          <option>até R$ 20</option>
-          <option>até R$ 50</option>
-          <option>até R$ 100</option>
-          <option>qualquer valor</option>
-        </select>
+      <div class="search-row">
+        <div class="field local">
+          <label for="local">onde?</label>
+          <select id="local">
+            <option>qualquer lugar</option>
+            <option>brasília</option>
+            <option>entorno sul</option>
+            <option>entorno norte</option>
+            <option>valparaíso de goiás</option>
+            <option>luziânia</option>
+            <option>planaltina de goiás</option>
+            <option>águas lindas de goiás</option>
+          </select>
+        </div>
 
-        <select class="filter horario" aria-label="Horário">
-          <option>🕒 horário</option>
-          <option>manhã</option>
-          <option>tarde</option>
-          <option>noite</option>
-          <option>madrugada</option>
-        </select>
+        <div class="field data">
+          <label for="data">quando?</label>
+          <select id="data">
+            <option>qualquer dia</option>
+            <option>hoje</option>
+            <option>amanhã</option>
+            <option>fim de semana</option>
+            <option>próximos 7 dias</option>
+            <option>este mês</option>
+          </select>
+        </div>
 
-        <select class="filter data" aria-label="Data">
-          <option>📅 data</option>
-          <option>hoje</option>
-          <option>amanhã</option>
-          <option>fim de semana</option>
-          <option>próximos 7 dias</option>
-          <option>este mês</option>
-        </select>
+        <div class="field valor">
+          <label for="valor">quanto?</label>
+          <select id="valor">
+            <option>qualquer valor</option>
+            <option>grátis</option>
+            <option>até r$ 20</option>
+            <option>até r$ 50</option>
+            <option>até r$ 100</option>
+          </select>
+        </div>
 
-        <select class="filter tipo" aria-label="Tipo de rolê">
-          <option>🎉 tipo de rolê</option>
-          <option>festa</option>
-          <option>show</option>
-          <option>barzinho</option>
-          <option>karaokê</option>
-          <option>feira</option>
-          <option>brechó</option>
-          <option>exposição</option>
-          <option>cinema</option>
-          <option>teatro</option>
-          <option>LGBTQIA+</option>
-          <option>gastronomia</option>
-          <option>nerd/geek</option>
-          <option>ao ar livre</option>
-          <option>workshop/curso</option>
-          <option>universitário</option>
-        </select>
+        <div class="field horario">
+          <label for="horario">horário?</label>
+          <select id="horario">
+            <option>qualquer horário</option>
+            <option>manhã</option>
+            <option>tarde</option>
+            <option>noite</option>
+            <option>madrugada</option>
+          </select>
+        </div>
+
+        <div class="field tipo">
+          <label for="tipo">tipo de rolê?</label>
+          <select id="tipo">
+            <option>qualquer rolê</option>
+            <option>festa</option>
+            <option>show</option>
+            <option>barzinho</option>
+            <option>karaokê</option>
+            <option>feira</option>
+            <option>brechó</option>
+            <option>exposição</option>
+            <option>cinema</option>
+            <option>teatro</option>
+            <option>lgbtqia+</option>
+            <option>gastronomia</option>
+            <option>nerd/geek</option>
+            <option>ao ar livre</option>
+            <option>workshop/curso</option>
+            <option>universitário</option>
+          </select>
+        </div>
+
+        <button class="search-button">⌕ buscar</button>
       </div>
 
-      <button class="search-button">🔎 pesquisar rolês</button>
+      <button class="more-filters">+ mais filtros</button>
     </section>
 
     <section>
-      <h2>✨ pra mim</h2>
+      <h2 class="section-title">pra mim</h2>
       <article class="card">
-        <h2>Feira Independente X</h2>
+        <h2>feira independente x</h2>
         <p>sábado, 12 de setembro • 15h</p>
-        <p>📍 Valparaíso de Goiás</p>
-        <p>💰 grátis</p>
+        <p>valparaíso de goiás</p>
+        <p>grátis</p>
 
         <div class="tags">
           <span class="tag">feira</span>
           <span class="tag">arte</span>
           <span class="tag">gastronomia</span>
-          <span class="tag">LGBTQIA+</span>
+          <span class="tag">lgbtqia+</span>
           <span class="tag">pet friendly</span>
           <span class="tag">ao ar livre</span>
         </div>
 
         <div class="actions">
           <button>ver detalhes</button>
-          <button>❤️ gostei</button>
-          <button>👎 não gostei</button>
+          <button>gostei</button>
+          <button>não gostei</button>
         </div>
       </article>
     </section>
