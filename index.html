@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoléDFora</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fffaf7;
+      color: #222;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    header { margin-bottom: 32px; }
+    h1 { font-size: 3rem; margin: 0; }
+    header p { margin-top: 8px; font-size: 1.1rem; }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 36px;
+    }
+    .filter {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .local { background: #cfe8ff; }
+    .valor { background: #d8f5d0; }
+    .horario { background: #ffe0b8; }
+    .data { background: #ffd4e5; }
+    .tipo { background: #e3d5ff; }
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.08);
+    }
+    .card h2 { margin-top: 0; }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .tag {
+      background: #f1f1f1;
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: .9rem;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .actions button {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>RoléDFora ✨</h1>
+      <p>o que tem pra fazer por aí?</p>
+    </header>
+
+    <section class="filters" aria-label="Filtros principais">
+      <button class="filter local">📍 local</button>
+      <button class="filter valor">💰 valor</button>
+      <button class="filter horario">🕒 horário</button>
+      <button class="filter data">📅 data</button>
+      <button class="filter tipo">🎉 tipo de rolê</button>
+    </section>
+
+    <section>
+      <h2>✨ pra mim</h2>
+      <article class="card">
+        <h2>Feira Independente X</h2>
+        <p>sábado, 12 de setembro • 15h</p>
+        <p>📍 Valparaíso de Goiás</p>
+        <p>💰 grátis</p>
+
+        <div class="tags">
+          <span class="tag">feira</span>
+          <span class="tag">arte</span>
+          <span class="tag">gastronomia</span>
+          <span class="tag">LGBTQIA+</span>
+          <span class="tag">pet friendly</span>
+          <span class="tag">ao ar livre</span>
+        </div>
+
+        <div class="actions">
+          <button>ver detalhes</button>
+          <button>❤️ gostei</button>
+          <button>👎 não gostei</button>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
