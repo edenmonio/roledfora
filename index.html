@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>roledfora — rolês</title>
   <link rel="stylesheet" href="./styles.css" />
+  <script src="./app.js" defer></script>
 </head>
-<body>
+<body data-page="eventos">
   <main class="container">
     <header class="site-header">
       <h1 class="site-title">roledfora</h1>
@@ -18,62 +19,44 @@
       <a href="./lugares.html">conhecer</a>
       <a href="./indicacoes.html">indicações</a>
     </nav>
-
     <nav class="utility-nav" aria-label="ferramentas">
-      <a href="./salvos.html">♡ salvos</a>
-      <a href="./mapa.html">⌖ mapa</a>
-      <a href="./roteiros.html">↝ roteiros</a>
+      <a href="./salvos.html">♡ salvos</a><a href="./mapa.html">⌖ mapa</a><a href="./roteiros.html">↝ roteiros</a>
     </nav>
 
     <section class="search-panel" aria-label="pesquisar eventos">
       <p class="search-title">encontre seu próximo rolê</p>
       <div class="search-row">
-        <div class="field local"><label for="local">onde?</label><select id="local"><option>qualquer lugar</option><option>brasília</option><option>entorno sul</option><option>entorno norte</option><option>valparaíso de goiás</option><option>luziânia</option><option>planaltina de goiás</option><option>águas lindas de goiás</option></select></div>
-        <div class="field data"><label for="data">quando?</label><select id="data"><option>qualquer dia</option><option>hoje</option><option>amanhã</option><option>fim de semana</option><option>próximos 7 dias</option><option>este mês</option></select></div>
-        <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option>qualquer valor</option><option>grátis</option><option>até r$ 20</option><option>até r$ 50</option><option>até r$ 100</option><option>acima de r$ 100</option></select></div>
-        <div class="field horario"><label for="horario">horário?</label><select id="horario"><option>qualquer horário</option><option>manhã</option><option>tarde</option><option>noite</option><option>madrugada</option></select></div>
-        <div class="field tipo"><label for="tipo">tipo de rolê?</label><select id="tipo"><option>qualquer rolê</option><option>festa</option><option>show</option><option>barzinho</option><option>karaokê</option><option>feira</option><option>brechó</option><option>exposição</option><option>cinema</option><option>teatro</option><option>lgbtqia+</option><option>gastronomia</option><option>nerd/geek</option><option>ao ar livre</option><option>workshop/curso</option><option>universitário</option></select></div>
+        <div class="field local"><label for="local">onde?</label><select id="local"><option value="qualquer">qualquer lugar</option></select></div>
+        <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
+        <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
+        <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
+        <div class="field tipo"><label for="tipo">tipo de rolê?</label><select id="tipo"><option value="qualquer">qualquer rolê</option><option value="festa">festa</option><option value="show">show</option><option value="barzinho">barzinho</option><option value="karaokê">karaokê</option><option value="feira">feira</option><option value="brechó">brechó</option><option value="exposição">exposição</option><option value="cinema">cinema</option><option value="teatro">teatro</option><option value="lgbtqia+">lgbtqia+</option><option value="gastronomia">gastronomia</option><option value="nerd/geek">nerd/geek</option><option value="ao ar livre">ao ar livre</option><option value="workshop/curso">workshop/curso</option><option value="universitário">universitário</option></select></div>
         <button class="search-button">⌕ buscar</button>
       </div>
-      <button class="more-filters">+ mais filtros</button>
     </section>
 
     <nav class="category-strip" aria-label="categorias de rolês">
-      <button class="category-chip" title="festas"><span class="emoji">🎉</span><span class="category-name">festas</span></button>
-      <button class="category-chip" title="shows"><span class="emoji">🎵</span><span class="category-name">shows</span></button>
-      <button class="category-chip" title="barzinhos"><span class="emoji">🍻</span><span class="category-name">barzinhos</span></button>
-      <button class="category-chip" title="karaokê"><span class="emoji">🎤</span><span class="category-name">karaokê</span></button>
-      <button class="category-chip" title="feiras"><span class="emoji">🛍️</span><span class="category-name">feiras</span></button>
-      <button class="category-chip" title="brechós"><span class="emoji">👕</span><span class="category-name">brechós</span></button>
-      <button class="category-chip" title="exposições"><span class="emoji">🖼️</span><span class="category-name">exposições</span></button>
-      <button class="category-chip" title="cinema"><span class="emoji">🎬</span><span class="category-name">cinema</span></button>
-      <button class="category-chip" title="teatro"><span class="emoji">🎭</span><span class="category-name">teatro</span></button>
-      <button class="category-chip" title="lgbtqia+"><span class="emoji">🌈</span><span class="category-name">lgbtqia+</span></button>
-      <button class="category-chip" title="gastronomia"><span class="emoji">🍴</span><span class="category-name">gastronomia</span></button>
-      <button class="category-chip" title="nerd/geek"><span class="emoji">👾</span><span class="category-name">nerd/geek</span></button>
-      <button class="category-chip" title="ao ar livre"><span class="emoji">🌿</span><span class="category-name">ao ar livre</span></button>
-      <button class="category-chip" title="workshops e cursos"><span class="emoji">🧠</span><span class="category-name">workshops e cursos</span></button>
-      <button class="category-chip" title="universitários"><span class="emoji">🎓</span><span class="category-name">universitários</span></button>
+      <button class="category-chip" data-category="festa" title="festas"><span class="emoji">🎉</span><span class="category-name">festas</span></button>
+      <button class="category-chip" data-category="show" title="shows"><span class="emoji">🎵</span><span class="category-name">shows</span></button>
+      <button class="category-chip" data-category="barzinho" title="barzinhos"><span class="emoji">🍻</span><span class="category-name">barzinhos</span></button>
+      <button class="category-chip" data-category="karaokê" title="karaokê"><span class="emoji">🎤</span><span class="category-name">karaokê</span></button>
+      <button class="category-chip" data-category="feira" title="feiras"><span class="emoji">🛍️</span><span class="category-name">feiras</span></button>
+      <button class="category-chip" data-category="brechó" title="brechós"><span class="emoji">👕</span><span class="category-name">brechós</span></button>
+      <button class="category-chip" data-category="exposição" title="exposições"><span class="emoji">🖼️</span><span class="category-name">exposições</span></button>
+      <button class="category-chip" data-category="cinema" title="cinema"><span class="emoji">🎬</span><span class="category-name">cinema</span></button>
+      <button class="category-chip" data-category="teatro" title="teatro"><span class="emoji">🎭</span><span class="category-name">teatro</span></button>
+      <button class="category-chip" data-category="lgbtqia+" title="lgbtqia+"><span class="emoji">🌈</span><span class="category-name">lgbtqia+</span></button>
+      <button class="category-chip" data-category="gastronomia" title="gastronomia"><span class="emoji">🍴</span><span class="category-name">gastronomia</span></button>
+      <button class="category-chip" data-category="nerd/geek" title="nerd/geek"><span class="emoji">👾</span><span class="category-name">nerd/geek</span></button>
+      <button class="category-chip" data-category="ao ar livre" title="ao ar livre"><span class="emoji">🌿</span><span class="category-name">ao ar livre</span></button>
+      <button class="category-chip" data-category="workshop/curso" title="workshops e cursos"><span class="emoji">🧠</span><span class="category-name">workshops e cursos</span></button>
+      <button class="category-chip" data-category="universitário" title="universitários"><span class="emoji">🎓</span><span class="category-name">universitários</span></button>
     </nav>
 
     <section>
-      <h2 class="section-title">pra mim</h2>
-      <article class="card">
-        <span class="card-kind">evento</span>
-        <h2>feira independente x</h2>
-        <p>sábado, 12 de setembro • 15h</p>
-        <p>📍 valparaíso de goiás</p>
-        <p>💰 grátis</p>
-        <div class="tags" aria-label="características do evento">
-          <button class="tag-chip" title="feira"><span class="emoji">🛍️</span><span class="tag-name">feira</span></button>
-          <button class="tag-chip" title="arte"><span class="emoji">🎨</span><span class="tag-name">arte</span></button>
-          <button class="tag-chip" title="gastronomia"><span class="emoji">🍴</span><span class="tag-name">gastronomia</span></button>
-          <button class="tag-chip" title="lgbtqia+"><span class="emoji">🌈</span><span class="tag-name">lgbtqia+</span></button>
-          <button class="tag-chip" title="pet friendly"><span class="emoji">🐾</span><span class="tag-name">pet friendly</span></button>
-          <button class="tag-chip" title="ao ar livre"><span class="emoji">🌿</span><span class="tag-name">ao ar livre</span></button>
-        </div>
-        <div class="actions"><button>ver detalhes</button><button>❤️ gostei</button><button>👎 não gostei</button></div>
-      </article>
+      <div class="results-head"><h2 class="section-title">rolês encontrados</h2><span id="result-count" class="result-count">carregando…</span></div>
+      <div id="results" class="cards-grid"><div class="empty-state">carregando rolês…</div></div>
+      <div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div>
     </section>
   </main>
 </body>
