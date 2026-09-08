@@ -3,7 +3,7 @@
   const rawTags = item => new Set((item.tags || []).map(norm));
 
   const TAGS = {
-    festival:['festival','🎪'], cinema:['cinema','🎬'], teatro:['teatro','🎭'], exposicao:['exposição','🖼️'],
+    festival:['festival','🎪'], cinema:['cinema','🎬'], teatro:['teatro','🎭'], exposicao:['exposição','🖼️'], drag:['drag','👑'],
     show:['show','🎤'], festa:['festa','🎉'], karaoke:['karaokê','🎤'], palestra:['palestra','🗣️'], oficina:['oficina','🛠️'],
     feira:['feira','🧺'], brecho:['brechó','👕'], corrida:['corrida','🏃'], games:['games','🎮'], rpg:['rpg','🎲'],
     cafe:['café','☕'], restaurante:['restaurante','🍽️'], cachoeira:['cachoeira','💦'], trilha:['trilha','🥾'], parqueAquatico:['parque aquático','🏊'],
@@ -29,6 +29,7 @@
     if (has('festival') || text.includes('festival')) add(out,'festival');
     if (has('cinema') || text.includes('cinema')) add(out,'cinema');
     if (has('teatro') || text.includes('teatro')) add(out,'teatro');
+    if (has('drag') || text.includes('drag')) add(out,'drag');
     if (has('exposição') || text.includes('exposição')) add(out,'exposicao');
     if (cat === 'show' || tags.has('show')) add(out,'show');
     if (cat === 'festa' || tags.has('festa') || tags.has('balada')) add(out,'festa');
@@ -81,7 +82,7 @@
     if (tags.has('jovens') || tags.has('juventude')) add(out,'jovens');
     if (tags.has('18+') || text.includes('maiores de 18')) add(out,'maior18');
     if (tags.has('universitário') || tags.has('universitaria')) add(out,'universitario');
-    if (tags.has('lgbtqia+') || tags.has('lgbt')) add(out,'lgbt');
+    if (tags.has('lgbtqia+') || tags.has('lgbtqiapn+') || tags.has('lgbt')) add(out,'lgbt');
     if (tags.has('60+') || tags.has('idosos')) add(out,'maior60');
     if (tags.has('date') || tags.has('date diferente')) add(out,'date');
     if (tags.has('sozinho') || tags.has('solo')) add(out,'sozinho');
@@ -172,8 +173,43 @@
     if (!link) return;
     const ticket = norm(item.ingresso);
     if (ticket.includes('inscri')) link.textContent = '📝 inscrição';
-    else if (ticket.includes('compra') || ticket.includes('ingresso') || ticket.includes('venda')) link.textContent = '🎟️ ingresso';
+    else if (ticket.includes('compra') || ticket.includes('ingresso') || ticket.includes('venda') || ticket.includes('retirada')) link.textContent = '🎟️ ingresso';
     else link.textContent = '↗ detalhes';
+  }
+
+  function readSet(key) {
+    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }
+    catch { return new Set(); }
+  }
+
+  function ensureSavedStatus(card) {
+    const actions = card.querySelector('.actions');
+    const save = actions?.querySelector('.save-btn[data-key]');
+    if (!actions || !save) return;
+
+    const key = save.dataset.key;
+    const saved = readSet('roledfora.saved');
+    const want = readSet('roledfora.want');
+    const visited = readSet('roledfora.visited');
+    const inFavorites = saved.has(key) || want.has(key) || visited.has(key);
+
+    actions.querySelectorAll('.status-btn').forEach(btn => btn.remove());
+
+    let row = card.querySelector('.saved-status-row');
+    if (!inFavorites) {
+      if (row) row.remove();
+      return;
+    }
+
+    if (!row) {
+      row = document.createElement('div');
+      row.className = 'saved-status-row';
+      actions.insertAdjacentElement('afterend',row);
+    }
+
+    row.innerHTML = `
+      <button class="status-btn ${want.has(key) ? 'active' : ''}" data-action="want" data-key="${key}">📌 quero ir</button>
+      <button class="status-btn ${visited.has(key) ? 'active' : ''}" data-action="visited" data-key="${key}">✅ já fui</button>`;
   }
 
   function findItem(card,kind) {
@@ -184,17 +220,21 @@
   }
 
   function polishCard(card) {
-    if (card.dataset.polished === '1') return;
     const kind = card.classList.contains('event-card') ? 'event' : card.classList.contains('place-card') ? 'place' : null;
     if (!kind) return;
     const item = findItem(card,kind);
     if (!item) return;
-    rebuildTags(card,item,kind);
-    if (kind === 'event') {
-      compactEventMeta(card,item);
-      compactEventAction(card,item);
+
+    if (card.dataset.polished !== '1') {
+      rebuildTags(card,item,kind);
+      if (kind === 'event') {
+        compactEventMeta(card,item);
+        compactEventAction(card,item);
+      }
+      card.dataset.polished = '1';
     }
-    card.dataset.polished = '1';
+
+    ensureSavedStatus(card);
   }
 
   function apply() {
