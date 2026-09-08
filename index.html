@@ -6,68 +6,126 @@
   <title>RoléDFora</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #fffaf7;
       color: #222;
     }
+
     .container {
       max-width: 900px;
       margin: 0 auto;
       padding: 40px 20px;
     }
-    header { margin-bottom: 32px; }
-    h1 { font-size: 3rem; margin: 0; }
-    header p { margin-top: 8px; font-size: 1.1rem; }
+
+    header {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 1.1rem;
+    }
+
+    .search-area {
+      margin: 24px auto 42px;
+      text-align: center;
+    }
+
     .filters {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin: 24px 0 36px;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 18px;
     }
+
     .filter {
       border: 0;
       border-radius: 999px;
-      padding: 10px 16px;
+      padding: 11px 16px;
       font-weight: 700;
+      color: #222;
       cursor: pointer;
+      min-width: 135px;
+      text-align: center;
+      appearance: none;
     }
+
     .local { background: #cfe8ff; }
     .valor { background: #d8f5d0; }
     .horario { background: #ffe0b8; }
     .data { background: #ffd4e5; }
     .tipo { background: #e3d5ff; }
+
+    .search-button {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 26px;
+      font-size: 1rem;
+      font-weight: 800;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(0,0,0,.12);
+    }
+
     .card {
       background: white;
       border-radius: 22px;
       padding: 22px;
       box-shadow: 0 6px 24px rgba(0,0,0,.08);
     }
+
     .card h2 { margin-top: 0; }
+
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin: 16px 0;
     }
+
     .tag {
       background: #f1f1f1;
       border-radius: 999px;
       padding: 7px 11px;
       font-size: .9rem;
     }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 18px;
     }
+
     .actions button {
       border: 0;
       border-radius: 12px;
       padding: 10px 14px;
       cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.4rem; }
+
+      .filters {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .filter {
+        width: min(100%, 320px);
+      }
     }
   </style>
 </head>
@@ -78,12 +136,62 @@
       <p>o que tem pra fazer por aí?</p>
     </header>
 
-    <section class="filters" aria-label="Filtros principais">
-      <button class="filter local">📍 local</button>
-      <button class="filter valor">💰 valor</button>
-      <button class="filter horario">🕒 horário</button>
-      <button class="filter data">📅 data</button>
-      <button class="filter tipo">🎉 tipo de rolê</button>
+    <section class="search-area" aria-label="Pesquisar rolês">
+      <div class="filters">
+        <select class="filter local" aria-label="Local">
+          <option>📍 local</option>
+          <option>DF</option>
+          <option>Entorno Sul</option>
+          <option>Entorno Norte</option>
+        </select>
+
+        <select class="filter valor" aria-label="Valor">
+          <option>💰 valor</option>
+          <option>grátis</option>
+          <option>até R$ 20</option>
+          <option>até R$ 50</option>
+          <option>até R$ 100</option>
+          <option>qualquer valor</option>
+        </select>
+
+        <select class="filter horario" aria-label="Horário">
+          <option>🕒 horário</option>
+          <option>manhã</option>
+          <option>tarde</option>
+          <option>noite</option>
+          <option>madrugada</option>
+        </select>
+
+        <select class="filter data" aria-label="Data">
+          <option>📅 data</option>
+          <option>hoje</option>
+          <option>amanhã</option>
+          <option>fim de semana</option>
+          <option>próximos 7 dias</option>
+          <option>este mês</option>
+        </select>
+
+        <select class="filter tipo" aria-label="Tipo de rolê">
+          <option>🎉 tipo de rolê</option>
+          <option>festa</option>
+          <option>show</option>
+          <option>barzinho</option>
+          <option>karaokê</option>
+          <option>feira</option>
+          <option>brechó</option>
+          <option>exposição</option>
+          <option>cinema</option>
+          <option>teatro</option>
+          <option>LGBTQIA+</option>
+          <option>gastronomia</option>
+          <option>nerd/geek</option>
+          <option>ao ar livre</option>
+          <option>workshop/curso</option>
+          <option>universitário</option>
+        </select>
+      </div>
+
+      <button class="search-button">🔎 pesquisar rolês</button>
     </section>
 
     <section>
