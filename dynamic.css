@@ -79,6 +79,26 @@
   background: #dff2e0 !important;
 }
 
+.saved-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 9px;
+}
+
+.saved-status-row .status-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: #f2e9e4;
+  color: #4c443f;
+  font: 750 .72rem 'Manrope', Arial, sans-serif;
+  cursor: pointer;
+}
+
+.saved-status-row .status-btn:hover { transform: translateY(-1px); }
+.saved-status-row .status-btn.active { background: #dff2e0; }
+
 .category-chip:hover,
 .category-chip:focus-visible {
   width: 290px !important;
@@ -224,6 +244,10 @@
   .save-btn {
     width: 38px;
     min-width: 38px;
+  }
+  .saved-status-row .status-btn {
+    padding: 7px 9px;
+    font-size: .69rem;
   }
   .category-chip:hover,
   .category-chip:focus-visible { width: 46px !important; }
