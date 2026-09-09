@@ -8,8 +8,10 @@
   <link rel="stylesheet" href="./browse.css" />
   <script src="./app.js" defer></script>
   <script src="./ui-fixes.js" defer></script>
+  <script src="./event-filter-fixes.js" defer></script>
   <script src="./bulk-data.js" defer></script>
   <script src="./eventos-6-loader.js" defer></script>
+  <script src="./eventos-14-loader.js" defer></script>
   <script src="./locations.js" defer></script>
   <script src="./site-polish.js" defer></script>
   <script src="./price-fixes.js" defer></script>
@@ -42,25 +44,58 @@
       <div class="search-row event-search simple-search">
         <div class="field local"><label for="local">onde?</label><select id="local"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
-        <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">r$ 1–20</option><option value="ate-50">r$ 21–50</option><option value="ate-100">r$ 51–100</option><option value="acima-100">acima de r$ 100</option></select></div>
+        <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
         <div class="field tipo">
-          <label for="tipo">tipo de evento?</label>
+          <label for="tipo">o que vai rolar?</label>
           <select id="tipo">
-            <option value="qualquer">qualquer tipo</option>
-            <option value="alternativo">alternativo</option>
-            <option value="ao-ar-livre">ao ar livre</option>
-            <option value="cultura-artes">cultura & artes</option>
-            <option value="cursos-atividades">cursos & atividades</option>
-            <option value="feiras-brechos">feiras & brechós</option>
-            <option value="festas-noite">festas & noite</option>
+            <option value="qualquer">qualquer formato</option>
+            <option value="festival">festival & mostra</option>
+            <option value="show">show & música ao vivo</option>
+            <option value="festa">festa & rolê noturno</option>
+            <option value="cinema">cinema & audiovisual</option>
+            <option value="teatro-circo">teatro, dança & circo</option>
+            <option value="exposicao">exposição & museu</option>
+            <option value="feira">feira & brechó</option>
+            <option value="formacao">oficina, curso & palestra</option>
             <option value="gastronomia">gastronomia</option>
+            <option value="geek">geek, games & cosplay</option>
+            <option value="ao-ar-livre">esporte & ao ar livre</option>
+          </select>
+        </div>
+        <div class="field vibe">
+          <label for="caracteristica">qual a vibe?</label>
+          <select id="caracteristica">
+            <option value="qualquer">qualquer vibe</option>
+            <option value="alternativo">alternativo & independente</option>
             <option value="lgbtqia">lgbtqia+</option>
-            <option value="shows-musica">shows & música</option>
+            <option value="dancante">pra dançar</option>
+            <option value="cultura-popular">cultura popular</option>
+            <option value="arte-cultura">arte & cultura</option>
+            <option value="date">bom pra date</option>
+            <option value="sozinho">bom pra ir sozinho</option>
+            <option value="familias">família & crianças</option>
+            <option value="acessivel">acessível</option>
+            <option value="musica-vivo">música ao vivo</option>
           </select>
         </div>
       </div>
     </section>
+
+    <div class="category-strip" aria-label="atalhos de filtros">
+      <button class="category-chip" data-category="festival" title="festival & mostra"><span class="emoji">🎪</span><span class="category-name">festival & mostra</span></button>
+      <button class="category-chip" data-category="cinema" title="cinema & audiovisual"><span class="emoji">🎬</span><span class="category-name">cinema</span></button>
+      <button class="category-chip" data-category="teatro-circo" title="teatro, dança & circo"><span class="emoji">🎭</span><span class="category-name">teatro & circo</span></button>
+      <button class="category-chip" data-category="exposicao" title="exposição & museu"><span class="emoji">🖼️</span><span class="category-name">exposição</span></button>
+      <button class="category-chip" data-category="show" title="show & música ao vivo"><span class="emoji">🎤</span><span class="category-name">show</span></button>
+      <button class="category-chip" data-category="festa" title="festa & rolê noturno"><span class="emoji">🎉</span><span class="category-name">festa</span></button>
+      <button class="category-chip" data-category="feira" title="feira & brechó"><span class="emoji">🧺</span><span class="category-name">feira</span></button>
+      <button class="category-chip" data-category="formacao" title="oficina, curso & palestra"><span class="emoji">🛠️</span><span class="category-name">oficina & curso</span></button>
+      <button class="category-chip" data-tag="alternativo" title="alternativo & independente"><span class="emoji">✨</span><span class="category-name">alternativo</span></button>
+      <button class="category-chip" data-tag="lgbtqia" title="lgbtqia+"><span class="emoji">🌈</span><span class="category-name">lgbtqia+</span></button>
+      <button class="category-chip" data-tag="cultura-popular" title="cultura popular"><span class="emoji">🪗</span><span class="category-name">cultura popular</span></button>
+      <button class="category-chip" data-tag="sozinho" title="bom pra ir sozinho"><span class="emoji">👤</span><span class="category-name">ir sozinho</span></button>
+    </div>
 
     <section class="search-results-section" hidden>
       <div class="results-head"><h2 class="section-title">eventos encontrados</h2><span id="result-count" class="result-count">0 resultados</span></div>
