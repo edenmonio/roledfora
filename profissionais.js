@@ -35,7 +35,7 @@
 
   const SPECIALTY_FALLBACK = {
     psicologia:['🧠','psicóloga'], medicina:['🩺','médico(a)'], psiquiatria:['🧩','psiquiatra'], nutricao:['🥗','nutricionista'], fisioterapia:['🦴','fisioterapeuta'], odontologia:['🦷','dentista'], fonoaudiologia:['🗣️','fonoaudiólogo(a)'], 'terapia-ocupacional':['🤲','terapeuta ocupacional'], enfermagem:['💉','enfermeiro(a)'],
-    fotografia:['📷','fotógrafo(a)'], maquiagem:['💄','maquiador(a)'], musica:['🎵','músico(a)'], design:['🎨','designer'], dj:['🎧','dj'], tatuagem:['🖋️','tatuador(a)'], piercing:['💎','piercer']
+    fotografia:['📷','fotógrafo(a)'], maquiagem:['💄','maquiador(a)'], musica:['🎵','músico(a)'], design:['🎨','designer'], dj:['🎧','dj'], tatuagem:['🖋️','tatuador(a)'], piercing:['💎','piercer'], croche:['🧶','crochê'], 'bijuterias-acessorios':['💎','bijuteria']
   };
 
   let profissionais = [];
@@ -69,9 +69,14 @@
   }
 
   function locationMatches(item,value) {
-    if (!value || value === 'qualquer') return true; if (item.online) return true;
-    if (window.ROLED_LOCATIONS?.locationMatches) return window.ROLED_LOCATIONS.locationMatches(item.cidade,value);
-    return norm(item.cidade) === norm(value);
+    if (!value || value === 'qualquer') return true;
+    if (item.online) return true;
+    const selected = norm(value);
+    const locations = [...(Array.isArray(item.cidades) ? item.cidades : []), item.cidade].filter(Boolean);
+    if (item.atendeDf && (selected === 'df' || window.ROLED_LOCATIONS?.ras?.some(([id]) => norm(id) === selected))) return true;
+    if ((selected === 'entorno' || selected === 'goias') && locations.some(city => window.ROLED_LOCATIONS?.locationMatches?.(city,'entorno'))) return true;
+    if (window.ROLED_LOCATIONS?.locationMatches) return locations.some(city => window.ROLED_LOCATIONS.locationMatches(city,value));
+    return locations.some(city => norm(city) === selected);
   }
 
   function areaLabel(item) {
@@ -85,9 +90,17 @@
     return SPECIALTY_FALLBACK[norm(first)] || ['👤','profissional'];
   }
 
+  function locationLabel(item) {
+    if (item.localizacaoLabel) return lower(item.localizacaoLabel);
+    if (item.online) return '';
+    const locations = [...(Array.isArray(item.cidades) ? item.cidades : []), item.cidade].filter(Boolean).map(lower);
+    if (item.atendeDf) locations.unshift('df');
+    return [...new Set(locations)].join(' e ');
+  }
+
   function card(item) {
     const [specialtyEmoji,specialty] = specialtyInfo(item);
-    const physicalLocation = !item.online && item.cidade ? `${lower(item.cidade)}${item.uf ? ` · ${lower(item.uf)}` : ''}` : '';
+    const physicalLocation = locationLabel(item);
     const link = item.link || item.instagram || item.site; const handle = lower(item.instagramHandle || ''); const contactLabel = handle || 'ver perfil / contato';
     return `<article class="card professional-card">
       <span class="card-kind">${esc(areaLabel(item))}</span>
@@ -97,6 +110,7 @@
         ${item.online ? '<p>💻 atendimento online</p>' : physicalLocation ? `<p>📍 ${esc(physicalLocation)}</p>` : ''}
         ${link ? `<p>📱 <a href="${esc(link)}" target="_blank" rel="noopener">${esc(contactLabel)}</a></p>` : ''}
       </div>
+      ${item.descricao ? `<p class="desc">${esc(lower(item.descricao))}</p>` : ''}
     </article>`;
   }
 
