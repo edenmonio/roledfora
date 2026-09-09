@@ -5,7 +5,7 @@
   const escHtml = value => (value ?? '').toString().replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 
   const GROUPS = [
-    ['bicho','bichos','bichinho','bichinhos','animal','animais','cabra','cabras','cabrito','cabritos','cabrissima','zoologico','zoo','fazenda','fazendinha','rural','fauna'],
+    ['bicho','bichos','bichinho','bichinhos','animal','animais','cabra','cabras','cabrito','cabritos','cabrissima','zoologico','zoo','fauna','pet','pets'],
     ['quadrinho','quadrinhos','hq','hqs','gibi','gibis','comics','manga','mangas','gibiteca'],
     ['cinema','filme','filmes','audiovisual','sessao','sessoes'],
     ['musica','show','shows','concerto','festival musical','musica ao vivo'],
@@ -61,6 +61,14 @@
       .filter(token => token.length >= 2 && !STOP_WORDS.has(token));
   }
 
+  function termMatches(text, term) {
+    const haystack = n(text);
+    const needle = n(term);
+    if (!haystack || !needle) return false;
+    const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`).test(haystack);
+  }
+
   function fieldsFor(kind, item) {
     if (kind === 'route') {
       return {
@@ -106,9 +114,9 @@
       let best = 0;
       for (const term of family) {
         if (!term) continue;
-        if (name.includes(term)) best = Math.max(best, 12);
-        else if (tags.includes(term)) best = Math.max(best, 8);
-        else if (full.includes(term)) best = Math.max(best, 4);
+        if (termMatches(name, term)) best = Math.max(best, 12);
+        else if (termMatches(tags, term)) best = Math.max(best, 8);
+        else if (termMatches(full, term)) best = Math.max(best, 4);
       }
       if (!best) return 0;
       score += best;
