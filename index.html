@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>roledfora — rolês</title>
+  <title>roledfora — eventos</title>
   <link rel="stylesheet" href="./styles.css" />
   <link rel="stylesheet" href="./browse.css" />
   <script src="./app.js" defer></script>
   <script src="./ui-fixes.js" defer></script>
   <script src="./bulk-data.js" defer></script>
+  <script src="./locations.js" defer></script>
   <script src="./site-polish.js" defer></script>
   <script src="./price-fixes.js" defer></script>
   <script src="./role-fixes.js" defer></script>
@@ -22,8 +23,8 @@
     </header>
 
     <nav class="main-nav" aria-label="páginas principais">
-      <a class="active" href="./index.html">rolês</a>
-      <a href="./lugares.html">conhecer</a>
+      <a class="active" href="./index.html">eventos</a>
+      <a href="./lugares.html">lugares</a>
       <a href="./profissionais.html">profissionais</a>
     </nav>
     <nav class="utility-nav" aria-label="ferramentas">
@@ -31,19 +32,19 @@
     </nav>
 
     <section class="page-intro">
-      <h2>rolês pra fazer</h2>
-      <p>festas, shows, cultura, feiras, gastronomia, atividades e rolês ao ar livre pelo df e entorno.</p>
+      <h2>eventos pra fazer</h2>
+      <p>festas, shows, cultura, feiras, gastronomia, atividades e eventos ao ar livre pelo df e entorno.</p>
     </section>
 
     <section class="search-panel" aria-label="filtrar eventos">
-      <p class="search-title">encontre seu próximo rolê no df e entorno</p>
+      <p class="search-title">encontre seu próximo evento no df e entorno</p>
       <div class="search-row event-search simple-search">
         <div class="field local"><label for="local">onde?</label><select id="local"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
         <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">r$ 1–20</option><option value="ate-50">r$ 21–50</option><option value="ate-100">r$ 51–100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
         <div class="field tipo">
-          <label for="tipo">tipo de rolê?</label>
+          <label for="tipo">tipo de evento?</label>
           <select id="tipo">
             <option value="qualquer">qualquer tipo</option>
             <option value="alternativo">alternativo</option>
@@ -61,7 +62,7 @@
     </section>
 
     <section class="search-results-section" hidden>
-      <div class="results-head"><h2 class="section-title">rolês encontrados</h2><span id="result-count" class="result-count">0 resultados</span></div>
+      <div class="results-head"><h2 class="section-title">eventos encontrados</h2><span id="result-count" class="result-count">0 resultados</span></div>
       <div id="results" class="cards-grid"></div>
       <div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div>
     </section>
