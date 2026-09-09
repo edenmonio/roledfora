@@ -1,22 +1,5 @@
 [
   {
-    "id":"web-129-santuario-jardim-imaculada",
-    "nome":"santuário jardim da imaculada",
-    "cidade":"cidade ocidental",
-    "categoria":"cultura e museus",
-    "emoji":"⛪",
-    "tags":["patrimônio","religioso","cultura","arquitetura","passeio"],
-    "endereco":"ocidental park, cidade ocidental - go, 72880-000",
-    "acesso":"consultar horários de celebrações, visitação e atividades antes de sair",
-    "preco":"entrada gratuita; atividades específicas podem variar",
-    "precoFaixa":"gratis",
-    "descricao":"santuário e convento franciscano ligado à milícia da imaculada, com história religiosa, arquitetura, jardins e programação de encontros e formações.",
-    "fonte":"https://santuariojardimdaimaculada.com/sobre",
-    "verificadoEm":"2026-09-09",
-    "adicionadoEm":"2026-09-09",
-    "origem":"web"
-  },
-  {
     "id":"web-130-parque-chico-mendes-ocidental",
     "nome":"parque ecológico chico mendes",
     "cidade":"cidade ocidental",
@@ -39,7 +22,7 @@
     "categoria":"passeios locais",
     "emoji":"🌅",
     "tags":["lago","ao ar livre","passeio","pôr do sol","lazer"],
-    "acesso":"espaço citado pela prefeitura como atrativo turístico; conferir condições atuais antes de sair",
+    "acesso":"espaço citado pela prefeitura como atrativo turístico; conferir condições atuais de acesso antes de sair",
     "preco":"grátis",
     "precoFaixa":"gratis",
     "descricao":"orla e área de convivência junto ao lago jacob, listada pela prefeitura entre os pontos de interesse turístico da cidade.",
