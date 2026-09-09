@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>roledfora — profissionais</title>
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./browse.css" />
+  <script src="./locations.js" defer></script>
   <script src="./site-polish.js" defer></script>
+  <script src="./profissionais.js" defer></script>
 </head>
 <body data-page="profissionais">
   <main class="container">
@@ -15,8 +18,8 @@
     </header>
 
     <nav class="main-nav" aria-label="páginas principais">
-      <a href="./index.html">rolês</a>
-      <a href="./lugares.html">conhecer</a>
+      <a href="./index.html">eventos</a>
+      <a href="./lugares.html">lugares</a>
       <a class="active" href="./profissionais.html">profissionais</a>
     </nav>
     <nav class="utility-nav" aria-label="ferramentas">
@@ -31,30 +34,28 @@
       <p>gente do df e entorno pra acompanhar, chamar pro seu projeto e guardar.</p>
     </section>
 
-    <nav class="category-strip" aria-label="áreas profissionais">
-      <button class="category-chip" type="button" title="arte & ilustração"><span class="emoji">🎨</span><span class="category-name">arte & ilustração</span></button>
-      <button class="category-chip" type="button" title="artesanato"><span class="emoji">🧶</span><span class="category-name">artesanato</span></button>
-      <button class="category-chip" type="button" title="audiovisual"><span class="emoji">🎬</span><span class="category-name">audiovisual</span></button>
-      <button class="category-chip" type="button" title="cabelo"><span class="emoji">✂️</span><span class="category-name">cabelo</span></button>
-      <button class="category-chip" type="button" title="djs"><span class="emoji">🎧</span><span class="category-name">djs</span></button>
-      <button class="category-chip" type="button" title="drag & performance"><span class="emoji">🎭</span><span class="category-name">drag & performance</span></button>
-      <button class="category-chip" type="button" title="fotografia"><span class="emoji">📷</span><span class="category-name">fotografia</span></button>
-      <button class="category-chip" type="button" title="maquiagem"><span class="emoji">💄</span><span class="category-name">maquiagem</span></button>
-      <button class="category-chip" type="button" title="moda & customização"><span class="emoji">👗</span><span class="category-name">moda & customização</span></button>
-      <button class="category-chip" type="button" title="música"><span class="emoji">🎸</span><span class="category-name">música</span></button>
-      <button class="category-chip" type="button" title="produção de eventos"><span class="emoji">🪩</span><span class="category-name">produção de eventos</span></button>
-      <button class="category-chip" type="button" title="tatuagem & piercing"><span class="emoji">💉</span><span class="category-name">tatuagem & piercing</span></button>
-      <button class="category-chip" type="button" title="turismo local"><span class="emoji">🗺️</span><span class="category-name">turismo local</span></button>
-    </nav>
+    <section class="search-panel" aria-label="filtrar profissionais">
+      <p class="search-title">encontre um profissional no df e entorno</p>
+      <div class="search-row profissionais-search simple-search">
+        <div class="field local">
+          <label for="prof-local">onde?</label>
+          <select id="prof-local"><option value="qualquer">qualquer lugar</option></select>
+        </div>
+        <div class="field tipo">
+          <label for="prof-tipo">tipo de profissional?</label>
+          <select id="prof-tipo">
+            <option value="qualquer">qualquer tipo</option>
+          </select>
+        </div>
+      </div>
+    </section>
 
-    <section>
+    <section class="search-results-section" hidden>
       <div class="results-head">
-        <h2 class="section-title">indicações</h2>
-        <span class="result-count">em construção</span>
+        <h2 class="section-title">profissionais encontrados</h2>
+        <span id="result-count" class="result-count">0 resultados</span>
       </div>
-      <div class="cards-grid">
-        <div class="empty-state">começando a montar essa lista só com perfis públicos e informações que dê pra confirmar. conhece alguém que devia entrar? <a href="./contato.html">manda uma indicação</a>.</div>
-      </div>
+      <div id="results" class="cards-grid"></div>
     </section>
   </main>
 </body>
