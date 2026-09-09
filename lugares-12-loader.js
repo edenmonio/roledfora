@@ -1,32 +1,6 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  const PLACE_FILES = ['./data/lugares-12.json','./data/lugares-13.json','./data/lugares-14.json'];
-
-  const CHRISTIAN_WORSHIP_TERMS = [
-    'igreja','santuario','paroquia','convento','basilica','capela','catedral',
-    'centro cristao','comunidade evangelica','templo cristao','assembleia de deus',
-    'ministerio evangelico','nossa senhora','sagrado coracao','milicia da imaculada'
-  ];
-
-  function itemText(item) {
-    return norm([
-      item?.nome,item?.descricao,item?.local,item?.fonte,item?.link,item?.acesso,
-      ...(Array.isArray(item?.tags) ? item.tags : [])
-    ].filter(Boolean).join(' '));
-  }
-
-  function isChristianWorshipPlace(item) {
-    const text = itemText(item);
-    return CHRISTIAN_WORSHIP_TERMS.some(term => text.includes(term));
-  }
-
-  function applyCuration() {
-    if (typeof state === 'undefined' || !Array.isArray(state.lugares)) return false;
-    const filtered = state.lugares.filter(item => !isChristianWorshipPlace(item));
-    const changed = filtered.length !== state.lugares.length;
-    state.lugares = filtered;
-    return changed;
-  }
+  const PLACE_FILES = ['./data/lugares-12.json','./data/lugares-13.json','./data/lugares-14.json','./data/lugares-15.json'];
 
   async function fetchFile(path) {
     try {
@@ -40,17 +14,15 @@
 
   async function fetchPlaces() {
     const chunks = await Promise.all(PLACE_FILES.map(fetchFile));
-    return chunks.flat().filter(item => !isChristianWorshipPlace(item));
+    return chunks.flat();
   }
 
   function mergePlaces(extra) {
     if (typeof state === 'undefined' || !Array.isArray(state.lugares)) return false;
-    applyCuration();
     const ids = new Set(state.lugares.map(item => norm(item.id)).filter(Boolean));
     const signatures = new Set(state.lugares.map(item => `${norm(item.nome)}|${norm(item.cidade)}`));
 
     extra.forEach(item => {
-      if (isChristianWorshipPlace(item)) return;
       const id = norm(item.id);
       const signature = `${norm(item.nome)}|${norm(item.cidade)}`;
       if ((id && ids.has(id)) || signatures.has(signature)) return;
@@ -58,7 +30,6 @@
       if (id) ids.add(id);
       signatures.add(signature);
     });
-    applyCuration();
     return true;
   }
 
@@ -71,17 +42,13 @@
     } catch {}
   }
 
-  function curateAfterUpdate() {
-    if (applyCuration()) refresh();
-  }
-
   async function start() {
     const extra = await fetchPlaces();
+    if (!extra.length) return;
 
     let tries = 0;
     const apply = () => {
-      if (typeof state !== 'undefined' && Array.isArray(state.lugares)) {
-        mergePlaces(extra);
+      if (mergePlaces(extra)) {
         refresh();
         document.dispatchEvent(new CustomEvent('roledfora:data-updated'));
         return;
@@ -92,5 +59,4 @@
   }
 
   document.addEventListener('DOMContentLoaded', start);
-  document.addEventListener('roledfora:data-updated', curateAfterUpdate);
 })();
