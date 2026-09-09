@@ -17,20 +17,28 @@
 
     const item = findItem(card);
     const lines = [...meta.querySelectorAll(':scope > p')];
-    let service = lines.find(line => line.textContent.trim().startsWith('🛠️'));
+
+    const genericService = lines.find(line => line.textContent.trim().startsWith('🛠️'));
+    const existingSpecialties = lines.filter(line => line.dataset.profSpecialty === 'true');
     const online = lines.find(line => line.textContent.trim().startsWith('💻'));
     const location = lines.find(line => line.textContent.trim().startsWith('📍'));
     const contact = lines.find(line => line.textContent.trim().startsWith('📱'));
 
+    existingSpecialties.slice(1).forEach(line => line.remove());
+
+    let specialty = existingSpecialties[0] || null;
     if (item?.especialidade) {
-      if (!service) {
-        service = document.createElement('p');
-        meta.prepend(service);
+      if (!specialty) {
+        specialty = document.createElement('p');
+        specialty.dataset.profSpecialty = 'true';
       }
-      service.innerHTML = `${esc(item.especialidadeEmoji || '👤')} ${esc(item.especialidade.toLocaleLowerCase('pt-BR'))}`;
+      specialty.textContent = `${item.especialidadeEmoji || '👤'} ${item.especialidade.toLocaleLowerCase('pt-BR')}`;
+      genericService?.remove();
+    } else if (genericService) {
+      specialty = genericService;
     }
 
-    [service, online || location, online && location ? location : null, contact]
+    [specialty, online || location, online && location ? location : null, contact]
       .filter(Boolean)
       .forEach(line => meta.appendChild(line));
 
