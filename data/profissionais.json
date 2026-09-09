@@ -1,13 +1,13 @@
 [
   {
     "id": "prof-silvia-moreno",
-    "nome": "Psicóloga Silvia Moreno",
+    "nome": "psicóloga silvia moreno",
     "area": "saude",
     "servicos": ["psicologia"],
     "online": true,
     "cidade": "online",
     "instagramHandle": "@morenopsi",
     "instagram": "https://www.instagram.com/morenopsi/",
-    "descricao": "Psicóloga com atendimento online."
+    "descricao": "psicóloga com atendimento online."
   }
 ]
