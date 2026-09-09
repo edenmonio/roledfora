@@ -1,74 +1,71 @@
-@font-face {
-  font-family: 'REVISTA';
-  src: url('./REVISTA.ttf') format('truetype');
-  font-display: swap;
-}
+@import url('./dynamic.css');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
-:root {
-  --bg: #fffdfb;
-  --text: #302d2b;
-  --muted: #716861;
-  --soft: #f2e9e4;
-  --card: #ffffff;
-  --shadow: 0 8px 24px rgba(0,0,0,.08);
+@font-face {
+  font-family: 'Revista';
+  src: url('./REVISTA.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
   font-family: 'Manrope', Arial, sans-serif;
+  background: #fffaf7;
+  color: #222;
 }
 
-button, select, input { font: inherit; }
+a { color: inherit; }
+button, select { font-family: inherit; }
 
 .container {
-  width: min(1180px, calc(100% - 40px));
+  width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 38px 0 70px;
+  padding: 36px 0 64px;
 }
 
 .site-header {
   text-align: center;
   margin-bottom: 22px;
+  overflow: hidden;
 }
 
 .site-title {
-  margin: 0;
-  font-family: 'REVISTA', Georgia, serif;
+  font-family: 'Revista', 'Manrope', Arial, sans-serif;
   font-size: 120pt;
-  line-height: .82;
   font-weight: 400;
-  letter-spacing: -5px;
+  line-height: .78;
+  letter-spacing: -0.045em;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .site-subtitle {
-  margin: 18px 0 0;
+  margin: 24px 0 0;
   font-size: 1.08rem;
-  color: var(--muted);
+  font-weight: 600;
 }
 
 .main-nav,
 .utility-nav {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
-.main-nav { margin-bottom: 10px; }
-.utility-nav { margin-bottom: 30px; }
+.main-nav { margin: 0 auto 10px; }
+.utility-nav { margin: 0 auto 28px; gap: 4px; }
 
 .main-nav a,
 .utility-nav a {
-  display: inline-block;
-  border-radius: 999px;
   text-decoration: none;
-  color: #403a36;
+  border-radius: 999px;
   font-weight: 800;
-  transition: transform .15s ease;
+  transition: transform .15s ease, background .15s ease;
 }
 
 .main-nav a {
@@ -276,91 +273,40 @@ button, select, input { font: inherit; }
 .card {
   background: white;
   border-radius: 22px;
-  padding: 20px;
-  box-shadow: var(--shadow);
-  min-width: 0;
+  padding: 22px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.08);
 }
+
+.card h2, .card h3 {
+  margin: 0 0 12px;
+  font-size: 1.35rem;
+}
+
+.card p { margin: 7px 0; }
+.card .desc { color: #625a55; line-height: 1.5; font-size: .92rem; }
 
 .card-kind {
   display: inline-block;
-  margin-bottom: 9px;
+  margin-bottom: 10px;
+  padding: 5px 9px;
   border-radius: 999px;
-  background: #f4efec;
-  padding: 6px 9px;
-  font-size: .68rem;
+  background: #f2e9e4;
+  font-size: .72rem;
   font-weight: 800;
-  color: #5f5752;
-}
-
-.card h3 {
-  margin: 0 0 12px;
-  font-size: 1.22rem;
-  line-height: 1.2;
-}
-
-.card-meta {
-  display: grid;
-  gap: 6px;
-  margin-bottom: 14px;
-  color: #5f5752;
-  font-size: .84rem;
-}
-
-.card-meta p { margin: 0; line-height: 1.35; }
-
-.desc {
-  margin: 0 0 14px;
-  color: #4f4945;
-  line-height: 1.55;
-  font-size: .9rem;
-}
-
-.results-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 15px;
-}
-
-.results-head .section-title { margin-bottom: 0; }
-
-.result-count {
-  color: #7f756e;
-  font-size: .78rem;
-  font-weight: 700;
-}
-
-.empty-state {
-  grid-column: 1 / -1;
-  border: 2px dashed #ded6d0;
-  border-radius: 20px;
-  padding: 28px;
-  color: #766d67;
-  text-align: center;
-  line-height: 1.5;
-}
-
-.more-wrap {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.show-more {
-  border: 0;
-  border-radius: 999px;
-  padding: 11px 18px;
-  background: #eee3dc;
-  color: #403a36;
-  font: 800 .82rem 'Manrope', Arial, sans-serif;
-  cursor: pointer;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  margin-top: 14px;
+  margin: 16px 0;
+}
+
+.tag {
+  background: #f1f1f1;
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: .88rem;
 }
 
 .tag-chip {
