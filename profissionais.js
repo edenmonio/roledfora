@@ -2,40 +2,156 @@
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
   const esc = value => (value ?? '').toString().replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 
-  const TYPES = [
+  const AREAS = [
     ['arte-ilustracao','arte & ilustração'],
     ['artesanato','artesanato'],
     ['audiovisual','audiovisual'],
-    ['cabelo','cabelo'],
+    ['cabelo-barbearia','cabelo & barbearia'],
+    ['confeitaria-doces','confeitaria & doces'],
+    ['danca-coreografia','dança & coreografia'],
+    ['decoracao','decoração'],
+    ['design','design'],
     ['dj','djs'],
     ['drag-performance','drag & performance'],
+    ['estetica-beleza','estética & beleza'],
     ['fotografia','fotografia'],
     ['maquiagem','maquiagem'],
     ['moda-customizacao','moda & customização'],
     ['musica','música'],
+    ['nail-design','nail design'],
     ['producao-eventos','produção de eventos'],
+    ['saude','saúde'],
+    ['social-media-conteudo','social media & conteúdo'],
+    ['som-iluminacao','som & iluminação'],
     ['tatuagem-piercing','tatuagem & piercing'],
+    ['teatro-performance','teatro & performance'],
     ['turismo-local','turismo local']
   ];
 
+  const SERVICES = {
+    'arte-ilustracao': [
+      ['ilustracao','ilustração'],['desenho','desenho'],['pintura','pintura'],['retrato','retrato'],['caricatura','caricatura'],['arte-digital','arte digital'],['mural-grafite','mural / grafite'],['encomendas','encomendas']
+    ],
+    'artesanato': [
+      ['croche','crochê'],['trico','tricô'],['bordado','bordado'],['costura-criativa','costura criativa'],['ceramica','cerâmica'],['papelaria-artesanal','papelaria artesanal'],['bijuterias-acessorios','bijuterias & acessórios'],['personalizados','personalizados']
+    ],
+    'audiovisual': [
+      ['filmagem','filmagem'],['videomaker','videomaker'],['edicao-video','edição de vídeo'],['motion-design','motion design'],['direcao','direção'],['roteiro','roteiro'],['captacao','captação'],['transmissao-ao-vivo','transmissão ao vivo']
+    ],
+    'cabelo-barbearia': [
+      ['corte','corte'],['barbearia','barbearia'],['coloracao','coloração'],['trancas','tranças'],['penteado','penteado'],['cachos','cachos'],['alisamento','alisamento'],['tratamento-capilar','tratamento capilar']
+    ],
+    'confeitaria-doces': [
+      ['bolos','bolos'],['doces','doces'],['brigadeiros','brigadeiros'],['sobremesas','sobremesas'],['kit-festa','kit festa'],['personalizados','personalizados'],['doces-veganos','doces veganos']
+    ],
+    'danca-coreografia': [
+      ['aula-danca','aula de dança'],['coreografia','coreografia'],['performance','performance'],['danca-eventos','dança para eventos'],['preparacao-artistica','preparação artística']
+    ],
+    'decoracao': [
+      ['decoracao-festas','decoração de festas'],['cenografia','cenografia'],['baloes','balões'],['flores','flores'],['montagem','montagem'],['decoracao-tematica','decoração temática']
+    ],
+    'design': [
+      ['identidade-visual','identidade visual'],['logotipo','logotipo'],['design-grafico','design gráfico'],['editorial','editorial'],['social-media','social media'],['embalagem','embalagem'],['diagramacao','diagramação']
+    ],
+    'dj': [
+      ['festa','festa'],['casamento','casamento'],['aniversario','aniversário'],['bar-balada','bar / balada'],['evento-corporativo','evento corporativo'],['set-tematico','set temático']
+    ],
+    'drag-performance': [
+      ['show-drag','show drag'],['apresentacao','apresentação'],['performance','performance'],['mestre-cerimonias','mestre de cerimônias'],['presenca-evento','presença em evento']
+    ],
+    'estetica-beleza': [
+      ['limpeza-pele','limpeza de pele'],['depilacao','depilação'],['sobrancelha','sobrancelha'],['cilios','cílios'],['massagem-estetica','massagem estética'],['procedimentos-faciais','procedimentos faciais']
+    ],
+    'fotografia': [
+      ['ensaio-individual','ensaio individual'],['casal','casal'],['familia','família'],['eventos','eventos'],['shows','shows'],['produtos','produtos'],['gastronomia','gastronomia'],['retrato-profissional','retrato profissional']
+    ],
+    'maquiagem': [
+      ['social','social'],['festa','festa'],['casamento','casamento'],['artistica','artística'],['drag','drag'],['audiovisual','audiovisual'],['caracterizacao','caracterização']
+    ],
+    'moda-customizacao': [
+      ['costura','costura'],['ajustes','ajustes'],['figurino','figurino'],['customizacao','customização'],['styling','styling'],['criacao-pecas','criação de peças']
+    ],
+    'musica': [
+      ['cantor','cantor(a)'],['banda','banda'],['instrumentista','instrumentista'],['voz-violao','voz e violão'],['musica-eventos','música para eventos'],['composicao','composição'],['producao-musical','produção musical']
+    ],
+    'nail-design': [
+      ['manicure','manicure'],['pedicure','pedicure'],['alongamento','alongamento'],['nail-art','nail art'],['esmaltacao-gel','esmaltação em gel']
+    ],
+    'producao-eventos': [
+      ['producao-geral','produção geral'],['cerimonial','cerimonial'],['planejamento','planejamento'],['recepcao','recepção'],['credenciamento','credenciamento'],['producao-cultural','produção cultural'],['producao-tecnica','produção técnica']
+    ],
+    'saude': [
+      ['medicina','medicina'],['psicologia','psicologia'],['psiquiatria','psiquiatria'],['nutricao','nutrição'],['fisioterapia','fisioterapia'],['odontologia','odontologia'],['fonoaudiologia','fonoaudiologia'],['terapia-ocupacional','terapia ocupacional'],['enfermagem','enfermagem']
+    ],
+    'social-media-conteudo': [
+      ['gestao-redes','gestão de redes'],['criacao-conteudo','criação de conteúdo'],['copywriting','copywriting'],['planejamento','planejamento'],['reels-video-curto','reels / vídeo curto'],['community-manager','community manager']
+    ],
+    'som-iluminacao': [
+      ['sonorizacao','sonorização'],['iluminacao','iluminação'],['operacao-audio','operação de áudio'],['operacao-luz','operação de luz'],['aluguel-equipamento','aluguel de equipamento'],['montagem-tecnica','montagem técnica']
+    ],
+    'tatuagem-piercing': [
+      ['tatuagem-autoral','tatuagem autoral'],['flash-tattoo','flash tattoo'],['cobertura','cobertura'],['fine-line','fine line'],['blackwork','blackwork'],['colorida','colorida'],['piercing','piercing']
+    ],
+    'teatro-performance': [
+      ['atuacao','atuação'],['performance','performance'],['intervencao-artistica','intervenção artística'],['oficina','oficina'],['preparacao-elenco','preparação de elenco']
+    ],
+    'turismo-local': [
+      ['guia','guia'],['passeio-guiado','passeio guiado'],['roteiro-cultural','roteiro cultural'],['roteiro-historico','roteiro histórico'],['ecoturismo','ecoturismo'],['trilha','trilha']
+    ]
+  };
+
   let profissionais = [];
 
-  function fillTypes() {
+  function fillAreas() {
     const select = document.querySelector('#prof-tipo');
     if (!select) return;
     const current = select.value;
-    select.innerHTML = '<option value="qualquer">qualquer tipo</option>' + TYPES
+    select.innerHTML = '<option value="qualquer">qualquer área</option>' + AREAS
       .map(([value,label]) => `<option value="${esc(value)}">${esc(label)}</option>`)
       .join('');
     if ([...select.options].some(option => option.value === current)) select.value = current;
   }
 
-  function typeMatches(item,value) {
+  function fillServices(area) {
+    const select = document.querySelector('#prof-servico');
+    if (!select) return;
+
+    if (!area || area === 'qualquer' || !SERVICES[area]) {
+      select.disabled = true;
+      select.innerHTML = '<option value="qualquer">escolha uma área primeiro</option>';
+      return;
+    }
+
+    const current = select.value;
+    select.disabled = false;
+    select.innerHTML = '<option value="qualquer">qualquer serviço</option>' + SERVICES[area]
+      .map(([value,label]) => `<option value="${esc(value)}">${esc(label)}</option>`)
+      .join('');
+    if ([...select.options].some(option => option.value === current)) select.value = current;
+    else select.value = 'qualquer';
+  }
+
+  function areaMatches(item,value) {
     if (!value || value === 'qualquer') return true;
-    const itemType = norm(item.tipo || item.categoria);
-    const selected = TYPES.find(([id]) => id === value);
+    const itemType = norm(item.area || item.tipo || item.categoria);
+    const selected = AREAS.find(([id]) => id === value);
     if (!selected) return itemType === norm(value);
     return itemType === norm(selected[0]) || itemType === norm(selected[1]);
+  }
+
+  function serviceMatches(item,value) {
+    if (!value || value === 'qualquer') return true;
+    const values = [
+      ...(Array.isArray(item.servicos) ? item.servicos : []),
+      ...(Array.isArray(item.services) ? item.services : []),
+      item.servico,
+      item.service
+    ].filter(Boolean).map(norm);
+
+    const area = document.querySelector('#prof-tipo')?.value;
+    const selected = SERVICES[area]?.find(([id]) => id === value);
+    if (!selected) return values.includes(norm(value));
+    return values.includes(norm(selected[0])) || values.includes(norm(selected[1]));
   }
 
   function locationMatches(item,value) {
@@ -44,15 +160,40 @@
     return norm(item.cidade) === norm(value);
   }
 
+  function areaLabel(item) {
+    const raw = item.area || item.tipo || item.categoria;
+    const area = AREAS.find(([id,label]) => norm(raw) === norm(id) || norm(raw) === norm(label));
+    return area?.[1] || raw || 'profissional';
+  }
+
+  function serviceLabels(item) {
+    const areaRaw = item.area || item.tipo || item.categoria;
+    const area = AREAS.find(([id,label]) => norm(areaRaw) === norm(id) || norm(areaRaw) === norm(label));
+    const list = SERVICES[area?.[0]] || [];
+    const rawServices = [
+      ...(Array.isArray(item.servicos) ? item.servicos : []),
+      ...(Array.isArray(item.services) ? item.services : []),
+      item.servico,
+      item.service
+    ].filter(Boolean);
+
+    return rawServices.map(raw => {
+      const found = list.find(([id,label]) => norm(raw) === norm(id) || norm(raw) === norm(label));
+      return found?.[1] || raw;
+    });
+  }
+
   function card(item) {
-    const type = TYPES.find(([id,label]) => norm(item.tipo || item.categoria) === norm(id) || norm(item.tipo || item.categoria) === norm(label));
-    const typeLabel = type?.[1] || item.tipo || item.categoria || 'profissional';
     const location = item.cidade ? `${item.cidade}${item.uf ? ` · ${item.uf}` : ''}` : 'local não informado';
     const link = item.link || item.instagram || item.site;
+    const services = serviceLabels(item);
     return `<article class="card professional-card">
-      <span class="card-kind">${esc(typeLabel)}</span>
+      <span class="card-kind">${esc(areaLabel(item))}</span>
       <h3>${esc(item.nome)}</h3>
-      <div class="card-meta"><p>${esc(location)}</p></div>
+      <div class="card-meta">
+        <p>${esc(location)}</p>
+        ${services.length ? `<p>${esc(services.join(' · '))}</p>` : ''}
+      </div>
       ${item.descricao ? `<p class="desc">${esc(item.descricao)}</p>` : ''}
       ${link ? `<div class="actions"><a href="${esc(link)}" target="_blank" rel="noopener">ver perfil / contato</a></div>` : ''}
     </article>`;
@@ -60,17 +201,23 @@
 
   function render() {
     const local = document.querySelector('#prof-local')?.value || 'qualquer';
-    const tipo = document.querySelector('#prof-tipo')?.value || 'qualquer';
+    const area = document.querySelector('#prof-tipo')?.value || 'qualquer';
+    const servico = document.querySelector('#prof-servico')?.value || 'qualquer';
     const section = document.querySelector('.search-results-section');
     const target = document.querySelector('#results');
     const count = document.querySelector('#result-count');
     if (!section || !target || !count) return;
 
-    const hasSelection = local !== 'qualquer' || tipo !== 'qualquer';
+    const hasSelection = local !== 'qualquer' || area !== 'qualquer' || servico !== 'qualquer';
     section.hidden = !hasSelection;
     if (!hasSelection) return;
 
-    const items = profissionais.filter(item => locationMatches(item,local) && typeMatches(item,tipo));
+    const items = profissionais.filter(item =>
+      locationMatches(item,local) &&
+      areaMatches(item,area) &&
+      serviceMatches(item,servico)
+    );
+
     count.textContent = `${items.length} ${items.length === 1 ? 'resultado' : 'resultados'}`;
     target.innerHTML = items.length
       ? items.map(card).join('')
@@ -89,12 +236,18 @@
   }
 
   document.addEventListener('change',event => {
-    if (!event.target.closest('.search-panel select')) return;
+    const select = event.target.closest('.search-panel select');
+    if (!select) return;
+
+    if (select.id === 'prof-tipo') {
+      fillServices(select.value);
+    }
     render();
   });
 
   document.addEventListener('DOMContentLoaded',() => {
-    fillTypes();
+    fillAreas();
+    fillServices('qualquer');
     window.ROLED_LOCATIONS?.fillLocationSelect(document.querySelector('#prof-local'));
     load();
   });
