@@ -1,0 +1,163 @@
+.lookup-panel {
+  margin: 0 0 18px;
+}
+
+.lookup-label {
+  display: block;
+  margin: 0 0 9px 4px;
+  color: #3e3834;
+  font-size: .94rem;
+  font-weight: 800;
+}
+
+.lookup-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 68px;
+  padding: 9px 10px 9px 16px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #eadfd8;
+  border-top: 5px solid #b69aff;
+  box-shadow: 0 8px 22px rgba(71,55,46,.08);
+}
+
+.lookup-box input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #222;
+  font: 600 1rem 'Manrope', Arial, sans-serif;
+}
+
+.lookup-box input::placeholder {
+  color: #928983;
+  font-weight: 500;
+}
+
+.lookup-clear {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 13px;
+  background: #f2e9e4;
+  color: #4f4742;
+  font: 800 .76rem 'Manrope', Arial, sans-serif;
+  cursor: pointer;
+}
+
+.lookup-help {
+  margin: 8px 4px 0;
+  color: #746b65;
+  font-size: .76rem;
+  line-height: 1.45;
+}
+
+.lookup-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 13px 0 0;
+}
+
+.lookup-tab {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: #f2e9e4;
+  color: #554d48;
+  font: 800 .76rem 'Manrope', Arial, sans-serif;
+  cursor: pointer;
+}
+
+.lookup-tab.active {
+  background: #dfd2ca;
+  color: #2f2a27;
+}
+
+.filter-context {
+  margin: -5px 4px 13px;
+  color: #746b65;
+  font-size: .73rem;
+}
+
+.global-search-results-section {
+  margin-top: 28px;
+}
+
+.global-search-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 16px;
+}
+
+.global-hit {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.global-hit .card-kind {
+  align-self: flex-start;
+}
+
+.global-hit h3 a {
+  text-decoration: none;
+}
+
+.global-hit h3 a:hover {
+  text-decoration: underline;
+}
+
+.global-hit-meta {
+  color: #766d67;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.global-hit .desc {
+  flex: 1;
+}
+
+.global-hit .actions {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.global-search-empty {
+  grid-column: 1 / -1;
+  padding: 28px;
+  border-radius: 22px;
+  background: #fff;
+  color: #625a55;
+  text-align: center;
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+@media (max-width: 1050px) {
+  .global-search-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .lookup-box {
+    min-height: 62px;
+    padding-left: 13px;
+  }
+
+  .lookup-box input {
+    font-size: .9rem;
+  }
+
+  .lookup-clear {
+    padding: 8px 10px;
+    font-size: .7rem;
+  }
+
+  .global-search-grid {
+    grid-template-columns: 1fr;
+  }
+}
