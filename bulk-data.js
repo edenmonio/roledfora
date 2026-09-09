@@ -50,6 +50,20 @@
     });
     return out;
   }
+
+  function fallbackAddress(item) {
+    if (item?.endereco && item.endereco.toString().trim()) return item.endereco;
+    const cityKey = norm(item?.cidade);
+    if (isDfValue(cityKey)) {
+      const place = item?.ra || raLabel(cityKey) || item?.cidade || 'distrito federal';
+      return `${item?.nome || 'local'}, ${place}, distrito federal`;
+    }
+    if (ENTORNO.has(cityKey)) {
+      return `${item?.nome || 'local'}, ${ENTORNO.get(cityKey)}, goiás`;
+    }
+    return `${item?.nome || 'local'}, ${item?.cidade || 'localização não informada'}`;
+  }
+
   function enrichKnownPlaces(items) {
     const patches = new Map([
       ['l-034-birosca-do-conic',{tags:['lgbtqia+','seguro para lgbtqia+','música ao vivo','dançante'],descricao:'espaço cultural e casa de festas no conic com música brasileira, samba, hip-hop, funk e programação lgbtqia+.'}],
@@ -57,8 +71,12 @@
     ]);
     return (items || []).map(item => {
       const patch = patches.get(item.id);
-      if (!patch) return item;
-      return {...item,...patch,tags:mergeTags(item.tags,patch.tags)};
+      const enriched = patch ? {...item,...patch,tags:mergeTags(item.tags,patch.tags)} : {...item};
+      if (!enriched.endereco || !enriched.endereco.toString().trim()) {
+        enriched.endereco = fallbackAddress(enriched);
+        enriched.enderecoTipo = 'referencia-de-busca';
+      }
+      return enriched;
     });
   }
   function dedupePlaces(items) {
