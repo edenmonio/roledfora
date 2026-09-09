@@ -5,7 +5,7 @@
   const escHtml = value => (value ?? '').toString().replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 
   const GROUPS = [
-    ['bicho','bichos','animal','animais','cabra','cabras','cabrissima','zoologico','zoo','fazenda','fazendinha','rural','fauna'],
+    ['bicho','bichos','bichinho','bichinhos','animal','animais','cabra','cabras','cabrito','cabritos','cabrissima','zoologico','zoo','fazenda','fazendinha','rural','fauna'],
     ['quadrinho','quadrinhos','hq','hqs','gibi','gibis','comics','manga','mangas','gibiteca'],
     ['cinema','filme','filmes','audiovisual','sessao','sessoes'],
     ['musica','show','shows','concerto','festival musical','musica ao vivo'],
@@ -21,6 +21,14 @@
     ['feira','feiras','brecho','brechos','artesanato','economia criativa'],
     ['teatro','peca','pecas','palco','circo','danca','performance']
   ].map(group => group.map(n));
+
+  const STOP_WORDS = new Set([
+    'a','o','as','os','um','uma','uns','umas','de','do','da','dos','das','em','no','na','nos','nas',
+    'com','sem','e','ou','que','pra','pro','para','por','coisa','coisas','algo','alguma','algum',
+    'quero','queria','procuro','procurando','buscar','busca','achar','ver','ir','fazer','tem','tenha',
+    'tipo','role','rolê','roles','rolês','evento','eventos','lugar','lugares','programa','programacao',
+    'bom','boa','legal','diferente','perto','onde'
+  ].map(n));
 
   const routeState = { items: [], promise: null };
   let activeKind = 'all';
@@ -48,7 +56,9 @@
   }
 
   function queryTokens(query) {
-    return n(query).split(/\s+/).filter(token => token.length >= 2);
+    return n(query)
+      .split(/\s+/)
+      .filter(token => token.length >= 2 && !STOP_WORDS.has(token));
   }
 
   function fieldsFor(kind, item) {
