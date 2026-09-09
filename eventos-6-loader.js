@@ -1,12 +1,12 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  const EVENT_FILES = ['./data/eventos-6.json','./data/eventos-7.json','./data/eventos-8.json','./data/eventos-9.json','./data/eventos-10.json','./data/eventos-11.json','./data/eventos-12.json'];
+  const EVENT_FILES = ['./data/eventos-6.json','./data/eventos-7.json','./data/eventos-8.json','./data/eventos-9.json','./data/eventos-10.json','./data/eventos-11.json','./data/eventos-12.json','./data/eventos-13.json'];
 
   const CULTURAL_EXCEPTIONS = ['festa junina','sao joao','arraia','quermesse','folia de reis'];
   const DEVOTIONAL_TERMS = [
-    'marcha para jesus','culto','missa','evangelizacao','evangelico','evangelica','catolico','catolica',
-    'encontro de oracao','grupo de oracao','vigilia','louvor','adoracao','congresso crist','conferencia crist',
-    'retiro crist','retiro evangel','retiro catol','jesus','cristo','gospel','shalom para as nacoes'
+    'marcha para jesus','culto','missa','evangelizacao','encontro de oracao','grupo de oracao','vigilia',
+    'culto de louvor','noite de louvor','momento de adoracao','congresso crist','conferencia crist',
+    'congresso evangel','encontro evangel','retiro crist','retiro evangel','retiro catol','shalom para as nacoes'
   ];
 
   function itemText(item) {
