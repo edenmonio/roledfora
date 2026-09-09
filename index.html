@@ -7,16 +7,20 @@
   <link rel="stylesheet" href="./styles.css" />
   <link rel="stylesheet" href="./browse.css" />
   <link rel="stylesheet" href="./event-filter-layout.css" />
+  <link rel="stylesheet" href="./global-search.css" />
   <script src="./app.js" defer></script>
   <script src="./ui-fixes.js" defer></script>
   <script src="./event-filter-fixes.js" defer></script>
   <script src="./bulk-data.js" defer></script>
   <script src="./eventos-6-loader.js" defer></script>
   <script src="./eventos-14-loader.js" defer></script>
+  <script src="./lugares-12-loader.js" defer></script>
+  <script src="./lugares-16-loader.js" defer></script>
   <script src="./locations.js" defer></script>
   <script src="./site-polish.js" defer></script>
   <script src="./price-fixes.js" defer></script>
   <script src="./browse.js" defer></script>
+  <script src="./global-search.js" defer></script>
 </head>
 <body data-page="eventos">
   <main class="container">
@@ -39,14 +43,35 @@
       <p>festas, shows, cultura, feiras, gastronomia, atividades e eventos ao ar livre pelo df e entorno.</p>
     </section>
 
+    <section class="lookup-panel" aria-label="pesquisar no roledfora">
+      <label class="lookup-label" for="global-search-input">o que você tá procurando?</label>
+      <div class="lookup-box">
+        <input id="global-search-input" type="search" autocomplete="off" placeholder="bicho, quadrinhos, café, drag, cachoeira..." />
+        <button id="global-search-clear" class="lookup-clear" type="button" hidden>limpar</button>
+      </div>
+      <p class="lookup-help">busca por nome, tema e termos relacionados em eventos, lugares e roteiros.</p>
+      <div id="global-search-tabs" class="lookup-tabs" role="tablist" aria-label="tipo de resultado" hidden>
+        <button class="lookup-tab active" type="button" role="tab" aria-selected="true" data-kind="all">tudo</button>
+        <button class="lookup-tab" type="button" role="tab" aria-selected="false" data-kind="event">eventos</button>
+        <button class="lookup-tab" type="button" role="tab" aria-selected="false" data-kind="place">lugares</button>
+        <button class="lookup-tab" type="button" role="tab" aria-selected="false" data-kind="route">roteiros</button>
+      </div>
+    </section>
+
     <section class="search-panel" aria-label="filtrar eventos">
-      <p class="search-title">encontre seu próximo evento no df e entorno</p>
+      <p class="search-title">refine os eventos</p>
+      <p class="filter-context">esses filtros afunilam os eventos, inclusive quando você estiver usando a busca.</p>
       <div class="search-row event-search simple-search">
         <div class="field local"><label for="local">onde?</label><select id="local"><option value="qualquer">qualquer lugar</option></select></div>
         <div class="field data"><label for="data">quando?</label><select id="data"><option value="qualquer">qualquer dia</option><option value="hoje">hoje</option><option value="amanha">amanhã</option><option value="fim-semana">fim de semana</option><option value="7dias">próximos 7 dias</option><option value="mes">este mês</option></select></div>
         <div class="field valor"><label for="valor">quanto?</label><select id="valor"><option value="qualquer">qualquer valor</option><option value="gratis">grátis</option><option value="ate-20">até r$ 20</option><option value="ate-50">até r$ 50</option><option value="ate-100">até r$ 100</option><option value="acima-100">acima de r$ 100</option></select></div>
         <div class="field horario"><label for="horario">horário?</label><select id="horario"><option value="qualquer">qualquer horário</option><option value="manha">manhã</option><option value="tarde">tarde</option><option value="noite">noite</option><option value="madrugada">madrugada</option></select></div>
       </div>
+    </section>
+
+    <section class="global-search-results-section" hidden>
+      <div class="results-head"><h2 class="section-title">resultados da busca</h2><span id="global-search-count" class="result-count">0 resultados</span></div>
+      <div id="global-search-results" class="global-search-grid"></div>
     </section>
 
     <section class="search-results-section" hidden>
