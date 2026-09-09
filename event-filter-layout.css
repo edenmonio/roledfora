@@ -1,0 +1,21 @@
+.search-row.event-search.simple-search {
+  grid-template-columns: 1.2fr 1fr 1fr .9fr 1.25fr 1.25fr;
+}
+
+@media (max-width: 1120px) {
+  .search-row.event-search.simple-search {
+    grid-template-columns: repeat(3, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .search-row.event-search.simple-search {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .search-row.event-search.simple-search {
+    grid-template-columns: 1fr;
+  }
+}
