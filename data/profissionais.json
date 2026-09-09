@@ -9,6 +9,22 @@
     "online": true,
     "cidade": "online",
     "instagramHandle": "@morenopsi",
-    "instagram": "https://www.instagram.com/morenopsi/"
+    "instagram": "https://www.instagram.com/morenopsi/",
+    "adicionadoEm": "2026-09-08"
+  },
+  {
+    "id": "prof-jardim-do-eden-atelie",
+    "nome": "jardim do éden ateliê",
+    "area": "artesanato",
+    "especialidade": "crochê e bijuteria",
+    "especialidadeEmoji": "🧶",
+    "servicos": ["croche", "bijuterias-acessorios"],
+    "atendeDf": true,
+    "cidades": ["valparaíso de goiás"],
+    "localizacaoLabel": "df e valparaíso",
+    "instagramHandle": "@jardimdoeden.art",
+    "instagram": "https://www.instagram.com/jardimdoeden.art/",
+    "descricao": "loja de coisinhas artesanais em crochê, brincos e bijuterias alternativas, com peças autorais e acessórios feitos à mão.",
+    "adicionadoEm": "2026-09-09"
   }
 ]
