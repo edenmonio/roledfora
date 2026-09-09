@@ -1,0 +1,41 @@
+[
+  {
+    "id":"ev-2026-retiro-shalom-cocalzinho",
+    "nome":"retiro shalom 2026",
+    "cidade":"cocalzinho de goiás",
+    "local":"acampamento el rancho",
+    "categoria":"workshop/curso",
+    "emoji":"🌿",
+    "tags":["retiro","religioso","imersão","natureza","hospedagem","alimentação"],
+    "dataInicio":"2026-09-18",
+    "dataFim":"2026-09-20",
+    "horario":"programação ao longo dos três dias",
+    "preco":"r$ 305 com hospedagem e alimentação",
+    "precoFaixa":"acima-100",
+    "ingresso":"inscrição antecipada com a organização",
+    "descricao":"retiro de três dias em cocalzinho com hospedagem coletiva, refeições, atividades espirituais, áreas de lazer e programação em espaço ao ar livre.",
+    "fonte":"shalom para as nações",
+    "link":"https://shalomparaasnacoes.com.br/eventos",
+    "verificadoEm":"2026-09-09",
+    "adicionadoEm":"2026-09-09"
+  },
+  {
+    "id":"ev-2026-corridas-montanha-tabapua",
+    "nome":"corridas de montanha — tabapuã dos pireneus",
+    "cidade":"cocalzinho de goiás",
+    "local":"tabapuã dos pireneus — br-070, a 5 km de cocalzinho",
+    "categoria":"ao ar livre",
+    "emoji":"🏃",
+    "tags":["corrida","montanha","trilha","aventura","natureza","ao ar livre"],
+    "dataInicio":"2026-10-18",
+    "dataFim":"2026-10-18",
+    "horario":"a confirmar",
+    "preco":"não informado",
+    "precoFaixa":"nao-informado",
+    "descricao":"evento de corrida de montanha previsto no calendário 2026 do tabapuã dos pireneus, em área rural próxima a cocalzinho de goiás.",
+    "fonte":"tabapuã dos pireneus",
+    "link":"https://www.tabapuadospireneus.tur.br/calendario-de-eventos",
+    "verificadoEm":"2026-09-09",
+    "adicionadoEm":"2026-09-09"
+  }
+]
