@@ -3,6 +3,8 @@
     "id": "prof-silvia-moreno",
     "nome": "silvia moreno",
     "area": "saude",
+    "especialidade": "psicóloga",
+    "especialidadeEmoji": "🧠",
     "servicos": ["psicologia"],
     "online": true,
     "cidade": "online",
