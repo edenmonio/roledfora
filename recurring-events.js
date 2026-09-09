@@ -4,6 +4,7 @@
   const n = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 
   const isRecurring = item => item && (item.tipoRegistro === 'atividade-recorrente' || !!item.recorrencia);
+  const isUnscheduledRecurring = item => isRecurring(item) && n(item.recorrencia) === 'sob-consulta';
   const startOfDay = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
   const isoDay = iso => {
     if (!iso) return null;
@@ -21,7 +22,7 @@
   }
 
   function recurringOnDate(item, date) {
-    if (!isRecurring(item)) return false;
+    if (!isRecurring(item) || isUnscheduledRecurring(item)) return false;
     const day = startOfDay(date);
     const start = recurrenceStart(item);
     const end = recurrenceEnd(item);
@@ -62,6 +63,7 @@
 
   function nextOccurrence(item, from = new Date(), horizonDays = 370) {
     if (!isRecurring(item)) return isoDay(item.dataInicio);
+    if (isUnscheduledRecurring(item)) return null;
     const start = startOfDay(from);
     const hardEnd = recurrenceEnd(item);
     for (let i=0; i<=horizonDays; i++) {
@@ -81,6 +83,7 @@
     if (mode === 'semanal' && days.length > 1) return `toda semana · ${days.map(day => WEEKDAYS[day]).join(', ')}`;
     if (mode === 'quinzenal') return 'a cada duas semanas';
     if (mode === 'mensal') return 'todo mês';
+    if (mode === 'sob-consulta') return 'programação recorrente · consultar turma';
     return 'atividade recorrente';
   }
 
@@ -89,6 +92,7 @@
     if (mode === 'semanal') return 'atividade semanal';
     if (mode === 'quinzenal') return 'atividade quinzenal';
     if (mode === 'mensal') return 'atividade mensal';
+    if (mode === 'sob-consulta') return 'programação recorrente';
     return 'atividade recorrente';
   }
 
@@ -106,6 +110,7 @@
     const baseDateMatches = eventDateMatches;
     eventDateMatches = function(item, value) {
       if (!isRecurring(item)) return baseDateMatches(item, value);
+      if (isUnscheduledRecurring(item)) return !value || value === 'qualquer';
       const today = startOfDay(new Date());
       if (!value || value === 'qualquer') return !!nextOccurrence(item, today);
       if (value === 'hoje') return recurringOnDate(item, today);
@@ -137,6 +142,7 @@
       const today = startOfDay(new Date());
       const key = item => {
         if (isRecurring(item)) {
+          if (isUnscheduledRecurring(item)) return Number.MAX_SAFE_INTEGER - 1;
           const next = nextOccurrence(item, today);
           return next ? next.getTime() : Number.MAX_SAFE_INTEGER;
         }
@@ -155,7 +161,7 @@
       const ticket = n(item.ingresso);
       const source = item.link ? `<a class="primary-link" href="${esc(item.link)}" target="_blank" rel="noopener">${ticket.includes('compra')||ticket.includes('inscri')?'🎟️ ingresso / inscrição':'↗ fonte / detalhes'}</a>` : '';
       const next = nextOccurrence(item, new Date());
-      const nextText = next ? ` · próxima: ${shortDate(next)}` : '';
+      const nextText = isUnscheduledRecurring(item) ? ' · datas/horários: consultar' : next ? ` · próxima: ${shortDate(next)}` : '';
       return `<article class="card event-card recurring" data-id="${esc(item.id)}">
         <span class="card-kind">${esc(cat.label)}</span><span class="recurrence-badge">↻ recorrente</span>
         <h3>${esc(item.nome)}</h3>
