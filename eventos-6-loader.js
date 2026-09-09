@@ -1,9 +1,10 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+  const EVENT_FILES = ['./data/eventos-6.json','./data/eventos-7.json'];
 
-  async function fetchEvents() {
+  async function fetchFile(path) {
     try {
-      const response = await fetch('./data/eventos-6.json', { cache:'no-store' });
+      const response = await fetch(path, { cache:'no-store' });
       const data = response.ok ? await response.json() : [];
       return Array.isArray(data) ? data : [];
     } catch {
@@ -11,17 +12,25 @@
     }
   }
 
+  async function fetchEvents() {
+    const chunks = await Promise.all(EVENT_FILES.map(fetchFile));
+    return chunks.flat();
+  }
+
   function mergeEvents(extra) {
     if (typeof state === 'undefined' || !Array.isArray(state.eventos)) return false;
     const ids = new Set(state.eventos.map(item => norm(item.id)).filter(Boolean));
+    const links = new Set(state.eventos.map(item => norm((item.link || '').split('?')[0].replace(/\/$/,''))).filter(Boolean));
     const signatures = new Set(state.eventos.map(item => `${norm(item.nome)}|${item.dataInicio || ''}|${norm(item.cidade)}`));
 
     extra.forEach(item => {
       const id = norm(item.id);
+      const link = norm((item.link || '').split('?')[0].replace(/\/$/,''));
       const signature = `${norm(item.nome)}|${item.dataInicio || ''}|${norm(item.cidade)}`;
-      if ((id && ids.has(id)) || signatures.has(signature)) return;
+      if ((id && ids.has(id)) || (link && links.has(link)) || signatures.has(signature)) return;
       state.eventos.push(item);
       if (id) ids.add(id);
+      if (link) links.add(link);
       signatures.add(signature);
     });
     return true;
