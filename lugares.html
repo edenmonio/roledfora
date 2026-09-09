@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>roledfora — conhecer</title>
+  <title>roledfora — lugares</title>
   <link rel="stylesheet" href="./styles.css" />
   <link rel="stylesheet" href="./browse.css" />
   <script src="./app.js" defer></script>
   <script src="./ui-fixes.js" defer></script>
   <script src="./bulk-data.js" defer></script>
+  <script src="./locations.js" defer></script>
   <script src="./site-polish.js" defer></script>
   <script src="./access-fixes.js" defer></script>
   <script src="./price-fixes.js" defer></script>
@@ -18,7 +19,7 @@
 <body data-page="lugares">
   <main class="container">
     <header class="site-header"><h1 class="site-title">roledfora</h1><p class="site-subtitle">o que tem pra fazer por aí?</p></header>
-    <nav class="main-nav" aria-label="páginas principais"><a href="./index.html">rolês</a><a class="active" href="./lugares.html">conhecer</a><a href="./profissionais.html">profissionais</a></nav>
+    <nav class="main-nav" aria-label="páginas principais"><a href="./index.html">eventos</a><a class="active" href="./lugares.html">lugares</a><a href="./profissionais.html">profissionais</a></nav>
     <nav class="utility-nav" aria-label="ferramentas"><a href="./novidades.html">✨ novidades</a><a href="./salvos.html">⭐ salvos</a><a href="./roteiros.html">🧭 roteiros</a><a href="./contato.html">💌 contato</a></nav>
 
     <section class="page-intro"><h2>lugares pra conhecer</h2><p>cultura, natureza, comida, noite, cinema, teatro, feiras e experiências pelo df e entorno.</p></section>
@@ -59,7 +60,7 @@
     </section>
 
     <section class="search-results-section" hidden>
-      <div class="results-head"><h2 class="section-title">pra conhecer</h2><span id="result-count" class="result-count">0 resultados</span></div>
+      <div class="results-head"><h2 class="section-title">lugares encontrados</h2><span id="result-count" class="result-count">0 resultados</span></div>
       <div id="results" class="cards-grid"></div>
       <div class="more-wrap"><button id="show-more" class="show-more" hidden>mostrar mais</button></div>
     </section>
