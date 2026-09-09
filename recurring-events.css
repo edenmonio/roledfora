@@ -1,0 +1,30 @@
+.recurrence-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-left: .45rem;
+  padding: .18rem .5rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: .72rem;
+  line-height: 1;
+  font-weight: 700;
+  opacity: .78;
+  vertical-align: middle;
+}
+
+.event-card.recurring .legacy-date,
+.event-card.recurring .time-detail {
+  display: none !important;
+}
+
+.event-card.recurring .recurrence-date {
+  margin: 0;
+  font-weight: 700;
+}
+
+.event-card.recurring .recurrence-next {
+  margin: .18rem 0 0;
+  font-size: .88rem;
+  opacity: .72;
+}
