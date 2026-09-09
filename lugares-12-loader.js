@@ -1,6 +1,6 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  const PLACE_FILES = ['./data/lugares-12.json','./data/lugares-13.json'];
+  const PLACE_FILES = ['./data/lugares-12.json','./data/lugares-13.json','./data/lugares-14.json'];
 
   async function fetchFile(path) {
     try {
