@@ -1,6 +1,6 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  const FILES = ['./data/lugares-16.json','./data/lugares-17.json'];
+  const FILES = ['./data/lugares-16.json','./data/lugares-17.json','./data/lugares-18.json'];
 
   function mergeTags(a, b) {
     return [...new Set([...(a || []), ...(b || [])])];
