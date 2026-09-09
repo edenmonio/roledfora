@@ -1,6 +1,6 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  const FILES = ['./data/eventos-14.json','./data/eventos-15.json','./data/eventos-16.json'];
+  const FILES = ['./data/eventos-14.json','./data/eventos-15.json','./data/eventos-16.json','./data/eventos-17.json'];
   const REPLACED_IDS = new Set(['ev-2026-encontro-artes-lago-oeste']);
 
   async function start() {
