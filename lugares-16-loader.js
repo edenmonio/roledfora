@@ -1,5 +1,6 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+  const FILES = ['./data/lugares-16.json','./data/lugares-17.json'];
 
   function mergeTags(a, b) {
     return [...new Set([...(a || []), ...(b || [])])];
@@ -14,8 +15,11 @@
   async function start() {
     let extra = [];
     try {
-      const response = await fetch('./data/lugares-16.json', { cache:'no-store' });
-      if (response.ok) extra = await response.json();
+      const chunks = await Promise.all(FILES.map(async path => {
+        const response = await fetch(path, { cache:'no-store' });
+        return response.ok ? response.json() : [];
+      }));
+      extra = chunks.flat().filter(Boolean);
     } catch {}
     if (!Array.isArray(extra) || !extra.length) return;
 
