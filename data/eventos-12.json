@@ -1,25 +1,5 @@
 [
   {
-    "id":"ev-2026-retiro-shalom-cocalzinho",
-    "nome":"retiro shalom 2026",
-    "cidade":"cocalzinho de goiás",
-    "local":"acampamento el rancho",
-    "categoria":"workshop/curso",
-    "emoji":"🌿",
-    "tags":["retiro","religioso","imersão","natureza","hospedagem","alimentação"],
-    "dataInicio":"2026-09-18",
-    "dataFim":"2026-09-20",
-    "horario":"programação ao longo dos três dias",
-    "preco":"r$ 305 com hospedagem e alimentação",
-    "precoFaixa":"acima-100",
-    "ingresso":"inscrição antecipada com a organização",
-    "descricao":"retiro de três dias em cocalzinho com hospedagem coletiva, refeições, atividades espirituais, áreas de lazer e programação em espaço ao ar livre.",
-    "fonte":"shalom para as nações",
-    "link":"https://shalomparaasnacoes.com.br/eventos",
-    "verificadoEm":"2026-09-09",
-    "adicionadoEm":"2026-09-09"
-  },
-  {
     "id":"ev-2026-corridas-montanha-tabapua",
     "nome":"corridas de montanha — tabapuã dos pireneus",
     "cidade":"cocalzinho de goiás",
