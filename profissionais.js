@@ -156,6 +156,7 @@
 
   function locationMatches(item,value) {
     if (!value || value === 'qualquer') return true;
+    if (item.online) return true;
     if (window.ROLED_LOCATIONS?.locationMatches) return window.ROLED_LOCATIONS.locationMatches(item.cidade,value);
     return norm(item.cidade) === norm(value);
   }
@@ -184,8 +185,9 @@
   }
 
   function card(item) {
-    const location = item.cidade ? `${item.cidade}${item.uf ? ` · ${item.uf}` : ''}` : 'local não informado';
+    const location = item.online ? 'atendimento online' : (item.cidade ? `${item.cidade}${item.uf ? ` · ${item.uf}` : ''}` : 'local não informado');
     const link = item.link || item.instagram || item.site;
+    const linkLabel = item.instagramHandle || 'ver perfil / contato';
     const services = serviceLabels(item);
     return `<article class="card professional-card">
       <span class="card-kind">${esc(areaLabel(item))}</span>
@@ -195,7 +197,7 @@
         ${services.length ? `<p>${esc(services.join(' · '))}</p>` : ''}
       </div>
       ${item.descricao ? `<p class="desc">${esc(item.descricao)}</p>` : ''}
-      ${link ? `<div class="actions"><a href="${esc(link)}" target="_blank" rel="noopener">ver perfil / contato</a></div>` : ''}
+      ${link ? `<div class="actions"><a href="${esc(link)}" target="_blank" rel="noopener">${esc(linkLabel)}</a></div>` : ''}
     </article>`;
   }
 
