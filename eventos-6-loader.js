@@ -20,17 +20,14 @@
   function mergeEvents(extra) {
     if (typeof state === 'undefined' || !Array.isArray(state.eventos)) return false;
     const ids = new Set(state.eventos.map(item => norm(item.id)).filter(Boolean));
-    const links = new Set(state.eventos.map(item => norm((item.link || '').split('?')[0].replace(/\/$/,''))).filter(Boolean));
     const signatures = new Set(state.eventos.map(item => `${norm(item.nome)}|${item.dataInicio || ''}|${norm(item.cidade)}`));
 
     extra.forEach(item => {
       const id = norm(item.id);
-      const link = norm((item.link || '').split('?')[0].replace(/\/$/,''));
       const signature = `${norm(item.nome)}|${item.dataInicio || ''}|${norm(item.cidade)}`;
-      if ((id && ids.has(id)) || (link && links.has(link)) || signatures.has(signature)) return;
+      if ((id && ids.has(id)) || signatures.has(signature)) return;
       state.eventos.push(item);
       if (id) ids.add(id);
-      if (link) links.add(link);
       signatures.add(signature);
     });
     return true;
