@@ -1,11 +1,16 @@
 (() => {
   const norm = value => (value || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+  const FILES = ['./data/eventos-14.json','./data/eventos-15.json'];
+  const REPLACED_IDS = new Set(['ev-2026-encontro-artes-lago-oeste']);
 
   async function start() {
     let extra = [];
     try {
-      const response = await fetch('./data/eventos-14.json', { cache:'no-store' });
-      if (response.ok) extra = await response.json();
+      const chunks = await Promise.all(FILES.map(async path => {
+        const response = await fetch(path, { cache:'no-store' });
+        return response.ok ? response.json() : [];
+      }));
+      extra = chunks.flat().filter(Boolean);
     } catch {}
     if (!Array.isArray(extra) || !extra.length) return;
 
@@ -16,6 +21,7 @@
         return;
       }
 
+      state.eventos = state.eventos.filter(item => !REPLACED_IDS.has(item.id));
       const ids = new Set(state.eventos.map(item => norm(item.id)).filter(Boolean));
       const signatures = new Set(state.eventos.map(item => `${norm(item.nome)}|${item.dataInicio || ''}|${norm(item.cidade)}`));
       extra.forEach(item => {
