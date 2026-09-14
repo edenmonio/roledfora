@@ -42,17 +42,39 @@
   ];
 
   const entorno = [
+    ['abadiania','abadiânia'],
+    ['agua fria de goias','água fria de goiás'],
     ['aguas lindas de goias','águas lindas de goiás'],
+    ['alexania','alexânia'],
+    ['alto paraiso de goias','alto paraíso de goiás'],
+    ['alvorada do norte','alvorada do norte'],
+    ['barro alto','barro alto'],
+    ['cabeceiras','cabeceiras'],
+    ['cavalcante','cavalcante'],
     ['cidade ocidental','cidade ocidental'],
     ['cocalzinho de goias','cocalzinho de goiás'],
+    ['corumba de goias','corumbá de goiás'],
     ['cristalina','cristalina'],
+    ['flores de goias','flores de goiás'],
     ['formosa','formosa'],
+    ['goianesia','goianésia'],
     ['luziania','luziânia'],
+    ['mimoso de goias','mimoso de goiás'],
+    ['niquelandia','niquelândia'],
     ['novo gama','novo gama'],
     ['padre bernardo','padre bernardo'],
+    ['pirenopolis','pirenópolis'],
     ['planaltina de goias','planaltina de goiás'],
     ['santo antonio do descoberto','santo antônio do descoberto'],
-    ['valparaiso de goias','valparaíso de goiás']
+    ['sao joao d alianca','são joão d’aliança'],
+    ['simolandia','simolândia'],
+    ['valparaiso de goias','valparaíso de goiás'],
+    ['vila boa','vila boa'],
+    ['vila propicio','vila propício'],
+    ['arinos','arinos (mg)'],
+    ['buritis','buritis (mg)'],
+    ['cabeceira grande','cabeceira grande (mg)'],
+    ['unai','unaí (mg)']
   ];
 
   const raMap = new Map(ras);
@@ -85,8 +107,8 @@
     select.append(dfGroup);
 
     const entornoGroup = document.createElement('optgroup');
-    entornoGroup.label = 'entorno';
-    entornoGroup.append(option('entorno','todo o entorno'));
+    entornoGroup.label = 'entorno / ride-df';
+    entornoGroup.append(option('entorno','toda a ride-df'));
     [...entorno].sort((a,b) => a[1].localeCompare(b[1],'pt-BR')).forEach(([value,label]) => entornoGroup.append(option(value,label)));
     select.append(entornoGroup);
 
