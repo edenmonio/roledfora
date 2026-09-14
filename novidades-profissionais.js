@@ -4,6 +4,37 @@
   const lower = value => (value ?? '').toString().toLocaleLowerCase('pt-BR');
   const esc = value => (value ?? '').toString().replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 
+  // A página de novidades deve refletir o que entrou por último na base,
+  // não o que apenas foi verificado mais recentemente.
+  if (typeof renderNovidades === 'function') {
+    renderNovidades = function() {
+      const byAdded = (a, b) => {
+        const added = (b.adicionadoEm || '').localeCompare(a.adicionadoEm || '');
+        if (added) return added;
+        const verified = (b.verificadoEm || '').localeCompare(a.verificadoEm || '');
+        if (verified) return verified;
+        return (a.dataInicio || '9999-12-31').localeCompare(b.dataInicio || '9999-12-31');
+      };
+
+      const recentEvents = [...state.eventos]
+        .filter(item => item.adicionadoEm)
+        .sort(byAdded)
+        .slice(0, 18);
+
+      const recentPlaces = [...state.lugares]
+        .filter(item => item.adicionadoEm)
+        .sort(byAdded)
+        .slice(0, 12);
+
+      renderList(recentEvents, 'event', 'event-results', 'event-count');
+      renderList(recentPlaces, 'place', 'place-results', 'place-count');
+    };
+
+    document.addEventListener('roledfora:data-updated', () => {
+      try { renderNovidades(); } catch {}
+    });
+  }
+
   function locationLabel(item) {
     if (item.localizacaoLabel) return lower(item.localizacaoLabel);
     if (item.online) return 'atendimento online';
