@@ -1,0 +1,51 @@
+name: Atualização automática de agenda
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+      timezone: "America/Sao_Paulo"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: roledfora-agenda
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependências
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+
+      - name: Varredura completa
+        run: python scripts/atualiza_agenda.py
+
+      - name: Verificar mudanças
+        id: diff
+        run: |
+          if git diff --quiet -- data/eventos-auto.json data/fontes-auto.json data/geografia-auto.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit somente se houver mudança real
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "roledfora-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/eventos-auto.json data/fontes-auto.json data/geografia-auto.json
+          git commit -m "chore: atualizar agenda automaticamente"
+          git push
