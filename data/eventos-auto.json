@@ -56,33 +56,6 @@
     "adicionadoEm": "2026-09-09"
   },
   {
-    "id": "auto-2026-direitos-da-crianca-musical",
-    "nome": "os direitos da criança — o musical",
-    "cidade": "brasília",
-    "local": "centro de convenções ulysses guimarães",
-    "categoria": "teatro",
-    "emoji": "🎭",
-    "tags": [
-      "musical",
-      "infantil",
-      "família",
-      "toquinho",
-      "elifas andreato",
-      "direitos da criança"
-    ],
-    "dataInicio": "2026-09-22",
-    "dataFim": "2026-09-22",
-    "horario": "consultar horário com a organização",
-    "preco": "consultar valor",
-    "precoFaixa": "nao-informado",
-    "ingresso": "consultar condições com a organização",
-    "descricao": "musical com canções de Toquinho e Elifas Andreato que aborda de forma lúdica direitos fundamentais da infância.",
-    "fonte": "curta mais",
-    "link": "https://curtamais.com.br/brasilia/2026/09/07/musical-os-direitos-da-crianca-chega-a-brasilia-em-setembro/",
-    "verificadoEm": "2026-09-10",
-    "adicionadoEm": "2026-09-10"
-  },
-  {
     "id": "auto-2026-candlelight-disney",
     "nome": "candlelight — disney canções de amor",
     "cidade": "brasília",
